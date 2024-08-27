@@ -13,6 +13,10 @@ RUN npm install
 # Copy the rest of the application files
 COPY ./src ./src
 COPY ./public ./public
+COPY ./tailwind.config.js ./tailwind.config.js
+
+# Build Tailwind CSS
+RUN npx tailwindcss -o ./src/index.css
 
 # Expose the development server port
 EXPOSE 3001
