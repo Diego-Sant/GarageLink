@@ -1,4 +1,5 @@
 import Navbar from "./components/Navbar"
+import HomePage from "./routes/homePage"
 
 function App() {
   return (
@@ -8,7 +9,13 @@ function App() {
       ml-auto mr-auto pl-[20px] pr-[20px]"
     >
 
-      <Navbar />
+      <nav>
+        <Navbar />
+      </nav>
+
+      <div className="h-[calc(100vh-100px)]">
+        <HomePage />
+      </div>
       
     </div>
   )
