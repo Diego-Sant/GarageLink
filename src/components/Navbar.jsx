@@ -38,10 +38,9 @@ function Navbar() {
                 </div>
 
                 <div className="absolute bg-[#fcf5f3] rounded-[50%] z-0
-                    hidden lg:block
-                    lg:top-[-20%] lg:right-[-25%] lg:w-[800px] lg:h-[800px]
-                    xl:top-[-25%] xl:right-[-17%] xl:w-[1000px] xl:h-[1000px]
-                    2xl:top-[-25%] 2xl:right-[-11%] 2xl:w-[1100px] 2xl:h-[1100px]"
+                    hidden xl:block
+                    xl:top-[-25%] xl:right-[-24%] xl:w-[1000px] xl:h-[1000px]
+                    2xl:top-[-25%] 2xl:right-[-17%] 2xl:w-[1100px] 2xl:h-[1100px]"
                 ></div>
             </div>
         </nav>
