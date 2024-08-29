@@ -13,7 +13,7 @@ function App() {
         <Navbar />
       </nav>
 
-      <div className="h-[calc(100vh-100px)]">
+      <div className="h-[calc(100vh-100px">
         <HomePage />
       </div>
       

@@ -1,25 +1,25 @@
-# Start your image with a node base image
+# Iniciar sua imagem com uma imagem base de Node - Start your image with a Node base image
 FROM node:18-alpine
 
-# The /app directory should act as the main application directory
+# O diretório /app deve agir como a aplicação principal - The /app directory should act as the main application
 WORKDIR /app
 
-# Copy the app package and package-lock.json file
+# Copie o arquivo package.json e package-lock.json da aplicação - Copy the package.json and package-lock.json file
 COPY package*.json ./
 
-# Install node packages
+# Instalar os pacotes do Node - Install Node packages
 RUN npm install
 
-# Copy the rest of the application files
+# Copia o resto dos arquivos da aplicação - Copy the rest of the application files
 COPY ./src ./src
 COPY ./public ./public
 COPY ./tailwind.config.js ./tailwind.config.js
 
-# Build Tailwind CSS
-RUN npx tailwindcss -o ./src/index.css
+# Construir o Tailwind CSS e enviar para o diretório público - Build Tailwind CSS and output to the public directory
+RUN npx tailwindcss -o ./public/index.css
 
-# Expose the development server port
+# Expor a porta do servidor de desenvolvimento - Expose the development server port
 EXPOSE 3001
 
-# Start the app in development mode
+# Iniciar o aplicativo em modo de desenvolvimento - Start the app in development mode
 CMD ["npm", "start"]
