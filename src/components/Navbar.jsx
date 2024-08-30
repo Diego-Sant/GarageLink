@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 function Navbar() {
     const [open, setOpen] = useState(false);
@@ -10,18 +10,18 @@ function Navbar() {
     return (
         <nav className="flex text-center items-center justify-between mt-[40px]">
             <div className="flex items-center flex-[3] gap-[50px]">
-                <a href="/" className="flex items-center gap-[10px] transition duration-[0.4s] ease-in-out hover:scale-[1.1]">
+                <Link to="/" className="flex items-center gap-[10px] transition duration-[0.4s] ease-in-out hover:scale-[1.1]">
                     <img className="" width={60} height={60} src="/logo.svg" alt="Logo GarageLink" />
                     <span className="font-bold text-[20px] flex md:hidden lg:flex">GarageLink</span>
-                </a>
+                </Link>
 
-                <a href="/" className={`hidden md:block ${linkClasses}`}>Início</a>
-                <a href="/" className={`hidden md:block ${linkClasses}`}>Sobre</a>
-                <a href="/" className={`hidden md:block ${linkClasses}`}>Contatos</a>
+                <Link to="/" className={`hidden md:block ${linkClasses}`}>Início</Link>
+                <Link to="/" className={`hidden md:block ${linkClasses}`}>Sobre</Link>
+                <Link to="/" className={`hidden md:block ${linkClasses}`}>Contatos</Link>
             </div>
             <div className="flex flex-[2] justify-end gap-[10px] items-center">
-                <a href="/" className="hidden md:flex z-10 py-[12px] px-[24px] transition duration-[0.4s] ease-in-out hover:scale-[1.1]">Entrar</a>
-                <a href="/" className="hidden md:flex z-10 bg-[#fece51] rounded-sm py-[12px] px-[24px] transition duration-[0.4s] ease-in-out hover:scale-[1.1]">Criar conta</a>
+                <Link to="/" className="hidden md:flex z-10 py-[12px] px-[24px] transition duration-[0.4s] ease-in-out hover:scale-[1.1]">Entrar</Link>
+                <Link to="/" className="hidden md:flex z-10 bg-[#fece51] rounded-sm py-[12px] px-[24px] transition duration-[0.4s] ease-in-out hover:scale-[1.1]">Criar conta</Link>
                 
                 <div className="flex-initial md:hidden cursor-pointer z-10">
                     <img width={36} height={36} src="/menu.svg" alt="Menu" onClick={() => setOpen((prev) => !prev)}/>
@@ -32,11 +32,11 @@ function Navbar() {
                     flex flex-col items-center justify-center gap-y-[50px]
                 ${open ? "right-0" : "right-[-55%]"} md:hidden`}
                 >
-                    <a href="/" className={`${linkClasses}`}>Início</a>
-                    <a href="/" className={`${linkClasses}`}>Sobre</a>
-                    <a href="/" className={`${linkClasses}`}>Contatos</a>
-                    <a href="/" className={`${linkClasses}`}>Entrar</a>
-                    <a href="/" className={`${linkClasses}`}>Criar conta</a>
+                    <Link to="/" className={`${linkClasses}`}>Início</Link>
+                    <Link to="/" className={`${linkClasses}`}>Sobre</Link>
+                    <Link to="/" className={`${linkClasses}`}>Contatos</Link>
+                    <Link to="/" className={`${linkClasses}`}>Entrar</Link>
+                    <Link to="/" className={`${linkClasses}`}>Criar conta</Link>
                 </div>
 
                 {location.pathname === "/" && (
