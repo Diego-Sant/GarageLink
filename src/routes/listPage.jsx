@@ -2,6 +2,7 @@ import { listData } from "../lib/dummydata";
 
 import Filter from "../components/Filter";
 import Card from "../components/Card";
+import Map from "../components/Map";
 
 function ListPage() {
     const data = listData
@@ -16,8 +17,8 @@ function ListPage() {
                     ))}
                 </div>
             </div>
-            <div className="flex-[2]">
-                Mapa
+            <div className="flex-[2] h-[100%]">
+                <Map items={data} />
             </div>
         </div>
     )
