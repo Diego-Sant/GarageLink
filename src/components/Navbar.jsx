@@ -1,7 +1,9 @@
 import { useState } from "react";
+import { useLocation } from "react-router-dom";
 
 function Navbar() {
     const [open, setOpen] = useState(false);
+    const location = useLocation();
 
     const linkClasses = "transition duration-[0.4s] ease-in-out hover:scale-[1.1]";
 
@@ -37,11 +39,13 @@ function Navbar() {
                     <a href="/" className={`${linkClasses}`}>Criar conta</a>
                 </div>
 
-                <div className="absolute bg-[#fcf5f3] rounded-[50%] z-0
-                    hidden xl:block
-                    xl:top-[-25%] xl:right-[-24%] xl:w-[1000px] xl:h-[1000px]
-                    2xl:top-[-25%] 2xl:right-[-300px] 2xl:w-[1100px] 2xl:h-[1100px]"
-                ></div>
+                {location.pathname === "/" && (
+                    <div className="absolute bg-[#fcf5f3] rounded-[50%] z-0
+                        hidden xl:block
+                        xl:top-[-25%] xl:right-[-24%] xl:w-[1000px] xl:h-[1000px]
+                        2xl:top-[-25%] 2xl:right-[-300px] 2xl:w-[1100px] 2xl:h-[1100px]"
+                    ></div>
+                )}
             </div>
         </nav>
     )
