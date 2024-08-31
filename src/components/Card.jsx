@@ -21,15 +21,15 @@ function Card({ item }) {
                 <h2 className="-mt-[0.30rem] truncate max-w-[200px] md:max-w-max text-[20px] font-[600] text-[#444] transition-all duration-[0.4s] ease-in-out hover:text-black hover:scale-[1.01]">
                     <Link to={`${item.id}`}>{item.title}</Link>
                 </h2>
-                <p className="flex gap-[5px] md:-mt-[1rem] xl:-mt-[2.1rem] text-[14px] text-[#888]">
+                <p className="flex gap-[5px] -mt-[1.8rem] sm:-mt-[2.8rem] md:-mt-[1rem] xl:-mt-[2.1rem] text-[14px] text-[#888]">
                     <img className="svgcolor" width={16} height={16} src="/pin.svg" alt="Ícone de localização" />
                     <span className="truncate max-w-[190px] md:max-w-max">{item.address}</span>
                 </p>
-                <p className="text-[20px] md:-mt-[0.5rem] xl:-mt-[1.7rem] text-[#000] font-semibold bg-[#fece51]/70 rounded-[5px] p-[5px] w-max">
+                <p className="text-[20px] -mt-[1.1rem] sm:-mt-[2.2rem] md:-mt-[0.5rem] xl:-mt-[1.7rem] font-[500] bg-[#fece51]/40 rounded-[5px] p-[5px] w-max">
                     {priceDisplay}
                 </p>
 
-                <div className="flex justify-between gap-[10px] items-center">
+                <div className="flex -mt-[1rem] sm:-mt-[1.9rem] md:-mt-0 justify-between gap-[10px] items-center">
                     <div className="grid grid-cols-2 md:grid-cols-3 xl:flex gap-[20px] text-[14px] items-center">
                         <div className="flex justify-center items-center gap-[5px] bg-[#f5f5f5] p-[5px] rounded-[5px]">
                             <span className="truncate max-w-[80px]">{item.brand}</span>

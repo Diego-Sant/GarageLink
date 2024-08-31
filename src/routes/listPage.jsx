@@ -17,7 +17,7 @@ function ListPage() {
                     ))}
                 </div>
             </div>
-            <div className="flex-[2] h-[100%]">
+            <div className="hidden md:block md:flex-[2] h-[100%]">
                 <Map items={data} />
             </div>
         </div>

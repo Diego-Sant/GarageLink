@@ -90,3 +90,39 @@ export const listData = [
         longitude: -51.197805952502364,
     },
 ]
+
+export const singlePostData = [
+    {
+        id: 1,
+        title: "Ford Fiesta 2018",
+        brand: "Ford",
+        images: [
+            "https://diego-sant.github.io/QuizApp/img/img279.svg",
+            "https://diego-sant.github.io/QuizApp/img/img279.svg",
+            "https://diego-sant.github.io/QuizApp/img/img279.svg",
+            "https://diego-sant.github.io/QuizApp/img/img279.svg",
+        ],
+        condition: "Usado",
+        transmission: "Manual",
+        buyOrRent: "Alugar",
+        priceToRent: 120,
+        fuel: "Flex",
+        color: "Prata",
+        address: "São Paulo, SP - Brasil",
+        description: "O Ford Fiesta 2018 é um hatchback compacto com um design moderno e elegante. Oferece um interior bem equipado com sistema de infotainment SYNC 3, compatível com Apple CarPlay e Android Auto, e um motor eficiente de 1.6 litro, disponível com transmissão manual de 5 marchas ou automática de 6 marchas. O Fiesta combina estilo, conforto e tecnologia, com recursos de segurança como controle de estabilidade e airbags para uma condução segura e agradável.",
+        general1Title: "Design Moderno",
+        general1Desc: "Visual arrojado e elegante.",
+        general2Title: "Tecnologia Avançada",
+        general2Desc: "Sistema SYNC 3 com Apple CarPlay e Android Auto.",
+        general3Title: "Desempenho Eficiente",
+        general3Desc: "Motor 1.6 litro com boas opções de transmissão.",
+        latitude: -23.59105941675351,
+        longitude: -46.69087039560111,
+    },
+];
+
+export const userData = {
+    id: 1,
+    name: "Diego",
+    img: "https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
+}
