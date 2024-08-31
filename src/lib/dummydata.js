@@ -98,7 +98,7 @@ export const singlePostData = [
         brand: "Ford",
         images: [
             "https://diego-sant.github.io/QuizApp/img/img279.svg",
-            "https://diego-sant.github.io/QuizApp/img/img279.svg",
+            "https://diego-sant.github.io/QuizApp/img/img280.svg",
             "https://diego-sant.github.io/QuizApp/img/img279.svg",
             "https://diego-sant.github.io/QuizApp/img/img279.svg",
         ],
