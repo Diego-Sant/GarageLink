@@ -4,6 +4,7 @@ import { Link, useLocation } from "react-router-dom";
 function Navbar() {
     const [open, setOpen] = useState(false);
     const location = useLocation();
+    const user = true;
 
     const linkClasses = "transition duration-[0.4s] ease-in-out hover:scale-[1.1]";
 
@@ -20,8 +21,23 @@ function Navbar() {
                 <Link to="/" className={`hidden md:block ${linkClasses}`}>Contatos</Link>
             </div>
             <div className="flex flex-[2] justify-end gap-[10px] items-center">
-                <Link to="/" className="hidden md:flex z-10 py-[12px] px-[24px] transition duration-[0.4s] ease-in-out hover:scale-[1.1]">Entrar</Link>
-                <Link to="/" className="hidden md:flex z-10 bg-[#fece51] rounded-sm py-[12px] px-[24px] transition duration-[0.4s] ease-in-out hover:scale-[1.1]">Criar conta</Link>
+                {user ? (
+                    <div className="flex items-center font-bold">
+                        <Link to="/perfil" className="flex items-center"> 
+                            <img className="w-[40px] h-[40px] rounded-[50%] mr-[10px] object-cover transition-all duration-[0.4s] ease-in-out hover:scale-[1.1]" src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Imagem de perfil" />
+                            <span className="mr-[20px] hidden md:flex">Diego</span>
+                        </Link>
+                        <Link className="hidden md:flex relative py-[12px] px-[24px] bg-[#fece51] hover:bg-[#fece51]/80 cursor-pointer border-0 " to="/perfil">
+                            <div className="absolute -top-[8px] -right-2 bg-red-600 hover:bg-red-600/90 text-white rounded-[50%] w-[26px] h-[26px] flex items-center justify-center">3</div>
+                            <span>Perfil</span>
+                        </Link>
+                    </div>
+                ) : (
+                    <>
+                        <Link to="/" className="hidden md:flex z-10 py-[12px] px-[24px] transition duration-[0.4s] ease-in-out hover:scale-[1.1]">Entrar</Link>
+                        <Link to="/" className="hidden md:flex z-10 bg-[#fece51] rounded-sm py-[12px] px-[24px] transition duration-[0.4s] ease-in-out hover:scale-[1.1]">Criar conta</Link>
+                    </>
+                )}
                 
                 <div className="flex-initial md:hidden cursor-pointer z-10">
                     <img width={36} height={36} src="/menu.svg" alt="Menu" onClick={() => setOpen((prev) => !prev)}/>
@@ -35,8 +51,17 @@ function Navbar() {
                     <Link to="/" className={`${linkClasses}`}>Início</Link>
                     <Link to="/" className={`${linkClasses}`}>Sobre</Link>
                     <Link to="/" className={`${linkClasses}`}>Contatos</Link>
-                    <Link to="/" className={`${linkClasses}`}>Entrar</Link>
-                    <Link to="/" className={`${linkClasses}`}>Criar conta</Link>
+                    {user ? (
+                        <>
+                            <Link to="/perfil" className={`${linkClasses}`}>Perfil</Link>
+                            <Link to="/" className={`${linkClasses}`}>Sair</Link>
+                        </>
+                    ) : (
+                        <>
+                            <Link to="/" className={`${linkClasses}`}>Entrar</Link>
+                            <Link to="/" className={`${linkClasses}`}>Criar conta</Link>
+                        </>
+                    )}
                 </div>
 
                 {location.pathname === "/" && (

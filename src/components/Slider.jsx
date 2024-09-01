@@ -42,7 +42,7 @@ function Slider({ images }) {
         <div className="w-[100%] h-[350px] flex gap-[10px] md:gap-[20px]">
 
             {imageIndex !== null && (
-                <div className="absolute z-50 w-[100vw] h-[100vh] top-0 left-0 
+                <div className="absolute z-[9999] w-[100vw] h-[100vh] top-0 left-0 
                     bg-black flex justify-between items-center"
                 >
                 

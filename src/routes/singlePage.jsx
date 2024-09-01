@@ -51,7 +51,7 @@ function SinglePage() {
                         <div className="flex justify-between">
 
                             <div className="flex flex-col gap-[20px]">
-                                <h1 className="font-[500]">{post.title}</h1>
+                                <h1 className="font-[500] text-[25px] lg:text-[30px] truncate max-w-[500px]">{post.title}</h1>
 
                                 <div className="flex gap-[5px] text-[#888] text-[14px]">
                                     <img className="svgcolor" width={16} height={16} src="/pin.svg" alt="" />
@@ -59,7 +59,7 @@ function SinglePage() {
                                 </div>
 
                                 <div className="p-[5px] font-[500] bg-[#fece51]/40 
-                                rounded-[5px] w-max"
+                                rounded-[5px] w-max text-[16px] md:text-[20px]"
                                 >
                                     {priceDisplay}
                                 </div>
