@@ -39,7 +39,7 @@ function Slider({ images }) {
     }, [imageIndex]);
 
     return (
-        <div className="w-[100%] h-[280px] md:h-[350px] flex gap-[20px]">
+        <div className="w-[100%] h-[350px] flex gap-[10px] md:gap-[20px]">
 
             {imageIndex !== null && (
                 <div className="absolute z-50 w-[100vw] h-[100vh] top-0 left-0 
@@ -90,14 +90,14 @@ function Slider({ images }) {
             <div className="flex-[3]">
                 <img src={images[0]} alt="Imagem do carro maior" onClick={() => setImageIndex(0)}
                     className="w-[100%] h-[100%] object-cover rounded-[10px] cursor-pointer 
-                    transition-all duration-[0.4s] ease-in-out hover:scale-[1.05]"  
+                    lg:transition-all lg:duration-[0.4s] lg:ease-in-out lg:hover:scale-[1.05]"  
                 />
             </div>
             <div className="flex-[1] flex flex-col justify-between gap-[20px]">
                 {images.slice(1).map((image, index) => (
                     <img src={image} key={index} alt="Imagem do carro menores" onClick={() => setImageIndex(index+1)}
                         className="w-[100%] h-[100px] object-cover rounded-[10px] cursor-pointer 
-                        transition-all duration-[0.4s] ease-in-out hover:scale-[1.05]"
+                        lg:transition-all lg:duration-[0.4s] lg:ease-in-out lg:hover:scale-[1.05]"
                     />
                 ))}
             </div>

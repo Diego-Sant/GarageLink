@@ -18,3 +18,25 @@ body {
 .svgcolor {
     filter: brightness(0) saturate(100%) invert(58%) sepia(1%) saturate(0%) hue-rotate(62deg) brightness(91%) contrast(93%);
 }
+
+.svgcolorlistpage {
+    filter: brightness(0) saturate(100%) invert(82%) sepia(97%) saturate(737%) hue-rotate(315deg) brightness(101%) contrast(104%);
+}
+
+::-webkit-scrollbar {
+    width: 10px;
+    background-color: #D3D3D3;
+}
+  
+::-webkit-scrollbar-track {
+    background-color: #D3D3D3;
+}
+  
+::-webkit-scrollbar-thumb {
+    background-color: #fece51;
+    border-radius: 10px;
+}
+  
+::-webkit-scrollbar-thumb:hover {
+    background-color: #e5b64d;
+}
