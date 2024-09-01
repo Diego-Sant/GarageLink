@@ -3,11 +3,11 @@ import List from "../components/List";
 
 function ProfilePage() {
     return (
-        <div className="flex h-[calc(100vh-100px)] mt-[30px]">
-            <div className="flex-[3] overflow-y-scroll">
-                <div className="pr-[50px] flex flex-col gap-[50px]">
+        <div className="flex flex-col-reverse lg:flex-row h-[calc(100vh-180px)] lg:h-[calc(100vh-150px)] mt-[30px] overflow-y-scroll lg:overflow-y-auto">
+            <div className="flex-[3] mt-[40px] lg:mt-0">
+                <div className="pr-[20px] lg:pr-[50px] flex flex-col gap-[50px]">
                     <div className="flex items-center justify-between">
-                        <h1 className="font-[500] text-[26px]">Informações do usuário</h1>
+                        <h1 className="font-[500] text-[22px] md:text-[26px]">Informações do usuário</h1>
                         <button className="py-[12px] px-[24px] bg-[#fece51] hover:bg-[#fece51]/80 cursor-pointer border-0">Atualizar perfil</button>
                     </div>
                     <div className="flex flex-col gap-[20px]">
@@ -16,7 +16,7 @@ function ProfilePage() {
                         <span className="flex items-center gap-[10px]">Email cadastrado: <b>diegossantana068@gmail.com</b></span>
                     </div>
                     <div className="flex items-center justify-between">
-                        <h1 className="font-[500] text-[26px]">Minhas publicações</h1>
+                        <h1 className="font-[500] text-[22px] md:text-[26px]">Minhas publicações</h1>
                         <button className="py-[12px] px-[24px] bg-[#fece51] hover:bg-[#fece51]/80 cursor-pointer border-0">Criar anúncio</button>
                     </div>
                     <List />
