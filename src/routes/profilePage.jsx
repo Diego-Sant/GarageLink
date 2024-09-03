@@ -1,8 +1,9 @@
+import { useContext } from "react";
 import { useNavigate } from "react-router-dom";
+
 import Chat from "../components/Chat";
 import List from "../components/List";
 import apiRequest from "../lib/apiRequest";
-import { useContext } from "react";
 import { AuthContext } from "../context/AuthContext";
 
 function ProfilePage() {

@@ -1,7 +1,7 @@
+import { singlePostData, userData } from "../lib/dummydata";
+
 import Map from "../components/Map";
 import Slider from "../components/Slider";
-
-import { singlePostData, userData } from "../lib/dummydata";
 
 function SinglePage() {
     const post = singlePostData[0];

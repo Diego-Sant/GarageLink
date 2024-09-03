@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+
 import apiRequest from "../lib/apiRequest";
 
 function RegisterPage() {
@@ -18,7 +19,7 @@ function RegisterPage() {
         const password = formData.get("senha");
 
         try {
-            const res = await apiRequest.post("/auth/cadastrar", {
+            await apiRequest.post("/auth/cadastrar", {
                 username, email, password
             });
 

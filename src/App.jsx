@@ -1,8 +1,8 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom"
 
+import { Layout, RequireAuth } from "./routes/layout";
 import HomePage from "./routes/homePage"
 import ListPage from "./routes/listPage"
-import Layout from "./routes/layout";
 import SinglePage from "./routes/singlePage";
 import LoginPage from "./routes/loginPage";
 import ProfilePage from "./routes/profilePage";
@@ -34,6 +34,13 @@ function App() {
           path: "/cadastrar",
           element: <RegisterPage />
         },
+
+      ]
+    },
+    {
+      path: "/",
+      element: <RequireAuth />,
+      children: [
         {
           path: "/perfil",
           element: <ProfilePage />
