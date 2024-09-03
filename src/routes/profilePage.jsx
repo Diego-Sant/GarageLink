@@ -2,8 +2,11 @@ import { useNavigate } from "react-router-dom";
 import Chat from "../components/Chat";
 import List from "../components/List";
 import apiRequest from "../lib/apiRequest";
+import { useContext } from "react";
+import { AuthContext } from "../context/AuthContext";
 
 function ProfilePage() {
+    const {updateUser, currentUser} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const scrollToChat = () => {
@@ -16,8 +19,8 @@ function ProfilePage() {
 
     const handleLogout = async () => {
         try {
-            const res = apiRequest.post("/auth/sair");
-            localStorage.removeItem("usuario")
+            await apiRequest.post("/auth/sair");
+            updateUser(null);
 
             navigate("/");
         } catch (error) {
@@ -29,7 +32,7 @@ function ProfilePage() {
         <div className="flex flex-col lg:flex-row h-[calc(100vh-180px)] lg:h-[calc(100vh-150px)] mt-[30px] overflow-y-auto">
             <div id="profile-section" className="flex-[3] mt-[40px] lg:mt-0">
                 <div className="pr-[20px] lg:pr-[50px] flex flex-col gap-[50px]">
-                    <div className="flex items-center justify-between">
+                    <div className="flex items-center justify-between gap-x-[10px]">
                         <h1 className="font-[500] text-[22px] md:text-[26px]">Informações do usuário</h1>
                         
                         <button onClick={scrollToChat}
@@ -42,10 +45,10 @@ function ProfilePage() {
                         </button>
                     
                     </div>
-                    <div className="flex flex-col gap-[20px]">
-                        <span className="flex items-center gap-[20px]">Foto de perfil: <img className="w-[40px] h-[40px] rounded-[50%] mr-[10px] object-cover transition-all duration-[0.4s] ease-in-out hover:scale-[1.1] cursor-pointer" src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Imagem de perfil" /></span>
-                        <span className="flex items-center gap-[10px]">Nome: <b>Diego</b></span>
-                        <span className="flex items-center gap-[10px]">Email cadastrado: <b>diegossantana068@gmail.com</b></span>
+                    <div className="flex flex-col gap-[20px] border border-[#e0e0e0] p-[10px] rounded-[10px]">
+                        <span className="flex items-center gap-[20px] bg-[#fcf5f3] max-w-max p-[10px] rounded-[10px]">Foto de perfil: <img className="w-[40px] h-[40px] rounded-[50%] mr-[10px] object-cover transition-all duration-[0.4s] ease-in-out hover:scale-[1.1] cursor-pointer" src={currentUser.avatar || "/noavatar.svg"} alt="Imagem de perfil" /></span>
+                        <span className="flex flex-wrap break-words items-center gap-[10px] bg-[#fcf5f3] max-w-max p-[10px] rounded-[10px] capitalize">Nome: <b>{currentUser.username}</b></span>
+                        <span className="flex flex-wrap break-words items-center gap-[10px] bg-[#fcf5f3] max-w-max p-[10px] rounded-[10px]">Email cadastrado: <b>{currentUser.email}</b></span>
                         <button onClick={handleLogout}
                             className="w-[100px] bg-red-500 hover:bg-red-700 
                             border-0 py-[10px] px-[20px] text-white cursor-pointer 

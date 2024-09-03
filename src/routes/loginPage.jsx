@@ -1,11 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 import apiRequest from "../lib/apiRequest";
+import { AuthContext } from "../context/AuthContext";
 
 function LoginPage() {
     const [error, setError] = useState("");
     const [isLoading, setIsLoading] = useState(false);
+
+    const {updateUser} = useContext(AuthContext);
     const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
@@ -22,11 +25,12 @@ function LoginPage() {
                 username, password
             });
 
-            localStorage.setItem("usuario", JSON.stringify(res.data));
+            updateUser(res.data)
 
             navigate("/");
         } catch (error) {
-            setError(error.response.data.message)
+            const errorMessage = error?.response?.data?.message || "Erro desconhecido";
+            setError(errorMessage);
         } finally {
             setIsLoading(false)
         }
