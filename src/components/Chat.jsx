@@ -4,7 +4,7 @@ function Chat() {
     const [chat, setChat] = useState(true);
 
     return (
-        <div className="h-[calc(100vh-150px)] flex flex-col">
+        <div className="h-[850px] lg:h-[calc(100vh-150px)] flex flex-col">
             <div className="flex-[1] flex flex-col gap-[20px] overflow-y-auto">
                 <h1 className="font-[500] mt-2 text-[20px]">Mensagens</h1>
                 <div className="bg-white hover:bg-white/60 p-[20px] rounded-[10px] flex items-center cursor-pointer">
@@ -71,7 +71,7 @@ function Chat() {
                             </div>
                         </div>
                     </div>
-                    <div className="border-t-[2px] border-[#fece51]/80 h-[60px] flex items-center justify-between">
+                    <div className="border-t-[2px] border-[#fece51]/80 h-[60px] flex items-center justify-between overflow-y-auto">
                         <textarea className="flex-[3] h-[100%] border-0 p-[20px] resize-none" name="" id=""></textarea>
                         <button className="flex-[1] bg-[#fece51]/70 hover:bg-[#fece51]/90 h-[100%] border-0 cursor-pointer">Enviar</button>
                     </div>

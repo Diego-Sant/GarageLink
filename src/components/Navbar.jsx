@@ -6,7 +6,7 @@ function Navbar() {
     const location = useLocation();
     const user = true;
 
-    const linkClasses = "transition duration-[0.4s] ease-in-out hover:scale-[1.1]";
+    const linkClasses = "transition duration-[0.4s] ease-in-out hover:scale-[1.1] z-50";
 
     return (
         <nav className="flex text-center items-center justify-between mt-[40px]">
@@ -23,11 +23,11 @@ function Navbar() {
             <div className="flex flex-[2] justify-end gap-[10px] items-center">
                 {user ? (
                     <div className="flex items-center font-bold">
-                        <Link to="/perfil" className="flex items-center"> 
+                        <Link to="/perfil" className="flex items-center z-50"> 
                             <img className="w-[40px] h-[40px] rounded-[50%] mr-[10px] object-cover transition-all duration-[0.4s] ease-in-out hover:scale-[1.1]" src="https://images.pexels.com/photos/91227/pexels-photo-91227.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2" alt="Imagem de perfil" />
                             <span className="mr-[20px] hidden md:flex">Diego</span>
                         </Link>
-                        <Link className="hidden md:flex relative py-[12px] px-[24px] bg-[#fece51] hover:bg-[#fece51]/80 cursor-pointer border-0 " to="/perfil">
+                        <Link className="hidden md:flex relative py-[12px] px-[24px] bg-[#fece51] hover:bg-[#fece51]/80 cursor-pointer border-0 z-50" to="/perfil">
                             <div className="absolute -top-[8px] -right-2 bg-red-600 hover:bg-red-600/90 text-white rounded-[50%] w-[26px] h-[26px] flex items-center justify-center">3</div>
                             <span>Perfil</span>
                         </Link>
@@ -64,7 +64,7 @@ function Navbar() {
                     )}
                 </div>
 
-                {location.pathname === "/" && (
+                {(location.pathname === "/" || location.pathname === "/cadastrar" || location.pathname === "/entrar") && (
                     <div className="absolute bg-[#fcf5f3] rounded-[50%] z-0
                         hidden xl:block
                         xl:top-[-25%] xl:right-[-24%] xl:w-[1000px] xl:h-[1000px]
