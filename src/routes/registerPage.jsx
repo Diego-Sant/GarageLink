@@ -14,9 +14,9 @@ function RegisterPage() {
         setError("");
         const formData = new FormData(e.target);
 
-        const username = formData.get("usuario");
+        const username = formData.get("username");
         const email = formData.get("email");
-        const password = formData.get("senha");
+        const password = formData.get("password");
 
         try {
             await apiRequest.post("/auth/cadastrar", {
@@ -38,11 +38,11 @@ function RegisterPage() {
             <form onSubmit={handleSubmit} className="flex flex-col gap-[20px]">
 
                 <h1 className="text-[32px] font-bold">Criar uma conta</h1>
-                <input name="usuario" type="text" placeholder="Nome do usuário"
+                <input name="username" type="text" placeholder="Nome do usuário"
                     className="p-[20px] border border-[#e0e0e0] rounded-[5px]"  />
                 <input name="email" type="text" placeholder="Email"
                     className="p-[20px] border border-[#e0e0e0] rounded-[5px]"  />
-                <input name="senha" type="password" placeholder="Senha"
+                <input name="password" type="password" placeholder="Senha"
                     className="p-[20px] border border-[#e0e0e0] rounded-[5px]"  />
                 <button disabled={isLoading} className="p-[20px] rounded-[5px] border-0 bg-[#fece51] text-white font-bold 
                     text-[20px] cursor-pointer hover:bg-[#fece51]/80 disabled:cursor-not-allowed disabled:bg-[#fece51]/20">

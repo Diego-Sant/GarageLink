@@ -1,5 +1,5 @@
 import { useContext } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import Chat from "../components/Chat";
 import List from "../components/List";
@@ -40,10 +40,12 @@ function ProfilePage() {
                             className="lg:hidden py-[12px] px-[24px] bg-[#fece51] hover:bg-[#fece51]/80 cursor-pointer border-0">
                             Ver mensagens
                         </button>
-                        <button className="py-[12px] px-[24px] bg-[#fece51] 
-                            hover:bg-[#fece51]/80 cursor-pointer border-0">
-                            Atualizar perfil
-                        </button>
+                        <Link to="/perfil/atualizar">
+                            <button className="py-[12px] px-[24px] bg-[#fece51] 
+                                hover:bg-[#fece51]/80 cursor-pointer border-0">
+                                Atualizar perfil
+                            </button>
+                        </Link>
                     
                     </div>
                     <div className="flex flex-col gap-[20px] border border-[#e0e0e0] p-[10px] rounded-[10px]">

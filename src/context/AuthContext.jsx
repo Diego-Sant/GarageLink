@@ -4,7 +4,7 @@ export const AuthContext = createContext();
 
 export const AuthContextProvider = ({children}) => {
     const [currentUser, setCurrentUser] = useState(
-        JSON.parse(localStorage.getItem("usuario")) || null
+        JSON.parse(localStorage.getItem("username")) || null
     )
 
     const updateUser = (data) => {
@@ -12,7 +12,7 @@ export const AuthContextProvider = ({children}) => {
     }
 
     useEffect(() => {
-        localStorage.setItem("usuario", JSON.stringify(currentUser))
+        localStorage.setItem("username", JSON.stringify(currentUser))
     }, [currentUser])
     
     return (
