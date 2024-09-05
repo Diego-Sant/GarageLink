@@ -1,12 +1,26 @@
 import { useContext, useState } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../context/AuthContext";
+import apiRequest from "../lib/apiRequest";
 
 function Navbar() {
     const [open, setOpen] = useState(false);
     const location = useLocation();
-    const {currentUser} = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const {updateUser, currentUser} = useContext(AuthContext);
+
+    const handleLogout = async () => {
+        try {
+            await apiRequest.post("/auth/sair");
+            updateUser(null);
+
+            navigate("/");
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const linkClasses = "transition duration-[0.4s] ease-in-out hover:scale-[1.1] z-50";
 
@@ -25,7 +39,7 @@ function Navbar() {
             <div className="flex flex-[2] justify-end gap-[10px] items-center">
                 {currentUser ? (
                     <div className="flex items-center font-bold">
-                        <Link to="/perfil" className="flex items-center z-50"> 
+                        <Link to="/perfil" className="flex items-center"> 
                             <img className="w-[40px] h-[40px] rounded-[50%] mr-[10px] object-cover transition-all duration-[0.4s] ease-in-out hover:scale-[1.1]" src={currentUser.avatarURL || "/noavatar.svg"} alt="Imagem de perfil" />
                             <span className="mr-[20px] hidden md:flex capitalize">{currentUser.username}</span>
                         </Link>
@@ -56,12 +70,12 @@ function Navbar() {
                     {currentUser ? (
                         <>
                             <Link to="/perfil" className={`${linkClasses}`}>Perfil</Link>
-                            <Link to="/" className={`${linkClasses}`}>Sair</Link>
+                            <Link onClick={handleLogout} to="/" className={`${linkClasses}`}>Sair</Link>
                         </>
                     ) : (
                         <>
-                            <Link to="/" className={`${linkClasses}`}>Entrar</Link>
-                            <Link to="/" className={`${linkClasses}`}>Criar conta</Link>
+                            <Link to="/entrar" className={`${linkClasses}`}>Entrar</Link>
+                            <Link to="/cadastrar" className={`${linkClasses}`}>Criar conta</Link>
                         </>
                     )}
                 </div>

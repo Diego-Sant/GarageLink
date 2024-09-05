@@ -9,6 +9,7 @@
     "react-dom": "^18.2.0",
     "react-leaflet": "^4.2.1",
     "react-particles": "^2.9.3",
+    "react-quill": "^2.0.0",
     "react-router-dom": "^6.26.1",
     "react-scripts": "5.0.1",
     "tsparticles": "^2.9.3"

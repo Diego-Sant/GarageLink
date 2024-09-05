@@ -33,23 +33,23 @@ const brands = [
 ];
 
 const colors = [
-    { name: 'Amarelo', value: 'yellow', hex: '#FECE51' },
-    { name: 'Azul', value: 'blue', hex: '#0000FF' },
-    { name: 'Bege', value: 'beige', hex: '#F5F5DC' },
-    { name: 'Bronze', value: 'bronze', hex: '#CD7F32' },
-    { name: 'Ciano', value: 'cyan', hex: '#00FFFF' },
-    { name: 'Cinza', value: 'gray', hex: '#808080' },
-    { name: 'Dourado', value: 'gold', hex: '#FFD700' },
-    { name: 'Laranja', value: 'orange', hex: '#FFA500' },
-    { name: 'Marrom', value: 'brown', hex: '#A52A2A' },
-    { name: 'Prata', value: 'silver', hex: '#C0C0C0' },
-    { name: 'Preto', value: 'black', hex: '#000000' },
-    { name: 'Púrpura', value: 'violet', hex: '#800080' },
-    { name: 'Rosa', value: 'pink', hex: '#FFC0CB' },
-    { name: 'Roxo', value: 'purple', hex: '#6A0DAD' },
-    { name: 'Turquesa', value: 'turquoise', hex: '#40E0D0' },
-    { name: 'Vermelho', value: 'red', hex: '#FF0000' },
-    { name: 'Verde', value: 'green', hex: '#008000' },
+    { name: 'Amarelo', value: 'yellow', hex1: '#FFFF00', hex2: '#FFEA00', hex3: '#FFF700'},
+    { name: 'Azul', value: 'blue', hex1: '#0000FF', hex2: '#0096FF', hex3: '#00008B' },
+    { name: 'Bege', value: 'beige', hex1: '#F5F5DC', hex2: '#EED9C4', hex3: '#EDC9AF' },
+    { name: 'Bronze', value: 'bronze', hex1: '#CD7F32', hex2: '#B1560F', hex3: '#E4953C' },
+    { name: 'Ciano', value: 'cyan', hex1: '#00FFFF', hex2: '#008B8B', hex3: '#7DF9FF' },
+    { name: 'Cinza', value: 'gray', hex1: '#808080', hex2: '#D3D3D3', hex3: '#A9A9A9' },
+    { name: 'Dourado', value: 'gold', hex1: '#FFD700', hex2: '#FFDF00', hex3: '#FFBF00' },
+    { name: 'Laranja', value: 'orange', hex1: '#FFA500', hex2: '#F28500', hex3: '#FF7900' },
+    { name: 'Marrom', value: 'brown', hex1: '#80461B', hex2: '#7B3F00', hex3: '#704214' },
+    { name: 'Prata', value: 'silver', hex1: '#C0C0C0', hex2: '#AFB1AD', hex3: '#BCC1C2' },
+    { name: 'Preto', value: 'black', hex1: '#000000', hex2: '#050301', hex3: '#060606' },
+    { name: 'Púrpura', value: 'violet', hex1: '#EE82EE', hex2: '#8806CE', hex3: '#8F00FF' },
+    { name: 'Rosa', value: 'pink', hex1: '#FFC0CB', hex2: '#FFB6C1', hex3: '#FF69B4' },
+    { name: 'Roxo', value: 'purple', hex1: '#6A0DAD', hex2: '#800080', hex3: '#702670' },
+    { name: 'Turquesa', value: 'turquoise', hex1: '#40E0D0', hex2: '#00CED1', hex3: '#00FFEF' },
+    { name: 'Vermelho', value: 'red', hex1: '#FF0000', hex2: '#DC143C', hex3: '#FF2400' },
+    { name: 'Verde', value: 'green', hex1: '#90EE90', hex2: '#006400', hex3: '#50C878' },
 ];
 
 function NewPostPage() {
@@ -59,34 +59,24 @@ function NewPostPage() {
     const [isTooltipVisibleLatitude, setIsTooltipVisibleLatitude] = useState(false);
     const [isTooltipVisibleLongitude, setIsTooltipVisibleLongitude] = useState(false);
 
-    const [selectedBrand, setSelectedBrand] = useState('');
-    const [selectedColor, setSelectedColor] = useState('');
-
-    const [isBrandOpen, setIsBrandOpen] = useState(false);
-    const [isColorOpen, setIsColorOpen] = useState(false);
-
-    const [title1, setTitle1] = useState('');
-    const [desc1, setDesc1] = useState('');
-    const [desc1Disabled, setDesc1Disabled] = useState(true);
-    const [title2, setTitle2] = useState('');
-    const [desc2, setDesc2] = useState('');
-    const [desc2Disabled, setDesc2Disabled] = useState(true);
-    const [title3, setTitle3] = useState('');
-    const [desc3, setDesc3] = useState('');
-    const [desc3Disabled, setDesc3Disabled] = useState(true);
-
-    const brandDropdownRef = useRef(null);
-    const colorDropdownRef = useRef(null);
-
     const handlePriceChange = (e) => {
         const onlyNumbers = e.target.value.replace(/\D/g, '');
         setPrice(onlyNumbers);
     };
 
-
     const handleTypeChange = (e) => {
         setBuyOrRent(e.target.value);
     };
+
+    //------------------------------------------------------------------------------------------------//
+
+    const [selectedBrand, setSelectedBrand] = useState('');
+    const [selectedColor, setSelectedColor] = useState('');
+    const [isBrandOpen, setIsBrandOpen] = useState(false);
+    const [isColorOpen, setIsColorOpen] = useState(false);
+
+    const brandDropdownRef = useRef(null);
+    const colorDropdownRef = useRef(null);
 
     const handleColorSelect = (color) => {
         setSelectedColor(color);
@@ -133,21 +123,108 @@ function NewPostPage() {
         };
     }, []);
 
+    //------------------------------------------------------------------------------------------------//
+
+    const [formValues, setFormValues] = useState({
+        title: '', description: '', title1: '', desc1: '',
+        title2: '', desc2: '', title3: '', desc3: ''
+    });
+
+    const [charCounts, setCharCounts] = useState({
+        title: 0, description: 0, title1: 0, title2: 0, 
+        title3: 0, desc1: 0, desc2: 0, desc3: 0
+    });
+
+    const [title1, setTitle1] = useState('');
+    const [descr1, setDescr1] = useState(formValues.desc1);
+    const [desc1Disabled, setDesc1Disabled] = useState(true);
+    const [title2, setTitle2] = useState('');
+    const [descr2, setDesc2] = useState(formValues.desc2);
+    const [desc2Disabled, setDesc2Disabled] = useState(true);
+    const [title3, setTitle3] = useState('');
+    const [descr3, setDesc3] = useState(formValues.desc3);
+    const [desc3Disabled, setDesc3Disabled] = useState(true);
+    
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormValues(prev => ({
+            ...prev,
+            [name]: value
+        }));
+
+        if (name === 'description' || name === 'title' || name === 'title1' || name === 'desc1' || name === 'title2' || name === 'desc2' || name === 'title3' || name === 'desc3') {
+            setCharCounts(prev => ({
+                ...prev,
+                [name]: value.length
+            }));
+        }
+
+        switch (name) {
+            case 'title1':
+                setTitle1(value);
+                break;
+            case 'desc1':
+                setDescr1(value);
+                break;
+            case 'title2':
+                setTitle2(value);
+                break;
+            case 'desc2':
+                setDesc2(value);
+                break;
+            case 'title3':
+                setTitle3(value);
+                break;
+            case 'desc3':
+                setDesc3(value);
+                break;
+            default:
+                break;
+        }
+    };
+
     useEffect(() => {
         setDesc1Disabled(title1.trim() === '');
         setDesc2Disabled(title2.trim() === '');
         setDesc3Disabled(title3.trim() === '');
 
         if (title1.trim() === '') {
-            setDesc1('');
+            setDescr1('');
+            setCharCounts(prev => ({
+                ...prev,
+                desc1: 0,
+            }));
         }
         if (title2.trim() === '') {
             setDesc2('');
+            setCharCounts(prev => ({
+                ...prev,
+                desc2: 0,
+            }));
         }
         if (title3.trim() === '') {
             setDesc3('');
+            setCharCounts(prev => ({
+                ...prev,
+                desc3: 0,
+            }));
         }
     }, [title1, title2, title3]);
+
+    useEffect(() => {
+        setFormValues(prev => ({
+            ...prev,
+            desc1: descr1
+        }));
+        setFormValues(prev => ({
+            ...prev,
+            desc2: descr2
+        }));
+        setFormValues(prev => ({
+            ...prev,
+            desc3: descr3
+        }));
+    }, [descr1, descr2, descr3]);
   
     return (
         <div className="h-[100%] flex">
@@ -158,21 +235,26 @@ function NewPostPage() {
 
                         <div className="w-[45%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
-                                <label htmlFor="title">Nome e ano do carro</label>
+                                <div className="flex gap-[10px] items-center">
+                                    <label className="text-[14px] sm:text-[16px]" htmlFor="title">Nome e ano do carro</label>
+                                    <span className="hidden lg:flex text-gray-600 text-sm">{charCounts.title}/30 caracteres</span>
+                                </div>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
                             <input className="p-[20px] rounded-[5px] border border-gray-400" 
-                                id="title" name="title" type="text" placeholder="Ex: Ford Fiesta 2018"
+                                id="title" name="title" type="text" value={formValues.title} placeholder="Ex: Ford Fiesta 2018"
+                                onChange={handleInputChange} maxLength="30"
                             />
+                            <span className="lg:hidden text-gray-600 text-sm">{charCounts.title}/30 caracteres</span>
                         </div>
 
                         <div className="w-[45%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
-                                <label htmlFor="buyorrent">Comprar ou alugar</label>
+                                <label className="text-[14px] sm:text-[16px]" htmlFor="buyorrent">Comprar ou alugar</label>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
                             <select name="buyorrent" onChange={handleTypeChange}
-                                className="p-[20px] rounded-[5px] border border-gray-400">
+                                className="p-[21px] rounded-[5px] border border-gray-400">
                                 
                                 <option value="buy" defaultChecked>
                                     Comprar
@@ -186,8 +268,8 @@ function NewPostPage() {
 
                         <div className="w-[45%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
-                                <label htmlFor="price">
-                                    {buyOrRent === 'rent' ? 'Valor do aluguel' : 'Valor da compra'}
+                                <label className="text-[14px] sm:text-[16px]" htmlFor="price">
+                                    {buyOrRent === 'rent' ? 'Valor do aluguel por hora' : 'Valor da compra'}
                                 </label>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
@@ -200,7 +282,7 @@ function NewPostPage() {
 
                         <div className="w-[45%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
-                                <label htmlFor="city">Cidade</label>
+                                <label className="text-[14px] sm:text-[16px]" htmlFor="city">Cidade</label>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
                             <input className="p-[20px] rounded-[5px] border border-gray-400" 
@@ -210,7 +292,7 @@ function NewPostPage() {
 
                         <div className="w-[45%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
-                                <label htmlFor="address">Endereço completo</label>
+                                <label className="text-[14px] sm:text-[16px]" htmlFor="address">Endereço completo</label>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
                             <input className="p-[20px] rounded-[5px] border border-gray-400" 
@@ -220,10 +302,10 @@ function NewPostPage() {
 
                         <div className="w-[45%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
-                                <label htmlFor="condition">Condição</label>
+                                <label className="text-[14px] sm:text-[16px]" htmlFor="condition">Condição</label>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
-                            <select name="condition" className="p-[20px] rounded-[5px] 
+                            <select name="condition" className="p-[21px] rounded-[5px] 
                                 border border-gray-400">
                                     
                                 <option value="new" defaultChecked>
@@ -238,7 +320,7 @@ function NewPostPage() {
 
                         <div className="w-[45%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
-                                <label htmlFor="brand">Marca</label>
+                                <label className="text-[14px] sm:text-[16px]" htmlFor="brand">Marca</label>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
                             <div className="relative" ref={brandDropdownRef}>
@@ -272,10 +354,10 @@ function NewPostPage() {
 
                         <div className="w-[45%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
-                                <label htmlFor="transmission">Transmissão</label>
+                                <label className="text-[14px] sm:text-[16px]" htmlFor="transmission">Transmissão</label>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
-                            <select name="transmission" className="p-[20px] rounded-[5px] 
+                            <select name="transmission" className="p-[21px] rounded-[5px] 
                                 border border-gray-400">
                                     
                                 <option value="manual" defaultChecked>
@@ -290,7 +372,7 @@ function NewPostPage() {
 
                         <div className="w-[95%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
-                                <label htmlFor="color">Cor</label>
+                                <label className="text-[14px] sm:text-[16px]" htmlFor="color">Cor</label>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
                             <div className="relative" ref={colorDropdownRef}>
@@ -309,7 +391,13 @@ function NewPostPage() {
                                         <li key={color.value} className="flex items-center p-2 cursor-pointer hover:bg-gray-200 rounded-[10px]" 
                                             onClick={() => handleColorSelect(color.name)} value={color.value}>
                                             <div className="w-4 h-4 rounded-full mr-2"
-                                                style={{ backgroundColor: color.hex }}
+                                                style={{ backgroundColor: color.hex1 }}
+                                            />
+                                            <div className="w-4 h-4 rounded-full mr-2"
+                                                style={{ backgroundColor: color.hex2 }}
+                                            />
+                                            <div className="w-4 h-4 rounded-full mr-2"
+                                                style={{ backgroundColor: color.hex3 }}
                                             />
                                             {color.name}
                                         </li>
@@ -319,16 +407,21 @@ function NewPostPage() {
                             </div>
                         </div>
 
-                        <div className="flex flex-col gap-[5] w-[100%] h-[320px] ">
-                            <label htmlFor="description">Descrição</label>
+                        <div className="flex flex-col gap-[5] w-[95%] md:w-[100%]">
+                            <label className="text-[14px] sm:text-[16px]" htmlFor="description">Descrição</label>
+                            <textarea className="p-[20px] rounded-[5px] border border-gray-400 h-[200px] resize-none" 
+                                id="description" name="description" value={formValues.description} type="text"
+                                onChange={handleInputChange} maxLength="750"
+                            />
+                            <span className="text-gray-600 text-sm">{charCounts.description}/750 caracteres</span>
                         </div>
 
                         <div className="w-[45%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
-                                <label htmlFor="fuel">Combustível</label>
+                                <label className="text-[14px] sm:text-[16px]" htmlFor="fuel">Combustível</label>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
-                            <select name="fuel" className="p-[20px] rounded-[5px] 
+                            <select name="fuel" className="p-[21px] rounded-[5px] 
                                 border border-gray-400">
                                     
                                 <option value="diesel" defaultChecked>
@@ -356,12 +449,12 @@ function NewPostPage() {
                         <div className="w-[45%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
                                 <div className="flex gap-[5px] items-center">
-                                    <label htmlFor="latitude">Latitude</label>
+                                    <label className="text-[14px] sm:text-[16px]" htmlFor="latitude">Latitude</label>
                                     <div className="relative" onMouseEnter={() => setIsTooltipVisibleLatitude(true)}
                                         onMouseLeave={() => setIsTooltipVisibleLatitude(false)}>
                                         <img width={17} height={17} src="/info.svg" alt="" />
                                         {isTooltipVisibleLatitude && (
-                                            <div className="absolute w-[200px] text-white bg-gray-800 border border-gray-400 p-2 rounded shadow-lg text-sm">
+                                            <div className="absolute w-[100px] md:w-[200px] text-white bg-gray-800 border border-gray-400 p-2 rounded shadow-lg text-sm">
                                                 Veja no Google Maps para uma resposta precisa.
                                             </div>
                                         )}
@@ -377,12 +470,12 @@ function NewPostPage() {
                         <div className="w-[95%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
                                 <div className="flex gap-[5px] items-center">
-                                    <label htmlFor="longitude">Longitude</label>
+                                    <label className="text-[14px] sm:text-[16px]" htmlFor="longitude">Longitude</label>
                                     <div className="relative" onMouseEnter={() => setIsTooltipVisibleLongitude(true)}
                                         onMouseLeave={() => setIsTooltipVisibleLongitude(false)}>
                                         <img width={17} height={17} src="/info.svg" alt="" />
                                         {isTooltipVisibleLongitude && (
-                                            <div className="absolute w-[200px] text-white bg-gray-800 border border-gray-400 p-2 rounded shadow-lg text-sm">
+                                            <div className="absolute w-[100px] md:w-[200px] text-white bg-gray-800 border border-gray-400 p-2 rounded shadow-lg text-sm">
                                                 Veja no Google Maps para uma resposta precisa.
                                             </div>
                                         )}
@@ -398,66 +491,72 @@ function NewPostPage() {
                         <div className="grid grid-cols-2 w-[100%] gap-[20px]">
                             <div className="w-[90%] md:w-[100%] flex flex-col gap-[5]">
                                 <div className="flex justify-between items-center">
-                                    <label htmlFor="title1">Título 1</label>
+                                    <label className="text-[14px] sm:text-[16px]" htmlFor="title1">Título 1</label>
+                                    <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.title1}/30 <span className="hidden sm:flex">caracteres</span></span>
                                 </div>
                                 <input className="p-[20px] rounded-[5px] border border-gray-400" 
                                     id="title1" name="title1" type="text" placeholder="Dê motivos para as pessoas comprarem o carro"
-                                    onChange={(e) => setTitle1(e.target.value)} value={title1}
+                                    onChange={handleInputChange} value={formValues.title1} maxLength="30"
                                 />
                             </div>
 
                             <div className="w-[90%] md:w-[100%] flex flex-col gap-[5]">
                                 <div className="flex justify-between items-center">
-                                    <label htmlFor="desc1">Descrição 1</label>
+                                    <label className="text-[14px] sm:text-[16px]" htmlFor="desc1">Descrição 1</label>
+                                    <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.desc1}/30 <span className="hidden sm:flex">caracteres</span></span>
                                 </div>
                                 <input className="p-[20px] rounded-[5px] border border-gray-400 disabled:bg-gray-600/20" 
                                     id="desc1" name="desc1" type="text" placeholder="Adicione uma descrição sobre o título escolhido"
-                                    disabled={desc1Disabled} onChange={(e) => setDesc1(e.target.value)} value={desc1}
+                                    disabled={desc1Disabled} onChange={handleInputChange} maxLength="30" value={formValues.desc1}
                                 />
                             </div>
 
                             <div className="w-[90%] md:w-[100%] flex flex-col gap-[5]">
                                 <div className="flex justify-between items-center">
-                                    <label htmlFor="title2">Título 2</label>
+                                    <label className="text-[14px] sm:text-[16px]" htmlFor="title2">Título 2</label>
+                                    <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.title2}/30 <span className="hidden sm:flex">caracteres</span></span>
                                 </div>
                                 <input className="p-[20px] rounded-[5px] border border-gray-400" 
                                     id="title2" name="title2" type="text" placeholder="Dê motivos para as pessoas comprarem o carro"
-                                    onChange={(e) => setTitle2(e.target.value)} value={title2}
+                                    onChange={handleInputChange} value={formValues.title2} maxLength="30"
                                 />
                             </div>
 
                             <div className="w-[90%] md:w-[100%] flex flex-col gap-[5]">
                                 <div className="flex justify-between items-center">
-                                    <label htmlFor="desc2">Descrição 2</label>
+                                    <label className="text-[14px] sm:text-[16px]" htmlFor="desc2">Descrição 2</label>
+                                    <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.desc2}/30 <span className="hidden sm:flex">caracteres</span></span>
                                 </div>
                                 <input className="p-[20px] rounded-[5px] border border-gray-400 disabled:bg-gray-600/20" 
                                     id="desc2" name="desc2" type="text" placeholder="Adicione uma descrição sobre o título escolhido"
-                                    disabled={desc2Disabled} onChange={(e) => setDesc2(e.target.value)} value={desc2}
+                                    disabled={desc2Disabled} onChange={handleInputChange} maxLength="30" value={formValues.desc2}
                                 />
                             </div>
 
                             <div className="w-[90%] md:w-[100%] flex flex-col gap-[5]">
                                 <div className="flex justify-between items-center">
-                                    <label htmlFor="title3">Título 3</label>
+                                    <label className="text-[14px] sm:text-[16px]" htmlFor="title3">Título 3</label>
+                                    <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.title3}/30 <span className="hidden sm:flex">caracteres</span></span>
                                 </div>
                                 <input className="p-[20px] rounded-[5px] border border-gray-400" 
                                     id="title3" name="title3" type="text" placeholder="Dê motivos para as pessoas comprarem o carro"
-                                    onChange={(e) => setTitle3(e.target.value)} value={title3}
+                                    onChange={handleInputChange} value={formValues.title3} maxLength="30"
                                 />
                             </div>
 
                             <div className="w-[90%] md:w-[100%] flex flex-col gap-[5]">
                                 <div className="flex justify-between items-center">
-                                    <label htmlFor="desc3">Descrição 3</label>
+                                    <label className="text-[14px] sm:text-[16px]" htmlFor="desc3">Descrição 3</label>
+                                    <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.desc3}/30 <span className="hidden sm:flex">caracteres</span></span>
                                 </div>
                                 <input className="p-[20px] rounded-[5px] border border-gray-400 disabled:bg-gray-600/20" 
                                     id="desc3" name="desc3" type="text" placeholder="Adicione uma descrição sobre o título escolhido"
-                                    disabled={desc3Disabled} onChange={(e) => setDesc3(e.target.value)} value={desc3}
+                                    disabled={desc3Disabled} onChange={handleInputChange} maxLength="30" value={formValues.desc3}
                                 />
                             </div>
                         </div>
 
-                        <button className="w-[100%] p-[20px] text-white font-semibold text-[26px] bg-[#fece51] uppercase hover:bg-[#fece51]/90 h-[100%] border-0 cursor-pointer rounded-[5px]">
+                        <button className="w-[95%] md:w-[100%] p-[20px] text-white font-semibold text-[22px] bg-[#fece51] uppercase hover:bg-[#fece51]/90 h-[100%] border-0 cursor-pointer rounded-[5px]">
                             Publicar carro
                         </button>
                     </form>
