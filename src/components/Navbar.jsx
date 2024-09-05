@@ -13,8 +13,8 @@ function Navbar() {
     return (
         <nav className="flex text-center items-center justify-between mt-[40px]">
             <div className="flex items-center flex-[3] gap-[50px]">
-                <Link to="/" className="flex items-center gap-[10px] transition duration-[0.4s] ease-in-out hover:scale-[1.1]">
-                    <img className="" width={60} height={60} src="/logo.svg" alt="Logo GarageLink" />
+                <Link to="/" className="flex items-center gap-[6px] transition duration-[0.4s] ease-in-out hover:scale-[1.1]">
+                    <img className="" width={45} height={45} src="/logo.svg" alt="Logo GarageLink" />
                     <span className="font-bold text-[20px] flex md:hidden lg:flex">GarageLink</span>
                 </Link>
 

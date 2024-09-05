@@ -61,7 +61,12 @@ function ProfilePage() {
                     </div>
                     <div className="flex items-center justify-between">
                         <h1 className="font-[500] text-[22px] md:text-[26px]">Minhas publicações</h1>
-                        <button className="py-[12px] px-[24px] bg-[#fece51] hover:bg-[#fece51]/80 cursor-pointer border-0">Criar anúncio</button>
+                        <Link to="/publicar">
+                            <button className="py-[12px] px-[24px] bg-[#fece51] 
+                                hover:bg-[#fece51]/80 cursor-pointer border-0">
+                                Criar anúncio
+                            </button>
+                        </Link>
                     </div>
                     <List />
                     <div>
