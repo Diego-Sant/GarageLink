@@ -10,14 +10,27 @@ function HomePage() {
     return (
         <div className="flex h-[100%]">
             <div className="flex flex-[3] justify-center items-center">
-                <div className="xl:pr-[100px] -mt-[13rem] md:-mt-[15rem] xl:-mt-[4rem] flex flex-col gap-y-16">
+                <div className="xl:pr-[100px] -mt-[13rem] md:-mt-[15rem] 
+                    xl:-mt-[4rem] flex flex-col gap-y-16">
 
                     <div className="flex flex-col gap-y-4">
-                        <h1 className="font-bold text-[36px] md:text-[46px] xl:text-[54px]">Compre ou alugue seu carro dos sonhos!</h1>
+
+                        <h1 className="font-bold text-[36px] md:text-[46px] 
+                        xl:text-[54px]">Compre ou alugue seu carro dos sonhos!
+                        </h1>
+
                         <div className="text-[20px] flex flex-col gap-y-2">
-                            <p><span className="text-[#fece51]">✓</span> Mais de <span className="font-semibold">60.000</span> localidades</p>
-                            <p><span className="text-[#fece51]">✓</span> Apoio ao cliente em mais de <span className="font-semibold">30</span> idiomas</p>
-                            <p><span className="text-[#fece51]">✓</span> Mais de <span className="font-semibold">5.000</span> carros diferentes</p>
+                            <p><span className="text-[#fece51]">✓</span> 
+                            Mais de <span className="font-semibold">60.000</span> 
+                            localidades</p>
+
+                            <p><span className="text-[#fece51]">✓</span> 
+                            Apoio ao cliente em mais de <span className="font-semibold">
+                            30</span> idiomas</p>
+
+                            <p><span className="text-[#fece51]">✓</span> Mais de 
+                            <span className="font-semibold">5.000</span> carros 
+                            diferentes</p>
                         </div>
                     </div>
                     

@@ -49,7 +49,7 @@ function ProfilePage() {
                     
                     </div>
                     <div className="flex flex-col gap-[20px] border border-[#e0e0e0] p-[10px] rounded-[10px]">
-                        <span className="flex items-center gap-[20px] bg-[#fcf5f3] max-w-max p-[10px] rounded-[10px]">Foto de perfil: <img className="w-[40px] h-[40px] rounded-[50%] mr-[10px] object-cover transition-all duration-[0.4s] ease-in-out hover:scale-[1.1] cursor-pointer" src={currentUser.avatar || "/noavatar.svg"} alt="Imagem de perfil" /></span>
+                        <span className="flex items-center gap-[20px] bg-[#fcf5f3] max-w-max p-[10px] rounded-[10px]">Foto de perfil: <img className="w-[40px] h-[40px] rounded-[50%] mr-[10px] object-cover transition-all duration-[0.4s] ease-in-out hover:scale-[1.1] cursor-pointer" src={currentUser.avatarURL || "/noavatar.svg"} alt="Imagem de perfil" /></span>
                         <span className="flex flex-wrap break-words items-center gap-[10px] bg-[#fcf5f3] max-w-max p-[10px] rounded-[10px] capitalize">Nome: <b>{currentUser.username}</b></span>
                         <span className="flex flex-wrap break-words items-center gap-[10px] bg-[#fcf5f3] max-w-max p-[10px] rounded-[10px]">Email cadastrado: <b>{currentUser.email}</b></span>
                         <button onClick={handleLogout}

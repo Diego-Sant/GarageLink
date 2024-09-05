@@ -26,7 +26,7 @@ function Navbar() {
                 {currentUser ? (
                     <div className="flex items-center font-bold">
                         <Link to="/perfil" className="flex items-center z-50"> 
-                            <img className="w-[40px] h-[40px] rounded-[50%] mr-[10px] object-cover transition-all duration-[0.4s] ease-in-out hover:scale-[1.1]" src={currentUser.avatar || "/noavatar.svg"} alt="Imagem de perfil" />
+                            <img className="w-[40px] h-[40px] rounded-[50%] mr-[10px] object-cover transition-all duration-[0.4s] ease-in-out hover:scale-[1.1]" src={currentUser.avatarURL || "/noavatar.svg"} alt="Imagem de perfil" />
                             <span className="mr-[20px] hidden md:flex capitalize">{currentUser.username}</span>
                         </Link>
                         <Link className="hidden md:flex relative py-[12px] px-[24px] bg-[#fece51] hover:bg-[#fece51]/80 cursor-pointer border-0 z-50" to="/perfil">

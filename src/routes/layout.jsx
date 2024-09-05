@@ -7,9 +7,8 @@ import Navbar from "../components/Navbar";
 function Layout() {
     return (
       <div className="h-[calc(100vh-100px)] max-w-full  
-          sm:max-w-[640px] md:max-w-[768px] lg:max-w-[1080px] xl:max-w-[1366px] 
-          ml-auto mr-auto pl-[20px] pr-[20px]"
-      >
+        sm:max-w-[640px] md:max-w-[768px] lg:max-w-[1080px] xl:max-w-[1366px] 
+        ml-auto mr-auto pl-[20px] pr-[20px]">
   
         <nav>
           <Navbar />
