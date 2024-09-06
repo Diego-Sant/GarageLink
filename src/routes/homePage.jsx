@@ -10,13 +10,12 @@ function HomePage() {
     return (
         <div className="flex h-[100%]">
             <div className="flex flex-[3] justify-center items-center">
-                <div className="xl:pr-[100px] -mt-[13rem] md:-mt-[15rem] 
-                    xl:-mt-[4rem] flex flex-col gap-y-16">
+                <div className="xl:pr-[70px] flex flex-col gap-y-16">
 
                     <div className="flex flex-col gap-y-4">
 
                         <h1 className="font-bold text-[36px] md:text-[46px] 
-                        xl:text-[54px]">Compre ou alugue seu carro dos sonhos!
+                        xl:text-[54px] mt-[140px]">Compre ou alugue seu carro dos sonhos!
                         </h1>
 
                         <div className="text-[20px] flex flex-col gap-y-2">

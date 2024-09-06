@@ -25,7 +25,7 @@ function RegisterPage() {
 
             navigate("/entrar")
         } catch (error) {
-            setError(error.response.data.message)
+            setError(error?.response?.data?.message)
         } finally {
             setIsLoading(false)
         }
@@ -33,7 +33,7 @@ function RegisterPage() {
     }
 
     return (
-        <div className="h-[100%] flex justify-center">
+        <div className="h-[100%] flex justify-center mt-[70px] items-center">
         <div className="xl:flex-[3] h-[100%] flex items-center justify-center">
             <form onSubmit={handleSubmit} className="flex flex-col gap-[20px]">
 

@@ -9,6 +9,7 @@ import ProfilePage from "./routes/profilePage";
 import RegisterPage from "./routes/registerPage";
 import ProfileUpdatePage from "./routes/profileUpdatePage";
 import NewPostPage from "./routes/newPostPage";
+import { singlePageLoader } from "./lib/loaders";
 
 function App() {
   const router = createBrowserRouter([
@@ -26,7 +27,8 @@ function App() {
         },
         {
           path: "/carros/:id",
-          element: <SinglePage />
+          element: <SinglePage />,
+          loader: singlePageLoader
         },
         {
           path: "/entrar",

@@ -43,7 +43,7 @@ function LoginPage() {
 
   return (
     !currentUser && (
-        <div className="h-[100%] flex">
+        <div className="h-[100%] flex mt-[70px] items-center">
             <div className="flex-[3] h-[100%] flex items-center justify-center">
                 <form onSubmit={handleSubmit} className="flex flex-col gap-[20px]">
 

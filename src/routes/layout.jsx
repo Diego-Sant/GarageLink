@@ -6,15 +6,15 @@ import Navbar from "../components/Navbar";
 
 function Layout() {
     return (
-      <div className="h-[calc(100vh-100px)] max-w-full  
+      <div className="min-h-screen max-w-full  
         sm:max-w-[640px] md:max-w-[768px] lg:max-w-[1080px] xl:max-w-[1366px] 
-        ml-auto mr-auto pl-[20px] pr-[20px]">
+        ml-auto mr-auto pl-[20px] pr-[20px] flex flex-col">
   
         <nav>
           <Navbar />
         </nav>
     
-        <div className="h-[calc(100vh-100px)]">
+        <div className="flex-grow">
           <Outlet />
         </div>
         
@@ -31,16 +31,15 @@ function RequireAuth() {
 
   return (
     currentUser && (
-      <div className="h-[calc(100vh-100px)] max-w-full  
+      <div className="min-h-screen max-w-full  
         sm:max-w-[640px] md:max-w-[768px] lg:max-w-[1080px] xl:max-w-[1366px] 
-        ml-auto mr-auto pl-[20px] pr-[20px]"
-      >
-
+        ml-auto mr-auto pl-[20px] pr-[20px] flex flex-col">
+  
         <nav>
           <Navbar />
         </nav>
     
-        <div className="h-[calc(100vh-100px)]">
+        <div className="flex-grow">
           <Outlet />
         </div>
       

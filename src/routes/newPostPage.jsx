@@ -334,8 +334,8 @@ function NewPostPage() {
     }, [desc1, descr2, descr3]);
   
     return (
-        <div className="h-[100%] flex">
-            <div className="overflow-y-auto">
+        <div className="min-h-screen flex flex-col">
+            <div className="w-full">
                 <h1 className="font-[500] text-[22px] md:text-[26px] mt-[30px]">Adicionar carro</h1>
                 <UploadCarWidget uwConfig={{
                     cloudName: "dpwr6ol0l",
@@ -344,7 +344,7 @@ function NewPostPage() {
                     multiple: true
                 }} setState={setImages} />
 
-                <div className="grid grid-cols-2 sm:flex sm:justify-between w-[98%] sm:w-[96%] mt-[20px] items-center gap-4">
+                <div className="grid grid-cols-2 sm:flex sm:justify-between w-[100%] mt-[20px] items-center gap-4">
                     {images.map((image, index) => (
                         <div key={index} className="relative w-[200px] h-[120px] sm:w-[280px] sm:h-[200px] bg-gray-200 flex items-center justify-center">
                             <img
@@ -362,8 +362,8 @@ function NewPostPage() {
                     ))}
                 </div>
 
-                <div className="mt-[30px] md:mr-[50px] md:mb-[100px] ml-0">
-                    <form onSubmit={handleSubmit} className="flex md:justify-between flex-wrap gap-[20px] mb-10 md:mb-0">
+                <div className="mt-[30px] md:mb-[100px]">
+                    <form onSubmit={handleSubmit} className="flex justify-between flex-wrap gap-[20px] mb-10 md:mb-0">
 
                         <div className="w-[45%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
@@ -467,11 +467,11 @@ function NewPostPage() {
                                     <img className="absolute right-2" width={10} height={10} src="/arrow2.svg" alt="Seta" />
                                 </button>
                                 {isBrandOpen && (
-                                    <ul className="absolute top-full left-0 w-full bg-white 
+                                    <ul className="absolute top-full grid grid-cols-2 left-0 w-[300px] md:w-full bg-white 
                                         border border-gray-400 mt-[0.05rem] z-10 rounded-[10px]">
 
                                         {brands.map((brand) => (
-                                            <li key={brand.value} className="flex items-center p-2 
+                                            <li key={brand.value} className="flex items-center p-4 md:p-2 
                                                 cursor-pointer hover:bg-gray-200 rounded-[10px]"
                                                 onClick={() => handleBrandSelect(brand)}>
                                                 
@@ -505,7 +505,7 @@ function NewPostPage() {
                             </select>
                         </div>
 
-                        <div className="w-[95%] md:w-[30%] flex flex-col gap-[5]">
+                        <div className="w-[100%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
                                 <label className="text-[14px] sm:text-[16px]" htmlFor="color">Cor</label>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
@@ -541,7 +541,7 @@ function NewPostPage() {
                             <input type="hidden" name="color" value={selectedColor || ''} />
                         </div>
 
-                        <div className="flex flex-col gap-[5] w-[95%] md:w-[100%]">
+                        <div className="flex flex-col gap-[5] w-[100%]">
                             <div className="flex justify-between items-center">
                                 <label className="text-[14px] sm:text-[16px]" htmlFor="description">Descrição</label>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
@@ -604,7 +604,7 @@ function NewPostPage() {
                             />
                         </div>
 
-                        <div className="w-[95%] md:w-[30%] flex flex-col gap-[5]">
+                        <div className="w-[100%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
                                 <div className="flex gap-[5px] items-center">
                                     <label className="text-[14px] sm:text-[16px]" htmlFor="longitude">Longitude</label>
@@ -626,7 +626,7 @@ function NewPostPage() {
                         </div>
 
                         <div className="grid grid-cols-2 w-[100%] gap-[20px]">
-                            <div className="w-[90%] md:w-[100%] flex flex-col gap-[5]">
+                            <div className="w-[100%] md:w-[100%] flex flex-col gap-[5]">
                                 <div className="flex justify-between items-center">
                                     <label className="text-[14px] sm:text-[16px]" htmlFor="general1Title">Título 1</label>
                                     <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.general1Title}/30 <span className="hidden sm:flex">caracteres</span></span>
@@ -637,7 +637,7 @@ function NewPostPage() {
                                 />
                             </div>
 
-                            <div className="w-[90%] md:w-[100%] flex flex-col gap-[5]">
+                            <div className="w-[100%] md:w-[100%] flex flex-col gap-[5]">
                                 <div className="flex justify-between items-center">
                                     <label className="text-[14px] sm:text-[16px]" htmlFor="general1Desc">Descrição 1</label>
                                     <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.general1Desc}/70 <span className="hidden sm:flex">caracteres</span></span>
@@ -648,7 +648,7 @@ function NewPostPage() {
                                 />
                             </div>
 
-                            <div className="w-[90%] md:w-[100%] flex flex-col gap-[5]">
+                            <div className="w-[100%] md:w-[100%] flex flex-col gap-[5]">
                                 <div className="flex justify-between items-center">
                                     <label className="text-[14px] sm:text-[16px]" htmlFor="general2Title">Título 2</label>
                                     <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.general2Title}/30 <span className="hidden sm:flex">caracteres</span></span>
@@ -659,7 +659,7 @@ function NewPostPage() {
                                 />
                             </div>
 
-                            <div className="w-[90%] md:w-[100%] flex flex-col gap-[5]">
+                            <div className="w-[100%] md:w-[100%] flex flex-col gap-[5]">
                                 <div className="flex justify-between items-center">
                                     <label className="text-[14px] sm:text-[16px]" htmlFor="general2Desc">Descrição 2</label>
                                     <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.general2Desc}/70 <span className="hidden sm:flex">caracteres</span></span>
@@ -670,7 +670,7 @@ function NewPostPage() {
                                 />
                             </div>
 
-                            <div className="w-[90%] md:w-[100%] flex flex-col gap-[5]">
+                            <div className="w-[100%] md:w-[100%] flex flex-col gap-[5]">
                                 <div className="flex justify-between items-center">
                                     <label className="text-[14px] sm:text-[16px]" htmlFor="general3Title">Título 3</label>
                                     <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.general3Title}/30 <span className="hidden sm:flex">caracteres</span></span>
@@ -681,7 +681,7 @@ function NewPostPage() {
                                 />
                             </div>
 
-                            <div className="w-[90%] md:w-[100%] flex flex-col gap-[5]">
+                            <div className="w-[100%] md:w-[100%] flex flex-col gap-[5]">
                                 <div className="flex justify-between items-center">
                                     <label className="text-[14px] sm:text-[16px]" htmlFor="general3Desc">Descrição 3</label>
                                     <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.general3Desc}/70 <span className="hidden sm:flex">caracteres</span></span>
@@ -693,8 +693,8 @@ function NewPostPage() {
                             </div>
                         </div>
 
-                        <div className="flex flex-col justify-center w-[100%] gap-y-4">
-                            <button className="w-[95%] md:w-[100%] p-[30px] text-white font-semibold text-[22px] bg-green-500 uppercase hover:bg-green-400 h-[100%] border-0 cursor-pointer rounded-[5px]">
+                        <div className="flex flex-col justify-center w-[100%] gap-y-4 mb-[60px]">
+                            <button className="w-[100%] p-[30px] text-white font-semibold text-[22px] bg-green-500 uppercase hover:bg-green-400 h-[100%] border-0 cursor-pointer rounded-[5px]">
                                 Publicar carro
                             </button>
                             {error && <span className="text-red-600 flex justify-center text-[18px]">{error}</span>}

@@ -4,7 +4,7 @@ function Chat() {
     const [chat, setChat] = useState(true);
 
     return (
-        <div className="h-[850px] lg:h-[calc(100vh-150px)] flex flex-col">
+        <div className="h-[800px] flex flex-col">
             <div className="flex-[1] flex flex-col gap-[20px] overflow-y-auto">
                 <h1 className="font-[500] mt-2 text-[20px]">Mensagens</h1>
                 <div className="bg-white hover:bg-white/60 p-[20px] rounded-[10px] flex items-center cursor-pointer">

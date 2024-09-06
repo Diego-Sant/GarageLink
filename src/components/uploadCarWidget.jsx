@@ -49,7 +49,7 @@ function UploadWidget({ uwConfig, setState }) {
     return (
         <button
             id="upload_widget" onClick={handleUploadClick}
-            className="flex w-[96%] p-[20px] bg-blue-500 hover:bg-blue-400 border-0 cursor-pointer rounded-[5px] justify-center"
+            className="flex w-[100%] p-[20px] bg-blue-500 hover:bg-blue-400 border-0 cursor-pointer rounded-[5px] justify-center"
         >
             <div className="text-white font-semibold text-[22px] uppercase flex gap-[15px] items-center">
             <img width={28} height={28} src="/camera.svg" alt="Ícone de câmara" />

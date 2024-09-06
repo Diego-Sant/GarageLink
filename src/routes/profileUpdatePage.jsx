@@ -34,7 +34,7 @@ function ProfileUpdatePage() {
     };
   
     return (
-        <div className="h-[100%] flex flex-col md:flex-row overflow-y-auto">
+        <div className="h-[100%] flex flex-col md:flex-row mt-[80px]">
             <div className="flex-[3] flex items-center justify-center">
                 <form onSubmit={handleSubmit} className="flex flex-col gap-[20px] 
                     w-[300px] mt-[60px] md:mt-0">

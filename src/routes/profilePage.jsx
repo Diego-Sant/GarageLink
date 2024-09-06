@@ -30,7 +30,7 @@ function ProfilePage() {
     }
 
     return (
-        <div className="flex flex-col lg:flex-row h-[calc(100vh-180px)] lg:h-[calc(100vh-150px)] mt-[30px] overflow-y-auto">
+        <div className="flex flex-col lg:flex-row mt-[30px] mb-[60px]">
             <div id="profile-section" className="flex-[3] mt-[40px] lg:mt-0">
                 <div className="pr-[20px] lg:pr-[50px] flex flex-col gap-[50px]">
                     <div className="flex items-center justify-between gap-x-[10px]">
