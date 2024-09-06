@@ -1,60 +1,72 @@
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import apiRequest from "../lib/apiRequest";
+import UploadCarWidget from "../components/uploadCarWidget";
 
 const brands = [
-    { name: 'Audi', value: 'audi', logo: 'https://diego-sant.github.io/QuizApp/img/audi.svg' },
-    { name: 'Bentley', value: 'bentley', logo: 'https://diego-sant.github.io/QuizApp/img/bentley.svg' },
-    { name: 'BMW', value: 'bmw', logo: 'https://diego-sant.github.io/QuizApp/img/bmw.svg' },
-    { name: 'BYD', value: 'byd', logo: 'https://diego-sant.github.io/QuizApp/img/byd.svg' },
-    { name: 'Chevrolet', value: 'chevrolet', logo: 'https://diego-sant.github.io/QuizApp/img/chevrolet.svg' },
-    { name: 'Citroën', value: 'citroen', logo: 'https://diego-sant.github.io/QuizApp/img/citroen.svg' },
-    { name: 'Ferrari', value: 'ferrari', logo: 'https://diego-sant.github.io/QuizApp/img/ferrari.svg' },
-    { name: 'Fiat', value: 'fiat', logo: 'https://diego-sant.github.io/QuizApp/img/fiat.svg' },
-    { name: 'Ford', value: 'ford', logo: 'https://diego-sant.github.io/QuizApp/img/ford.svg' },
-    { name: 'Honda', value: 'honda', logo: 'https://diego-sant.github.io/QuizApp/img/honda.svg' },
-    { name: 'Hyundai', value: 'hyundai', logo: 'https://diego-sant.github.io/QuizApp/img/hyundai.svg' },
-    { name: 'Jaguar', value: 'jaguar', logo: 'https://diego-sant.github.io/QuizApp/img/jaguar.svg' },
-    { name: 'Jeep', value: 'jeep', logo: 'https://diego-sant.github.io/QuizApp/img/jeep.svg' },
-    { name: 'Kia', value: 'kia', logo: 'https://diego-sant.github.io/QuizApp/img/kia.svg' },
-    { name: 'Lamborghini', value: 'lamborghini', logo: 'https://diego-sant.github.io/QuizApp/img/lamborghini.svg' },
-    { name: 'Land Rover', value: 'landrover', logo: 'https://diego-sant.github.io/QuizApp/img/landrover.svg' },
-    { name: 'Maserati', value: 'maserati', logo: 'https://diego-sant.github.io/QuizApp/img/maserati.svg' },
-    { name: 'McLaren', value: 'mclaren', logo: 'https://diego-sant.github.io/QuizApp/img/mclaren.svg' },
-    { name: 'Mercedes-Benz', value: 'mercedes', logo: 'https://diego-sant.github.io/QuizApp/img/mercedes.svg' },
-    { name: 'Mitsubishi', value: 'mitsubishi', logo: 'https://diego-sant.github.io/QuizApp/img/mitsubishi.svg' },
-    { name: 'Nissan', value: 'nissan', logo: 'https://diego-sant.github.io/QuizApp/img/nissan.svg' },
-    { name: 'Peugeot', value: 'peugeot', logo: 'https://diego-sant.github.io/QuizApp/img/peugeot.svg' },
-    { name: 'Porsche', value: 'porsche', logo: 'https://diego-sant.github.io/QuizApp/img/porsche.svg' },
-    { name: 'Renault', value: 'renault', logo: 'https://diego-sant.github.io/QuizApp/img/renault.svg' },
-    { name: 'Rolls Royce', value: 'rollsroyce', logo: 'https://diego-sant.github.io/QuizApp/img/rollsroyce.svg' },
-    { name: 'Suzuki', value: 'suzuki', logo: 'https://diego-sant.github.io/QuizApp/img/suzuki.svg' },
-    { name: 'Toyota', value: 'toyota', logo: 'https://diego-sant.github.io/QuizApp/img/toyota.svg' },
-    { name: 'Volkswagen', value: 'volkswagen', logo: 'https://diego-sant.github.io/QuizApp/img/volkswagen.svg' },
-    { name: 'Yamaha', value: 'yamaha', logo: 'https://diego-sant.github.io/QuizApp/img/yamaha.svg' },
+    { name: 'Audi', value: 'Audi', logo: 'https://diego-sant.github.io/QuizApp/img/audi.svg' },
+    { name: 'Bentley', value: 'Bentley', logo: 'https://diego-sant.github.io/QuizApp/img/bentley.svg' },
+    { name: 'BMW', value: 'BMW', logo: 'https://diego-sant.github.io/QuizApp/img/bmw.svg' },
+    { name: 'BYD', value: 'BYD', logo: 'https://diego-sant.github.io/QuizApp/img/byd.svg' },
+    { name: 'Chevrolet', value: 'Chevrolet', logo: 'https://diego-sant.github.io/QuizApp/img/chevrolet.svg' },
+    { name: 'Citroën', value: 'Citroen', logo: 'https://diego-sant.github.io/QuizApp/img/citroen.svg' },
+    { name: 'Ferrari', value: 'Ferrari', logo: 'https://diego-sant.github.io/QuizApp/img/ferrari.svg' },
+    { name: 'Fiat', value: 'Fiat', logo: 'https://diego-sant.github.io/QuizApp/img/fiat.svg' },
+    { name: 'Ford', value: 'Ford', logo: 'https://diego-sant.github.io/QuizApp/img/ford.svg' },
+    { name: 'Honda', value: 'Honda', logo: 'https://diego-sant.github.io/QuizApp/img/honda.svg' },
+    { name: 'Hyundai', value: 'Hyundai', logo: 'https://diego-sant.github.io/QuizApp/img/hyundai.svg' },
+    { name: 'Jaguar', value: 'Jaguar', logo: 'https://diego-sant.github.io/QuizApp/img/jaguar.svg' },
+    { name: 'Jeep', value: 'Jeep', logo: 'https://diego-sant.github.io/QuizApp/img/jeep.svg' },
+    { name: 'Kia', value: 'Kia', logo: 'https://diego-sant.github.io/QuizApp/img/kia.svg' },
+    { name: 'Lamborghini', value: 'Lamborghini', logo: 'https://diego-sant.github.io/QuizApp/img/lamborghini.svg' },
+    { name: 'Land Rover', value: 'LandRover', logo: 'https://diego-sant.github.io/QuizApp/img/landrover.svg' },
+    { name: 'Maserati', value: 'Maserati', logo: 'https://diego-sant.github.io/QuizApp/img/maserati.svg' },
+    { name: 'McLaren', value: 'McLaren', logo: 'https://diego-sant.github.io/QuizApp/img/mclaren.svg' },
+    { name: 'Mercedes-Benz', value: 'MercedesBenz', logo: 'https://diego-sant.github.io/QuizApp/img/mercedes.svg' },
+    { name: 'Mitsubishi', value: 'Mitsubishi', logo: 'https://diego-sant.github.io/QuizApp/img/mitsubishi.svg' },
+    { name: 'Nissan', value: 'Nissan', logo: 'https://diego-sant.github.io/QuizApp/img/nissan.svg' },
+    { name: 'Peugeot', value: 'Peugeot', logo: 'https://diego-sant.github.io/QuizApp/img/peugeot.svg' },
+    { name: 'Porsche', value: 'Porsche', logo: 'https://diego-sant.github.io/QuizApp/img/porsche.svg' },
+    { name: 'Renault', value: 'Renault', logo: 'https://diego-sant.github.io/QuizApp/img/renault.svg' },
+    { name: 'Rolls Royce', value: 'RollsRoyce', logo: 'https://diego-sant.github.io/QuizApp/img/rollsroyce.svg' },
+    { name: 'Suzuki', value: 'Suzuki', logo: 'https://diego-sant.github.io/QuizApp/img/suzuki.svg' },
+    { name: 'Toyota', value: 'Toyota', logo: 'https://diego-sant.github.io/QuizApp/img/toyota.svg' },
+    { name: 'Volkswagen', value: 'Volkswagen', logo: 'https://diego-sant.github.io/QuizApp/img/volkswagen.svg' },
+    { name: 'Yamaha', value: 'Yamaha', logo: 'https://diego-sant.github.io/QuizApp/img/yamaha.svg' },
 ];
 
 const colors = [
-    { name: 'Amarelo', value: 'yellow', hex1: '#FFFF00', hex2: '#FFEA00', hex3: '#FFF700'},
-    { name: 'Azul', value: 'blue', hex1: '#0000FF', hex2: '#0096FF', hex3: '#00008B' },
-    { name: 'Bege', value: 'beige', hex1: '#F5F5DC', hex2: '#EED9C4', hex3: '#EDC9AF' },
-    { name: 'Bronze', value: 'bronze', hex1: '#CD7F32', hex2: '#B1560F', hex3: '#E4953C' },
-    { name: 'Ciano', value: 'cyan', hex1: '#00FFFF', hex2: '#008B8B', hex3: '#7DF9FF' },
-    { name: 'Cinza', value: 'gray', hex1: '#808080', hex2: '#D3D3D3', hex3: '#A9A9A9' },
-    { name: 'Dourado', value: 'gold', hex1: '#FFD700', hex2: '#FFDF00', hex3: '#FFBF00' },
-    { name: 'Laranja', value: 'orange', hex1: '#FFA500', hex2: '#F28500', hex3: '#FF7900' },
-    { name: 'Marrom', value: 'brown', hex1: '#80461B', hex2: '#7B3F00', hex3: '#704214' },
-    { name: 'Prata', value: 'silver', hex1: '#C0C0C0', hex2: '#AFB1AD', hex3: '#BCC1C2' },
-    { name: 'Preto', value: 'black', hex1: '#000000', hex2: '#050301', hex3: '#060606' },
-    { name: 'Púrpura', value: 'violet', hex1: '#EE82EE', hex2: '#8806CE', hex3: '#8F00FF' },
-    { name: 'Rosa', value: 'pink', hex1: '#FFC0CB', hex2: '#FFB6C1', hex3: '#FF69B4' },
-    { name: 'Roxo', value: 'purple', hex1: '#6A0DAD', hex2: '#800080', hex3: '#702670' },
-    { name: 'Turquesa', value: 'turquoise', hex1: '#40E0D0', hex2: '#00CED1', hex3: '#00FFEF' },
-    { name: 'Vermelho', value: 'red', hex1: '#FF0000', hex2: '#DC143C', hex3: '#FF2400' },
-    { name: 'Verde', value: 'green', hex1: '#90EE90', hex2: '#006400', hex3: '#50C878' },
+    { name: 'Amarelo', value: 'Amarelo', hex1: '#FFFF00', hex2: '#FFEA00', hex3: '#FFF700'},
+    { name: 'Azul', value: 'Azul', hex1: '#0000FF', hex2: '#0096FF', hex3: '#00008B' },
+    { name: 'Bege', value: 'Bege', hex1: '#F5F5DC', hex2: '#EED9C4', hex3: '#EDC9AF' },
+    { name: 'Bronze', value: 'Bronze', hex1: '#CD7F32', hex2: '#B1560F', hex3: '#E4953C' },
+    { name: 'Ciano', value: 'Ciano', hex1: '#00FFFF', hex2: '#008B8B', hex3: '#7DF9FF' },
+    { name: 'Cinza', value: 'Cinza', hex1: '#808080', hex2: '#D3D3D3', hex3: '#A9A9A9' },
+    { name: 'Dourado', value: 'Dourado', hex1: '#FFD700', hex2: '#FFDF00', hex3: '#FFBF00' },
+    { name: 'Laranja', value: 'Laranja', hex1: '#FFA500', hex2: '#F28500', hex3: '#FF7900' },
+    { name: 'Marrom', value: 'Marrom', hex1: '#80461B', hex2: '#7B3F00', hex3: '#704214' },
+    { name: 'Prata', value: 'Prata', hex1: '#C0C0C0', hex2: '#AFB1AD', hex3: '#BCC1C2' },
+    { name: 'Preto', value: 'Preto', hex1: '#000000', hex2: '#050301', hex3: '#060606' },
+    { name: 'Púrpura', value: 'Purpura', hex1: '#EE82EE', hex2: '#8806CE', hex3: '#8F00FF' },
+    { name: 'Rosa', value: 'Rosa', hex1: '#FFC0CB', hex2: '#FFB6C1', hex3: '#FF69B4' },
+    { name: 'Roxo', value: 'Roxo', hex1: '#6A0DAD', hex2: '#800080', hex3: '#702670' },
+    { name: 'Turquesa', value: 'Turquesa', hex1: '#40E0D0', hex2: '#00CED1', hex3: '#00FFEF' },
+    { name: 'Vermelho', value: 'Vermelho', hex1: '#FF0000', hex2: '#DC143C', hex3: '#FF2400' },
+    { name: 'Verde', value: 'Verde', hex1: '#90EE90', hex2: '#006400', hex3: '#50C878' },
 ];
 
 function NewPostPage() {
     const [buyOrRent, setBuyOrRent] = useState('buy');
+    const [error, setError] = useState('');
     const [price, setPrice] = useState('');
+    const [images, setImages] = useState([]);
+
+    const navigate = useNavigate();
+
+    const removeImage = (index) => {
+        setImages((prev) => prev.filter((_, i) => i !== index));
+    };
 
     const [isTooltipVisibleLatitude, setIsTooltipVisibleLatitude] = useState(false);
     const [isTooltipVisibleLongitude, setIsTooltipVisibleLongitude] = useState(false);
@@ -68,6 +80,99 @@ function NewPostPage() {
         setBuyOrRent(e.target.value);
     };
 
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        const formData = new FormData(e.target);
+        const inputs = Object.fromEntries(formData);
+
+        if (images.length > 4) {
+            setError('Você pode adicionar no máximo 4 imagens.');
+            return;
+        }
+
+        if (!inputs.title) {
+            setError('O nome e ano do carro são obrigatórios!');
+            return;
+        }
+
+        if (!inputs.priceToBuy && !inputs.priceToRent) {
+            setError('O valor de compra/aluguel é obrigatório!');
+            return;
+        }
+
+        if (!inputs.city) {
+            setError('A cidade é obrigatória!');
+            return;
+        }
+
+        if (!inputs.address) {
+            setError('O endereço é obrigatório!');
+            return;
+        }
+
+        if (!inputs.brand) {
+            setError('A marca é obrigatória!');
+            return;
+        }
+
+        if (!inputs.color) {
+            setError('A cor é obrigatória!');
+            return;
+        }
+
+        if (!inputs.description) {
+            setError('A descrição é obrigatória!');
+            return;
+        }
+
+        if (!inputs.latitude) {
+            setError('A latitude é obrigatória! Use o Google Maps para ter a precisão exata.');
+            return;
+        }
+
+        if (!inputs.longitude) {
+            setError('A longitude é obrigatória! Use o Google Maps para ter a precisão exata.');
+            return;
+        }
+
+        setError('');
+
+        try {
+            const res = await apiRequest.post("/publicacoes", {
+                postData: {
+                    title: inputs.title,
+                    city: inputs.city,
+                    address: inputs.address,
+                    condition: inputs.condition,
+                    brand: inputs.brand,
+                    transmission: inputs.transmission,
+                    buyOrRent: inputs.buyOrRent,
+                    fuel: inputs.fuel,
+                    color: inputs.color,
+                    priceToBuy: parseInt(inputs.priceToBuy),
+                    priceToRent: parseInt(inputs.priceToRent),
+                    latitude: inputs.latitude,
+                    longitude: inputs.longitude,
+                    images: images,
+                },
+                postDetail: {
+                    description: inputs.description,
+                    general1Title: inputs.general1Title,
+                    general1Desc: inputs.general1Desc,
+                    general2Title: inputs.general2Title,
+                    general2Desc: inputs.general2Desc,
+                    general3Title: inputs.general3Title,
+                    general3Desc: inputs.general3Desc,
+                }
+            });
+
+            navigate("/carros/"+res.data.id)
+          } catch (err) {
+            console.log(err);
+            setError(error);
+          }
+    };
+
     //------------------------------------------------------------------------------------------------//
 
     const [selectedBrand, setSelectedBrand] = useState('');
@@ -79,13 +184,15 @@ function NewPostPage() {
     const colorDropdownRef = useRef(null);
 
     const handleColorSelect = (color) => {
-        setSelectedColor(color);
+        setSelectedColor(color.value);
         setIsColorOpen(false);
+        setError('');
     };
 
     const handleBrandSelect = (brand) => {
-        setSelectedBrand(brand);
+        setSelectedBrand(brand.value);
         setIsBrandOpen(false);
+        setError('');
     };
 
     const toggleBrandDropdown = () => {
@@ -126,24 +233,24 @@ function NewPostPage() {
     //------------------------------------------------------------------------------------------------//
 
     const [formValues, setFormValues] = useState({
-        title: '', description: '', title1: '', desc1: '',
-        title2: '', desc2: '', title3: '', desc3: ''
+        title: '', description: '', general1Title: '', general1Desc: '',
+        general2Title: '', general2Desc: '', general3Title: '', general3Desc: ''
     });
 
     const [charCounts, setCharCounts] = useState({
-        title: 0, description: 0, title1: 0, title2: 0, 
-        title3: 0, desc1: 0, desc2: 0, desc3: 0
+        title: 0, description: 0, general1Title: 0, general2Title: 0, 
+        general3Title: 0, general1Desc: 0, general2Desc: 0, general3Desc: 0
     });
 
-    const [title1, setTitle1] = useState('');
-    const [descr1, setDescr1] = useState(formValues.desc1);
-    const [desc1Disabled, setDesc1Disabled] = useState(true);
-    const [title2, setTitle2] = useState('');
-    const [descr2, setDesc2] = useState(formValues.desc2);
-    const [desc2Disabled, setDesc2Disabled] = useState(true);
-    const [title3, setTitle3] = useState('');
-    const [descr3, setDesc3] = useState(formValues.desc3);
-    const [desc3Disabled, setDesc3Disabled] = useState(true);
+    const [general1Title, setGeneral1Title] = useState('');
+    const [desc1, setDesc1] = useState(formValues.general1Desc);
+    const [general1DescDisabled, setGeneral2Desc1Disabled] = useState(true);
+    const [general2Title, setGeneral2Title] = useState('');
+    const [descr2, setGeneral2Desc] = useState(formValues.general2Desc);
+    const [general2DescDisabled, setGeneral2DescDisabled] = useState(true);
+    const [general3Title, setGeneral3Title] = useState('');
+    const [descr3, setGeneral3Desc] = useState(formValues.general3Desc);
+    const [general3DescDisabled, setGeneral3DescDisabled] = useState(true);
     
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -152,7 +259,7 @@ function NewPostPage() {
             [name]: value
         }));
 
-        if (name === 'description' || name === 'title' || name === 'title1' || name === 'desc1' || name === 'title2' || name === 'desc2' || name === 'title3' || name === 'desc3') {
+        if (name === 'description' || name === 'title' || name === 'general1Title' || name === 'general1Desc' || name === 'general2Title' || name === 'general2Desc' || name === 'general3Title' || name === 'general3Desc') {
             setCharCounts(prev => ({
                 ...prev,
                 [name]: value.length
@@ -160,23 +267,23 @@ function NewPostPage() {
         }
 
         switch (name) {
-            case 'title1':
-                setTitle1(value);
+            case 'general1Title':
+                setGeneral1Title(value);
                 break;
-            case 'desc1':
-                setDescr1(value);
+            case 'general1Desc':
+                setDesc1(value);
                 break;
-            case 'title2':
-                setTitle2(value);
+            case 'general2Title':
+                setGeneral2Title(value);
                 break;
-            case 'desc2':
-                setDesc2(value);
+            case 'general2Desc':
+                setGeneral2Desc(value);
                 break;
-            case 'title3':
-                setTitle3(value);
+            case 'general3Title':
+                setGeneral3Title(value);
                 break;
-            case 'desc3':
-                setDesc3(value);
+            case 'general3Desc':
+                setGeneral3Desc(value);
                 break;
             default:
                 break;
@@ -184,54 +291,79 @@ function NewPostPage() {
     };
 
     useEffect(() => {
-        setDesc1Disabled(title1.trim() === '');
-        setDesc2Disabled(title2.trim() === '');
-        setDesc3Disabled(title3.trim() === '');
+        setGeneral2Desc1Disabled(general1Title.trim() === '');
+        setGeneral2DescDisabled(general2Title.trim() === '');
+        setGeneral3DescDisabled(general3Title.trim() === '');
 
-        if (title1.trim() === '') {
-            setDescr1('');
+        if (general1Title.trim() === '') {
+            setDesc1('');
             setCharCounts(prev => ({
                 ...prev,
-                desc1: 0,
+                general1Desc: 0,
             }));
         }
-        if (title2.trim() === '') {
-            setDesc2('');
+        if (general2Title.trim() === '') {
+            setGeneral2Desc('');
             setCharCounts(prev => ({
                 ...prev,
-                desc2: 0,
+                general2Desc: 0,
             }));
         }
-        if (title3.trim() === '') {
-            setDesc3('');
+        if (general3Title.trim() === '') {
+            setGeneral3Desc('');
             setCharCounts(prev => ({
                 ...prev,
-                desc3: 0,
+                general3Desc: 0,
             }));
         }
-    }, [title1, title2, title3]);
+    }, [general1Title, general2Title, general3Title]);
 
     useEffect(() => {
         setFormValues(prev => ({
             ...prev,
-            desc1: descr1
+            general1Desc: desc1
         }));
         setFormValues(prev => ({
             ...prev,
-            desc2: descr2
+            general2Desc: descr2
         }));
         setFormValues(prev => ({
             ...prev,
-            desc3: descr3
+            general3Desc: descr3
         }));
-    }, [descr1, descr2, descr3]);
+    }, [desc1, descr2, descr3]);
   
     return (
         <div className="h-[100%] flex">
-            <div className="flex-[3] overflow-y-auto">
+            <div className="overflow-y-auto">
                 <h1 className="font-[500] text-[22px] md:text-[26px] mt-[30px]">Adicionar carro</h1>
+                <UploadCarWidget uwConfig={{
+                    cloudName: "dpwr6ol0l",
+                    uploadPreset: "garagelink",
+                    folder: "posts",
+                    multiple: true
+                }} setState={setImages} />
+
+                <div className="grid grid-cols-2 sm:flex sm:justify-between w-[98%] sm:w-[96%] mt-[20px] items-center gap-4">
+                    {images.map((image, index) => (
+                        <div key={index} className="relative w-[200px] h-[120px] sm:w-[280px] sm:h-[200px] bg-gray-200 flex items-center justify-center">
+                            <img
+                                src={`${image.replace('/upload/', '/upload/w_300,h_200,q_auto,f_auto/')}`}
+                                alt="Imagem do carro"
+                                className="w-full h-full object-cover"
+                            />
+                            <button
+                                onClick={() => removeImage(index)}
+                                className="absolute top-0 right-0 bg-red-600 hover:bg-red-700 text-white 
+                                rounded-full w-4 h-4 flex items-center justify-center p-3">
+                                X
+                            </button>
+                        </div>
+                    ))}
+                </div>
+
                 <div className="mt-[30px] md:mr-[50px] md:mb-[100px] ml-0">
-                    <form className="flex md:justify-between flex-wrap gap-[20px] mb-10 md:mb-0">
+                    <form onSubmit={handleSubmit} className="flex md:justify-between flex-wrap gap-[20px] mb-10 md:mb-0">
 
                         <div className="w-[45%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
@@ -241,7 +373,7 @@ function NewPostPage() {
                                 </div>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
-                            <input className="p-[20px] rounded-[5px] border border-gray-400" 
+                            <input onInput={() => setError('')} className="p-[20px] rounded-[5px] border border-gray-400" 
                                 id="title" name="title" type="text" value={formValues.title} placeholder="Ex: Ford Fiesta 2018"
                                 onChange={handleInputChange} maxLength="30"
                             />
@@ -250,16 +382,16 @@ function NewPostPage() {
 
                         <div className="w-[45%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
-                                <label className="text-[14px] sm:text-[16px]" htmlFor="buyorrent">Comprar ou alugar</label>
+                                <label className="text-[14px] sm:text-[16px]" htmlFor="buyOrRent">Comprar ou alugar</label>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
-                            <select name="buyorrent" onChange={handleTypeChange}
+                            <select name="buyOrRent" onChange={handleTypeChange}
                                 className="p-[21px] rounded-[5px] border border-gray-400">
                                 
-                                <option value="buy" defaultChecked>
+                                <option value="Comprar" defaultChecked>
                                     Comprar
                                 </option>
-                                <option value="rent">
+                                <option value="Alugar">
                                     Alugar
                                 </option>
 
@@ -269,14 +401,14 @@ function NewPostPage() {
                         <div className="w-[45%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
                                 <label className="text-[14px] sm:text-[16px]" htmlFor="price">
-                                    {buyOrRent === 'rent' ? 'Valor do aluguel por hora' : 'Valor da compra'}
+                                    {buyOrRent === 'Alugar' ? 'Valor do aluguel por hora' : 'Valor da compra'}
                                 </label>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
                             
-                            <input className="p-[20px] rounded-[5px] border border-gray-400" 
-                                id="price" name="price" type="text" value={price} onChange={handlePriceChange}
-                                placeholder={buyOrRent === 'rent' ? 'Ex: 120' : 'Ex: 120000'} 
+                            <input onInput={() => setError('')} className="p-[20px] rounded-[5px] border border-gray-400" 
+                                id={buyOrRent === 'Alugar' ? 'priceToRent' : 'priceToBuy'} name={buyOrRent === 'Alugar' ? 'priceToRent' : 'priceToBuy'} type="text" value={price} onChange={handlePriceChange}
+                                placeholder={buyOrRent === 'Alugar' ? 'Ex: 120' : 'Ex: 120000'} 
                             />
                         </div>
 
@@ -285,7 +417,7 @@ function NewPostPage() {
                                 <label className="text-[14px] sm:text-[16px]" htmlFor="city">Cidade</label>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
-                            <input className="p-[20px] rounded-[5px] border border-gray-400" 
+                            <input onInput={() => setError('')} className="p-[20px] rounded-[5px] border border-gray-400" 
                                 id="city" name="city" type="text" placeholder="Ex: São Paulo" 
                             />
                         </div>
@@ -295,7 +427,7 @@ function NewPostPage() {
                                 <label className="text-[14px] sm:text-[16px]" htmlFor="address">Endereço completo</label>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
-                            <input className="p-[20px] rounded-[5px] border border-gray-400" 
+                            <input onInput={() => setError('')} className="p-[20px] rounded-[5px] border border-gray-400" 
                                 id="address" name="address" type="text" placeholder="Ex: Guarulhos, SP - Brasil"
                             />
                         </div>
@@ -308,12 +440,12 @@ function NewPostPage() {
                             <select name="condition" className="p-[21px] rounded-[5px] 
                                 border border-gray-400">
                                     
-                                <option value="new" defaultChecked>
-                                    Novo
-                                </option>
-                                <option value="used">
-                                    Usado
-                                </option>
+                                    <option value="Novo" defaultChecked>
+                                        Novo
+                                    </option>
+                                    <option value="Usado">
+                                        Usado
+                                    </option>
                                 
                             </select>
                         </div>
@@ -324,33 +456,36 @@ function NewPostPage() {
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
                             <div className="relative" ref={brandDropdownRef}>
-                                
                                 <button
                                     type="button"
                                     onClick={toggleBrandDropdown}
                                     className="p-[20px] rounded-[5px] border border-gray-400 w-full flex items-center justify-between"
                                 >
-                                    <span className="flex truncate max-[10px]">{selectedBrand || 'Selecione a marca'}</span>
+                                    <span className="flex truncate max-[10px]">
+                                        {brands.find(b => b.value === selectedBrand)?.name || 'Selecione a marca'}
+                                    </span>
                                     <img className="absolute right-2" width={10} height={10} src="/arrow2.svg" alt="Seta" />
                                 </button>
-
                                 {isBrandOpen && (
-                                <ul name="brand" className="absolute top-full left-0 w-full bg-white
-                                    border border-gray-400 mt-[0.05rem] z-10 rounded-[10px]">
-                                    {brands.map((brand) => (
-                                        <li key={brand.value} className="flex items-center p-2 
-                                            cursor-pointer hover:bg-gray-200 rounded-[10px]" 
-                                            onClick={() => handleBrandSelect(brand.name)} value={brand.value}>
-                                                
-                                            <img src={brand.logo} alt={`Logo ${brand.name}`} className="w-6 h-6 mr-2" />
-                                            {brand.name}
+                                    <ul className="absolute top-full left-0 w-full bg-white 
+                                        border border-gray-400 mt-[0.05rem] z-10 rounded-[10px]">
 
-                                        </li>
-                                    ))}
-                                </ul>
+                                        {brands.map((brand) => (
+                                            <li key={brand.value} className="flex items-center p-2 
+                                                cursor-pointer hover:bg-gray-200 rounded-[10px]"
+                                                onClick={() => handleBrandSelect(brand)}>
+                                                
+                                                <img src={brand.logo} alt={`Logo ${brand.name}`} className="w-6 h-6 mr-2" />
+                                                {brand.name}
+
+                                            </li>
+                                        ))}
+
+                                    </ul>
                                 )}
                             </div>
                         </div>
+                        <input type="hidden" name="brand" value={selectedBrand || ''} />
 
                         <div className="w-[45%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
@@ -360,10 +495,10 @@ function NewPostPage() {
                             <select name="transmission" className="p-[21px] rounded-[5px] 
                                 border border-gray-400">
                                     
-                                <option value="manual" defaultChecked>
+                                <option value="Manual" defaultChecked>
                                     Manual
                                 </option>
-                                <option value="auto">
+                                <option value="Automatico">
                                     Automático
                                 </option>
                                 
@@ -381,35 +516,37 @@ function NewPostPage() {
                                     onClick={toggleColorDropdown}
                                     className="p-[20px] rounded-[5px] border border-gray-400 w-full flex items-center justify-between"
                                 >
-                                    <span className="flex truncate max-[10px]">{selectedColor || 'Selecione a cor principal'}</span>
+                                    <span className="flex truncate max-[10px]">
+                                        {colors.find(c => c.value === selectedColor)?.name || 'Selecione a cor principal'}
+                                    </span>
                                     <img className="absolute right-2" width={10} height={10} src="/arrow2.svg" alt="Seta" />
                                 </button>
                                 {isColorOpen && (
-                                <ul name="color" className="absolute top-full left-0 w-full bg-white
-                                    border border-gray-400 mt-[0.05rem] z-10 rounded-[10px]">
-                                    {colors.map((color) => (
-                                        <li key={color.value} className="flex items-center p-2 cursor-pointer hover:bg-gray-200 rounded-[10px]" 
-                                            onClick={() => handleColorSelect(color.name)} value={color.value}>
-                                            <div className="w-4 h-4 rounded-full mr-2"
-                                                style={{ backgroundColor: color.hex1 }}
-                                            />
-                                            <div className="w-4 h-4 rounded-full mr-2"
-                                                style={{ backgroundColor: color.hex2 }}
-                                            />
-                                            <div className="w-4 h-4 rounded-full mr-2"
-                                                style={{ backgroundColor: color.hex3 }}
-                                            />
-                                            {color.name}
-                                        </li>
-                                    ))}
-                                </ul>
+                                    <ul name="color" className="absolute top-full left-0 w-full bg-white border border-gray-400 mt-[0.05rem] z-10 rounded-[10px]">
+                                        {colors.map((color) => (
+                                            <li
+                                                key={color.value}
+                                                className="flex items-center p-2 cursor-pointer hover:bg-gray-200 rounded-[10px]"
+                                                onClick={() => handleColorSelect(color)}
+                                            >
+                                                <div className="w-4 h-4 rounded-full mr-2" style={{ backgroundColor: color.hex1 }} />
+                                                <div className="w-4 h-4 rounded-full mr-2" style={{ backgroundColor: color.hex2 }} />
+                                                <div className="w-4 h-4 rounded-full mr-2" style={{ backgroundColor: color.hex3 }} />
+                                                {color.name}
+                                            </li>
+                                        ))}
+                                    </ul>
                                 )}
                             </div>
+                            <input type="hidden" name="color" value={selectedColor || ''} />
                         </div>
 
                         <div className="flex flex-col gap-[5] w-[95%] md:w-[100%]">
-                            <label className="text-[14px] sm:text-[16px]" htmlFor="description">Descrição</label>
-                            <textarea className="p-[20px] rounded-[5px] border border-gray-400 h-[200px] resize-none" 
+                            <div className="flex justify-between items-center">
+                                <label className="text-[14px] sm:text-[16px]" htmlFor="description">Descrição</label>
+                                <span className="text-red-600 mr-1 font-bold">*</span>
+                            </div>
+                            <textarea onInput={() => setError('')} className="p-[20px] rounded-[5px] border border-gray-400 h-[200px] resize-none" 
                                 id="description" name="description" value={formValues.description} type="text"
                                 onChange={handleInputChange} maxLength="750"
                             />
@@ -424,22 +561,22 @@ function NewPostPage() {
                             <select name="fuel" className="p-[21px] rounded-[5px] 
                                 border border-gray-400">
                                     
-                                <option value="diesel" defaultChecked>
+                                <option value="Diesel" defaultChecked>
                                     Diesel
                                 </option>
-                                <option value="elec">
+                                <option value="Eletrecidade">
                                     Eletrecidade
                                 </option>
-                                <option value="etanol">
+                                <option value="Etanol">
                                     Etanol
                                 </option>
-                                <option value="flex">
+                                <option value="Flex">
                                     Flex
                                 </option>
-                                <option value="gas">
+                                <option value="Gas">
                                     Gás
                                 </option>
-                                <option value="gasolina">
+                                <option value="Gasolina">
                                     Gasolina
                                 </option>
                                 
@@ -462,8 +599,8 @@ function NewPostPage() {
                                 </div>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
-                            <input className="p-[20px] rounded-[5px] border border-gray-400" 
-                                id="latitude" name="latitude" type="number" placeholder="Ex: -23.59105941675351"
+                            <input onInput={() => setError('')} className="p-[20px] rounded-[5px] border border-gray-400" 
+                                id="latitude" name="latitude" type="number" step="any" placeholder="Ex: -23.59105941675351"
                             />
                         </div>
 
@@ -483,86 +620,88 @@ function NewPostPage() {
                                 </div>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
-                            <input className="p-[20px] rounded-[5px] border border-gray-400" 
-                                id="longitude" name="longitude" type="number" placeholder="Ex: -46.69087039560111"
+                            <input onInput={() => setError('')} className="p-[20px] rounded-[5px] border border-gray-400" 
+                                id="longitude" name="longitude" type="number" step="any" placeholder="Ex: -46.69087039560111"
                             />
                         </div>
 
                         <div className="grid grid-cols-2 w-[100%] gap-[20px]">
                             <div className="w-[90%] md:w-[100%] flex flex-col gap-[5]">
                                 <div className="flex justify-between items-center">
-                                    <label className="text-[14px] sm:text-[16px]" htmlFor="title1">Título 1</label>
-                                    <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.title1}/30 <span className="hidden sm:flex">caracteres</span></span>
+                                    <label className="text-[14px] sm:text-[16px]" htmlFor="general1Title">Título 1</label>
+                                    <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.general1Title}/30 <span className="hidden sm:flex">caracteres</span></span>
                                 </div>
                                 <input className="p-[20px] rounded-[5px] border border-gray-400" 
-                                    id="title1" name="title1" type="text" placeholder="Dê motivos para as pessoas comprarem o carro"
-                                    onChange={handleInputChange} value={formValues.title1} maxLength="30"
+                                    id="general1Title" name="general1Title" type="text" placeholder="Dê motivos para as pessoas comprarem o carro"
+                                    onChange={handleInputChange} value={formValues.general1Title} maxLength="30"
                                 />
                             </div>
 
                             <div className="w-[90%] md:w-[100%] flex flex-col gap-[5]">
                                 <div className="flex justify-between items-center">
-                                    <label className="text-[14px] sm:text-[16px]" htmlFor="desc1">Descrição 1</label>
-                                    <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.desc1}/30 <span className="hidden sm:flex">caracteres</span></span>
+                                    <label className="text-[14px] sm:text-[16px]" htmlFor="general1Desc">Descrição 1</label>
+                                    <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.general1Desc}/70 <span className="hidden sm:flex">caracteres</span></span>
                                 </div>
                                 <input className="p-[20px] rounded-[5px] border border-gray-400 disabled:bg-gray-600/20" 
-                                    id="desc1" name="desc1" type="text" placeholder="Adicione uma descrição sobre o título escolhido"
-                                    disabled={desc1Disabled} onChange={handleInputChange} maxLength="30" value={formValues.desc1}
+                                    id="general1Desc" name="general1Desc" type="text" placeholder="Adicione uma descrição sobre o título escolhido"
+                                    disabled={general1DescDisabled} onChange={handleInputChange} maxLength="70" value={formValues.general1Desc}
                                 />
                             </div>
 
                             <div className="w-[90%] md:w-[100%] flex flex-col gap-[5]">
                                 <div className="flex justify-between items-center">
-                                    <label className="text-[14px] sm:text-[16px]" htmlFor="title2">Título 2</label>
-                                    <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.title2}/30 <span className="hidden sm:flex">caracteres</span></span>
+                                    <label className="text-[14px] sm:text-[16px]" htmlFor="general2Title">Título 2</label>
+                                    <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.general2Title}/30 <span className="hidden sm:flex">caracteres</span></span>
                                 </div>
                                 <input className="p-[20px] rounded-[5px] border border-gray-400" 
-                                    id="title2" name="title2" type="text" placeholder="Dê motivos para as pessoas comprarem o carro"
-                                    onChange={handleInputChange} value={formValues.title2} maxLength="30"
+                                    id="general2Title" name="general2Title" type="text" placeholder="Dê motivos para as pessoas comprarem o carro"
+                                    onChange={handleInputChange} value={formValues.general2Title} maxLength="30"
                                 />
                             </div>
 
                             <div className="w-[90%] md:w-[100%] flex flex-col gap-[5]">
                                 <div className="flex justify-between items-center">
-                                    <label className="text-[14px] sm:text-[16px]" htmlFor="desc2">Descrição 2</label>
-                                    <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.desc2}/30 <span className="hidden sm:flex">caracteres</span></span>
+                                    <label className="text-[14px] sm:text-[16px]" htmlFor="general2Desc">Descrição 2</label>
+                                    <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.general2Desc}/70 <span className="hidden sm:flex">caracteres</span></span>
                                 </div>
                                 <input className="p-[20px] rounded-[5px] border border-gray-400 disabled:bg-gray-600/20" 
-                                    id="desc2" name="desc2" type="text" placeholder="Adicione uma descrição sobre o título escolhido"
-                                    disabled={desc2Disabled} onChange={handleInputChange} maxLength="30" value={formValues.desc2}
+                                    id="general2Desc" name="general2Desc" type="text" placeholder="Adicione uma descrição sobre o título escolhido"
+                                    disabled={general2DescDisabled} onChange={handleInputChange} maxLength="70" value={formValues.general2Desc}
                                 />
                             </div>
 
                             <div className="w-[90%] md:w-[100%] flex flex-col gap-[5]">
                                 <div className="flex justify-between items-center">
-                                    <label className="text-[14px] sm:text-[16px]" htmlFor="title3">Título 3</label>
-                                    <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.title3}/30 <span className="hidden sm:flex">caracteres</span></span>
+                                    <label className="text-[14px] sm:text-[16px]" htmlFor="general3Title">Título 3</label>
+                                    <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.general3Title}/30 <span className="hidden sm:flex">caracteres</span></span>
                                 </div>
                                 <input className="p-[20px] rounded-[5px] border border-gray-400" 
-                                    id="title3" name="title3" type="text" placeholder="Dê motivos para as pessoas comprarem o carro"
-                                    onChange={handleInputChange} value={formValues.title3} maxLength="30"
+                                    id="general3Title" name="general3Title" type="text" placeholder="Dê motivos para as pessoas comprarem o carro"
+                                    onChange={handleInputChange} value={formValues.general3Title} maxLength="30"
                                 />
                             </div>
 
                             <div className="w-[90%] md:w-[100%] flex flex-col gap-[5]">
                                 <div className="flex justify-between items-center">
-                                    <label className="text-[14px] sm:text-[16px]" htmlFor="desc3">Descrição 3</label>
-                                    <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.desc3}/30 <span className="hidden sm:flex">caracteres</span></span>
+                                    <label className="text-[14px] sm:text-[16px]" htmlFor="general3Desc">Descrição 3</label>
+                                    <span className="text-gray-600 text-sm flex gap-[2px]">{charCounts.general3Desc}/70 <span className="hidden sm:flex">caracteres</span></span>
                                 </div>
                                 <input className="p-[20px] rounded-[5px] border border-gray-400 disabled:bg-gray-600/20" 
-                                    id="desc3" name="desc3" type="text" placeholder="Adicione uma descrição sobre o título escolhido"
-                                    disabled={desc3Disabled} onChange={handleInputChange} maxLength="30" value={formValues.desc3}
+                                    id="general3Desc" name="general3Desc" type="text" placeholder="Adicione uma descrição sobre o título escolhido"
+                                    disabled={general3DescDisabled} onChange={handleInputChange} maxLength="70" value={formValues.general3Desc}
                                 />
                             </div>
                         </div>
 
-                        <button className="w-[95%] md:w-[100%] p-[20px] text-white font-semibold text-[22px] bg-[#fece51] uppercase hover:bg-[#fece51]/90 h-[100%] border-0 cursor-pointer rounded-[5px]">
-                            Publicar carro
-                        </button>
+                        <div className="flex flex-col justify-center w-[100%] gap-y-4">
+                            <button className="w-[95%] md:w-[100%] p-[30px] text-white font-semibold text-[22px] bg-green-500 uppercase hover:bg-green-400 h-[100%] border-0 cursor-pointer rounded-[5px]">
+                                Publicar carro
+                            </button>
+                            {error && <span className="text-red-600 flex justify-center text-[18px]">{error}</span>}
+                        </div>
                     </form>
                 </div>
             </div>
-            <div className="sideContainer"></div>
         </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../context/AuthContext";
@@ -11,6 +11,9 @@ function Navbar() {
 
     const {updateUser, currentUser} = useContext(AuthContext);
 
+    const menuRef = useRef(null);
+    const buttonRef = useRef(null);
+
     const handleLogout = async () => {
         try {
             await apiRequest.post("/auth/sair");
@@ -21,6 +24,24 @@ function Navbar() {
             console.log(error)
         }
     }
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (
+                menuRef.current &&
+                !menuRef.current.contains(event.target) &&
+                buttonRef.current &&
+                !buttonRef.current.contains(event.target)
+            ) {
+                setOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+        };
+    }, []);
 
     const linkClasses = "transition duration-[0.4s] ease-in-out hover:scale-[1.1] z-50";
 
@@ -39,7 +60,7 @@ function Navbar() {
             <div className="flex flex-[2] justify-end gap-[10px] items-center">
                 {currentUser ? (
                     <div className="flex items-center font-bold">
-                        <Link to="/perfil" className="flex items-center"> 
+                        <Link to="/perfil" className="flex items-center z-10"> 
                             <img className="w-[40px] h-[40px] rounded-[50%] mr-[10px] object-cover transition-all duration-[0.4s] ease-in-out hover:scale-[1.1]" src={currentUser.avatarURL || "/noavatar.svg"} alt="Imagem de perfil" />
                             <span className="mr-[20px] hidden md:flex capitalize">{currentUser.username}</span>
                         </Link>
@@ -55,13 +76,13 @@ function Navbar() {
                     </>
                 )}
                 
-                <div className="flex-initial md:hidden cursor-pointer z-10">
+                <div ref={buttonRef} className="flex-initial md:hidden cursor-pointer z-30">
                     <img width={36} height={36} src="/menu.svg" alt="Menu" onClick={() => setOpen((prev) => !prev)}/>
                 </div>
 
-                <div className={`absolute top-0 bg-black text-white h-[100vh] w-[50%] 
+                <div ref={menuRef} className={`absolute top-0 bg-black text-white h-[100vh] w-[50%] 
                     transition-all duration-[1s] ease-in-out text-[20px]
-                    flex flex-col items-center justify-center gap-y-[50px]
+                    flex flex-col items-center justify-center gap-y-[50px] z-20
                 ${open ? "right-0" : "right-[-55%]"} md:hidden`}
                 >
                     <Link to="/" className={`${linkClasses}`}>Início</Link>
