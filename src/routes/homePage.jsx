@@ -1,12 +1,7 @@
-import { useContext } from "react";
-
-import { AuthContext } from "../context/AuthContext";
 import SearchBar from "../components/SearchBar";
 
 function HomePage() {
-    const {currentUser} = useContext(AuthContext);
-    console.log(currentUser)
-    
+
     return (
         <div className="flex h-[100%]">
             <div className="flex flex-[3] justify-center items-center">
