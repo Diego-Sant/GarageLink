@@ -137,11 +137,14 @@ function NewPostPage() {
 
         setError('');
 
+        const noAccentCity = inputs.city.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
         try {
             const res = await apiRequest.post("/publicacoes", {
                 postData: {
                     title: inputs.title,
                     city: inputs.city,
+                    noAccentCity: noAccentCity,
                     address: inputs.address,
                     condition: inputs.condition,
                     brand: inputs.brand,
@@ -233,12 +236,12 @@ function NewPostPage() {
     //------------------------------------------------------------------------------------------------//
 
     const [formValues, setFormValues] = useState({
-        title: '', description: '', general1Title: '', general1Desc: '',
+        title: '', address: '', description: '', general1Title: '', general1Desc: '',
         general2Title: '', general2Desc: '', general3Title: '', general3Desc: ''
     });
 
     const [charCounts, setCharCounts] = useState({
-        title: 0, description: 0, general1Title: 0, general2Title: 0, 
+        title: 0, address: 0, description: 0, general1Title: 0, general2Title: 0, 
         general3Title: 0, general1Desc: 0, general2Desc: 0, general3Desc: 0
     });
 
@@ -259,7 +262,7 @@ function NewPostPage() {
             [name]: value
         }));
 
-        if (name === 'description' || name === 'title' || name === 'general1Title' || name === 'general1Desc' || name === 'general2Title' || name === 'general2Desc' || name === 'general3Title' || name === 'general3Desc') {
+        if (name === 'description' || name === 'title' || name === 'address' || name === 'general1Title' || name === 'general1Desc' || name === 'general2Title' || name === 'general2Desc' || name === 'general3Title' || name === 'general3Desc') {
             setCharCounts(prev => ({
                 ...prev,
                 [name]: value.length
@@ -424,12 +427,17 @@ function NewPostPage() {
 
                         <div className="w-[45%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
-                                <label className="text-[14px] sm:text-[16px]" htmlFor="address">Endereço completo</label>
+                                <div className="flex gap-[10px] items-center">
+                                    <label className="text-[14px] sm:text-[16px]" htmlFor="address">Endereço completo</label>
+                                    <span className="hidden lg:flex text-gray-600 text-sm">{charCounts.address}/50 caracteres</span>
+                                </div>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
                             <input onInput={() => setError('')} className="p-[20px] rounded-[5px] border border-gray-400" 
-                                id="address" name="address" type="text" placeholder="Ex: Guarulhos, SP - Brasil"
+                                id="address" name="address" value={formValues.address} type="text" placeholder="Ex: Guarulhos, SP - Brasil"
+                                onChange={handleInputChange} maxLength="50"
                             />
+                            <span className="lg:hidden text-gray-600 text-sm">{charCounts.address}/50 caracteres</span>
                         </div>
 
                         <div className="w-[45%] md:w-[30%] flex flex-col gap-[5]">
