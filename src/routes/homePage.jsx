@@ -15,7 +15,7 @@ function HomePage() {
 
                         <div className="text-[20px] flex flex-col gap-y-2">
                             <p><span className="text-[#fece51]">✓</span> 
-                            Mais de <span className="font-semibold">60.000</span> 
+                            Mais de <span className="font-semibold">60.000 </span> 
                             localidades</p>
 
                             <p><span className="text-[#fece51]">✓</span> 
@@ -23,7 +23,7 @@ function HomePage() {
                             30</span> idiomas</p>
 
                             <p><span className="text-[#fece51]">✓</span> Mais de 
-                            <span className="font-semibold">5.000</span> carros 
+                            <span className="font-semibold"> 5.000</span> carros 
                             diferentes</p>
                         </div>
                     </div>

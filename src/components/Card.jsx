@@ -16,17 +16,20 @@ function Card({ item }) {
         <div className="flex flex-col lg:flex-row gap-[20px]">
             {location.pathname === "/carros" ? (
                 <Link to={`${item.id}`} className="flex-[2] h-[200px]">
-                    <img className="w-[100%] h-[100%] object-cover rounded-[10px] 
-                        transition-all duration-[0.4s] ease-in-out hover:scale-[1.05]" 
-                        src={item.images[0]} alt={item.title} 
+                    <img 
+                        className="w-[100%] h-[100%] object-cover rounded-[10px] 
+                            transition-all duration-[0.4s] ease-in-out hover:scale-[1.05]" 
+                        src={item.images?.[0] || ""} 
+                        alt={item.title} 
                     />
                 </Link>
             ) : (
                 <Link to={`${item.id}`} className="flex-[2] h-[200px]">
-                    <img className="w-[100%] h-[100%] lg:h-[120%] xl:h-[100%] 
-                        object-cover rounded-[10px] transition-all duration-[0.4s] 
-                        ease-in-out hover:scale-[1.05]" 
-                        src={item.images[0]} alt={item.title} 
+                    <img 
+                        className="w-[100%] h-[100%] object-cover rounded-[10px] 
+                            transition-all duration-[0.4s] ease-in-out hover:scale-[1.05]" 
+                        src={item.images?.[0] || ""} 
+                        alt={item.title} 
                     />
                 </Link>
             )}

@@ -1,9 +1,42 @@
+import { useContext, useState } from "react";
+import { useLoaderData, useNavigate } from "react-router-dom";
+
+import { AuthContext } from "../context/AuthContext"
 import Map from "../components/Map";
 import Slider from "../components/Slider";
-import { useLoaderData } from "react-router-dom";
+import apiRequest from "../lib/apiRequest";
+import FavoriteButton from "../components/FavoriteButton";
 
 function SinglePage() {
     const posts = useLoaderData();
+    const { currentUser } = useContext(AuthContext);
+    const navigate = useNavigate();
+
+    const [favorited, setFavorited] = useState(posts.isSaved);
+    const [loading, setLoading] = useState(false);
+
+    const handleFavorite = async () => {
+        if (loading) return;
+
+        setLoading(true);
+        setFavorited((prev) => !prev);
+
+        if (!currentUser) {
+            navigate("/entrar");
+        }
+
+        try {
+            await apiRequest.post("/usuarios/favoritos",{postId: posts.id});
+            
+        } catch (error) {
+            console.log(error);
+            setFavorited((prev) => !prev);
+        } finally {
+            setTimeout(() => {
+                setLoading(false);
+            }, 900);
+        }
+    }
 
     const formatPriceToRent = (price) => price.toFixed(2).replace('.', ',');
     const formatPriceToBuy = (price) => price.toFixed(3);
@@ -162,15 +195,31 @@ function SinglePage() {
                     </div>
                     
                     <div className="flex flex-col xl:flex-row gap-y-4 xl:gap-y-0 justify-between items-center mt-2">
-                        <button className="flex justify-center xl:justify-between p-[20px] xl:p-[10px] w-[100%] xl:max-w-max items-center gap-x-2 bg-white hover:bg-white/20 border border-[#fece51] rounded-[5px] cursor-pointer">
+                        
+                        <button className="flex justify-center xl:justify-between p-[20px] 
+                            xl:p-[10px] w-[100%] xl:max-w-max items-center gap-x-2 
+                            bg-white hover:bg-white/20 border border-[#fece51] 
+                            rounded-[5px] cursor-pointer">
+
                             <img width={16} height={16} src="/chat.svg" alt="Conversar com o vendedor" />
                             Mande uma mensagem
+
                         </button>
-                        <button className="flex justify-center xl:justify-between p-[20px] xl:p-[10px] w-[100%] xl:max-w-max items-center gap-x-2 bg-white hover:bg-white/20 border border-[#fece51] rounded-[5px] cursor-pointer">
-                            <img width={16} height={16} src="/save.svg" alt="Adicionar o carro aos favoritos" />
-                            Adicionar aos favoritos
+
+                        <button disabled={loading} onClick={handleFavorite} 
+                            className={`flex justify-center xl:justify-between 
+                                items-center gap-x-4 border p-[20px] xl:p-[10px]
+                                ${favorited ? 'bg-[#fece51] hover:bg-[#fece51]/70 border-[#2f2f2f] disabled:bg-[#f0b500]' 
+                                : 'bg-white border-[#fece51] hover:bg-white/20 disabled:bg-gray-600/20'} 
+                                rounded-[5px] cursor-pointer w-[100%] xl:w-[50%] 
+                                mb-5 xl:mb-0 xl:h-[46px] disabled:cursor-default`}>
+
+                            <FavoriteButton isFavorited={favorited} onClick={handleFavorite} />
+                            <p className={favorited ? "text-[20px] xl:text-[17px] 2xl:text-[18px] xl:mr-1" : "text-[16px]"}>{favorited ? "Na lista de favoritos" : "Adicionar aos favoritos"}</p>
+                        
                         </button>
                     </div>
+
                 </div>
             </div>
         </div>

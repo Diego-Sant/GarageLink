@@ -31,6 +31,7 @@ const brands = [
     { name: 'Renault', value: 'Renault', logo: 'https://diego-sant.github.io/QuizApp/img/renault.svg' },
     { name: 'Rolls Royce', value: 'RollsRoyce', logo: 'https://diego-sant.github.io/QuizApp/img/rollsroyce.svg' },
     { name: 'Suzuki', value: 'Suzuki', logo: 'https://diego-sant.github.io/QuizApp/img/suzuki.svg' },
+    { name: 'Tesla', value: 'Tesla', logo: 'https://diego-sant.github.io/QuizApp/img/tesla.svg' },
     { name: 'Toyota', value: 'Toyota', logo: 'https://diego-sant.github.io/QuizApp/img/toyota.svg' },
     { name: 'Volkswagen', value: 'Volkswagen', logo: 'https://diego-sant.github.io/QuizApp/img/volkswagen.svg' },
     { name: 'Yamaha', value: 'Yamaha', logo: 'https://diego-sant.github.io/QuizApp/img/yamaha.svg' },
