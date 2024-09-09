@@ -32,13 +32,13 @@ function Filter() {
     };
 
     return (
-        <div className="flex flex-col gap-[10px]">
+        <div className="flex flex-col gap-[10px] dark:text-white">
             <h1 className="font-[300] text-[24px]">Resultado da pesquisa: <b className="font-bold capitalize">{searchParams.get("cidade")}</b></h1>
             <div className="">
                 <div className="flex flex-col gap-4">
                     <label className="text-[14px]" htmlFor="cidade">Cidade</label>
                     <input onChange={handleChange} defaultValue={query.cidade}
-                    className="w-[100%] p-[10px] border border-[#e0e0e0]" 
+                    className="w-[100%] p-[10px] border border-[#e0e0e0] dark:bg-[#121212]" 
                     type="text" id="cidade" name="cidade" onKeyDown={handleKeyDown}
                     placeholder="Nome da cidade" />
                 </div>
@@ -47,8 +47,8 @@ function Filter() {
                 <div className="flex flex-col gap-[2px]">
                     <label className="text-[14px]" htmlFor="marca">Marca</label>
                     <select onChange={handleChange} defaultValue={query.brand}
-                        className="w-[100px] p-[10px] border border-[#e0e0e0] 
-                        rounded-[5px] text-[14px]" name="marca" id="marca">
+                        className="w-[100%] p-[10px] border border-[#e0e0e0] 
+                        rounded-[5px] text-[14px] dark:bg-[#121212]" name="marca" id="marca">
                         <option value="">Todas</option>
                         <option value="Audi">Audi</option>
                         <option value="Bentley">Bentley</option>
@@ -84,8 +84,8 @@ function Filter() {
                 <div className="flex flex-col gap-[2px]">
                     <label className="text-[14px]" htmlFor="disponibilidade">Disponibilidade</label>
                     <select onChange={handleChange} defaultValue={query.disponibilidade}
-                        className="w-[100px] p-[10px] border border-[#e0e0e0] 
-                        rounded-[5px] text-[14px]" name="disponibilidade" 
+                        className="w-[100%] p-[10px] border border-[#e0e0e0] 
+                        rounded-[5px] text-[14px] dark:bg-[#121212]" name="disponibilidade" 
                         id="disponibilidade">
                         <option value="">Todas</option>
                         <option value="Comprar">Comprar</option>
@@ -95,8 +95,8 @@ function Filter() {
                 <div className="flex flex-col gap-[2px]">
                     <label className="text-[14px]" htmlFor="condicao">Condição</label>
                     <select onChange={handleChange} defaultValue={query.condicao}
-                        className="w-[100px] p-[10px] border border-[#e0e0e0] 
-                        rounded-[5px] text-[14px]" name="condicao" id="condicao">
+                        className="w-[100%] p-[10px] border border-[#e0e0e0] 
+                        rounded-[5px] text-[14px] dark:bg-[#121212]" name="condicao" id="condicao">
                         <option value="">Todas</option>
                         <option value="Novo">Novo</option>
                         <option value="Usado">Usado</option>
@@ -105,8 +105,8 @@ function Filter() {
                 <div className="flex flex-col gap-[2px]">
                     <label className="text-[14px]" htmlFor="transmissao">Transmissão</label>
                     <select onChange={handleChange} defaultValue={query.transmissao}
-                        className="w-[100px] p-[10px] border border-[#e0e0e0] 
-                        rounded-[5px] text-[14px]" name="transmissao" id="transmissao">
+                        className="w-[100%] p-[10px] border border-[#e0e0e0] 
+                        rounded-[5px] text-[14px] dark:bg-[#121212]" name="transmissao" id="transmissao">
                         <option value="">Todas</option>
                         <option value="Manual">Manual</option>
                         <option value="Automático">Automático</option>
@@ -115,8 +115,8 @@ function Filter() {
                 <div className="flex flex-col gap-[2px]">
                     <label className="text-[14px]" htmlFor="cor">Cor</label>
                     <select onChange={handleChange} defaultValue={query.cor}
-                        className="w-[100px] p-[10px] border border-[#e0e0e0] 
-                        rounded-[5px] text-[14px]" name="cor" id="cor">
+                        className="w-[100%] p-[10px] border border-[#e0e0e0] 
+                        rounded-[5px] text-[14px] dark:bg-[#121212]" name="cor" id="cor">
                         <option value="">Todas</option>
                         <option value="Amarelo">Amarelo</option>
                         <option value="Azul">Azul</option>
@@ -140,18 +140,18 @@ function Filter() {
                 <div className="flex flex-col gap-[2px]">
                     <label className="text-[14px]" htmlFor="precomin">Preço mínimo</label>
                     <input onChange={handleChange} defaultValue={query.precoMin}
-                        className="w-[100px] p-[10px] border border-[#e0e0e0] 
-                        rounded-[5px] text-[14px]" type="number" id="precomin" 
+                        className="w-[100%] p-[10px] border border-[#e0e0e0] 
+                        rounded-[5px] text-[14px] dark:bg-[#121212]" type="number" id="precomin" 
                         name="precomin" placeholder="Qualquer" onKeyDown={handleKeyDown} />
                 </div>
                 <div className="flex flex-col gap-[2px]">
                     <label className="text-[14px]" htmlFor="precomax">Preço máximo</label>
                     <input onChange={handleChange} defaultValue={query.precoMax}
-                        className="w-[100px] p-[10px] border border-[#e0e0e0] 
-                        rounded-[5px] text-[14px]" type="number" id="precomax" 
+                        className="w-[100%] p-[10px] border border-[#e0e0e0] 
+                        rounded-[5px] text-[14px] dark:bg-[#121212]" type="number" id="precomax" 
                         name="precomax" placeholder="Qualquer" onKeyDown={handleKeyDown} />
                 </div>
-                <button onClick={handleFilter} className="flex justify-center items-center w-[100px] h-[45px] mt-[1.11rem] border-0 cursor-pointer bg-[#fece51] hover:bg-[#fece51]/90 rounded-[5px]">
+                <button onClick={handleFilter} className="flex justify-center items-center w-[100%] h-[45px] mt-[1.11rem] border-0 cursor-pointer bg-[#fece51] hover:bg-[#fece51]/90 rounded-[5px]">
                     <img width={24} height={24} src="/search.svg" alt="Pesquisar" />
                 </button>
             </div>

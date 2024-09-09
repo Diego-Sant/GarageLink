@@ -34,7 +34,7 @@ function ProfileUpdatePage() {
     };
   
     return (
-        <div className="h-[100%] flex flex-col md:flex-row mt-[80px]">
+        <div className="h-[100%] flex flex-col md:flex-row mt-[80px] dark:text-white">
             <div className="flex-[3] flex items-center justify-center">
                 <form onSubmit={handleSubmit} className="flex flex-col gap-[20px] 
                     w-[300px] mt-[60px] md:mt-0">
@@ -44,7 +44,7 @@ function ProfileUpdatePage() {
                     <div className="flex flex-col gap-[5px]">
                         <label htmlFor="username">Usuário</label>
                         <input className="py-[4px] px-[10px] border 
-                            border-[#e0e0e0] rounded-[5px]" 
+                            border-[#e0e0e0] rounded-[5px] dark:dark:bg-[#1a1a1a]" 
                             defaultValue={currentUser.username} id="username" 
                             name="username" type="text" 
                         />
@@ -53,7 +53,7 @@ function ProfileUpdatePage() {
                     <div className="flex flex-col gap-[5px]">
                         <label htmlFor="email">Email</label>
                         <input className="py-[4px] px-[10px] border 
-                            border-[#e0e0e0] rounded-[5px]" 
+                            border-[#e0e0e0] rounded-[5px] dark:bg-[#1a1a1a]" 
                             defaultValue={currentUser.email} id="email" 
                             name="email" type="email" 
                         />
@@ -62,12 +62,14 @@ function ProfileUpdatePage() {
                     <div className="flex flex-col gap-[5px]">
                         <label htmlFor="password">Senha</label>
                         <input className="py-[4px] px-[10px] border 
-                            border-[#e0e0e0] rounded-[5px]" id="password" 
+                            border-[#e0e0e0] rounded-[5px] dark:bg-[#1a1a1a]" id="password" 
                             name="password" type="password" 
                         />
                     </div>
 
-                    <button className="p-[20px] rounded-[5px] border-0 bg-[#fece51] text-white font-bold text-[20px] cursor-pointer hover:bg-[#fece51]/80">
+                    <button className="p-[20px] rounded-[5px] border-0 bg-[#fece51]
+                        text-[#1a1a1a] font-bold text-[20px] cursor-pointer 
+                        hover:bg-[#fece51]/80 dark:text-[#121212]">
                         Atualizar
                     </button>
 

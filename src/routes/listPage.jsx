@@ -29,7 +29,7 @@ function ListPage() {
                     <div className="flex justify-center items-center">
                         <div className="loader"></div>
                     </div>}>
-                    <Await resolve={data.postResponse} errorElement={<p>Erro ao carregar carros!</p>}>
+                    <Await resolve={data.postResponse} errorElement={<p>Erro ao carregar mapa!</p>}>
                         {(postResponse) => <Map items={postResponse.data} />}
                     </Await>
                 </Suspense>

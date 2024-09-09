@@ -8,7 +8,7 @@ function SearchBar() {
         disponibilidade: "Comprar",
         cidade: "",
         precoMin: 0,
-        precoMax: 0,
+        precoMax: 1000000,
     });
 
     const switchType = (val) => {
@@ -27,7 +27,7 @@ function SearchBar() {
                     <button key={type} onClick={() => switchType(type)} 
                         className={`py-[16px] px-[36px] border-[1px] border-[#999] border-b-0 cursor-pointer capitalize 
                             first-of-type:rounded-tl-md first-of-type:border-r-0 last-of-type:rounded-tr-md last-of-type:border-l-0
-                            ${query.disponibilidade  === type ? "bg-black hover:bg-black/90 text-white" : ""}`}>
+                            ${query.disponibilidade  === type ? "bg-black dark:bg-white hover:bg-black/90 dark:hover:bg-white/90 text-white dark:text-black" : ""}`}>
                         {type}
                     </button>
                 ))}
@@ -38,19 +38,22 @@ function SearchBar() {
                 <input onChange={handleChange} name="cidade"
                     className="border md:border-0 p-[20px] md:py-0 md:px-[5px] 
                     w-auto md:w-[215px] lg:w-[258px] xl:w-[185px] 2xl:w-[200px] 
-                    xl:px-[10px]" type="text" placeholder="Nome da cidade"
+                    xl:px-[10px] dark:bg-[#121212] dark:outline-none dark:text-white" 
+                    type="text" placeholder="Nome da cidade"
                 />
 
                 <input onChange={handleChange} name="precoMin"
                     className="border md:border-0 p-[20px] md:py-0 md:px-[5px] 
                     w-auto md:w-[215px] lg:w-[258px] xl:w-[185px] 2xl:w-[200px] 
-                    xl:px-[10px]" type="number" placeholder="Preço mínimo" 
+                    xl:px-[10px] dark:bg-[#121212] dark:text-white dark:outline-none" 
+                    type="number" placeholder="Preço mínimo" 
                 />
 
                 <input onChange={handleChange} name="precoMax" 
                     className="border md:border-0 p-[20px] md:py-0 md:px-[5px] 
                     w-auto md:w-[215px] lg:w-[258px] xl:w-[185px] 2xl:w-[200px] 
-                    xl:px-[10px]" type="number" placeholder="Preço máximo" 
+                    xl:px-[10px] dark:bg-[#121212] dark:text-white dark:outline-none" 
+                    type="number" placeholder="Preço máximo" 
                 />
 
                 <Link className="bg-[#fece51] hover:bg-[#fece51]/90 p-[20px] md:p-0 w-auto md:w-[65px] border-0 cursor-pointer xl:flex-1 flex justify-center items-center" to={`/carros?disponibilidade=${query.disponibilidade}&cidade=${query.cidade}&precoMin=${query.precoMin}&precoMax=${query.precoMax}`}>

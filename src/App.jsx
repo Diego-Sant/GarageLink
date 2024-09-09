@@ -9,9 +9,11 @@ import ProfilePage from "./routes/profilePage";
 import RegisterPage from "./routes/registerPage";
 import ProfileUpdatePage from "./routes/profileUpdatePage";
 import NewPostPage from "./routes/newPostPage";
-import { listPageLoader, singlePageLoader } from "./lib/loaders";
+import { listPageLoader, profilePageLoader, singlePageLoader } from "./lib/loaders";
+import { FavoritesProvider } from "./context/FavoritesContext";
 
 function App() {
+
   const router = createBrowserRouter([
     {
       path: "/",
@@ -48,7 +50,8 @@ function App() {
       children: [
         {
           path: "/perfil",
-          element: <ProfilePage />
+          element: <ProfilePage />,
+          loader: profilePageLoader
         },
         {
           path: "/perfil/atualizar",
@@ -63,7 +66,9 @@ function App() {
   ]);
   
   return (
+    <FavoritesProvider>
       <RouterProvider router={router}/>
+    </FavoritesProvider>
   )
 }
 

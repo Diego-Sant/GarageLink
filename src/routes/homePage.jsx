@@ -3,7 +3,7 @@ import SearchBar from "../components/SearchBar";
 function HomePage() {
 
     return (
-        <div className="flex h-[100%]">
+        <div className="flex h-[100%] dark:text-white">
             <div className="flex flex-[3] justify-center items-center">
                 <div className="xl:pr-[70px] flex flex-col gap-y-16">
 
@@ -14,11 +14,11 @@ function HomePage() {
                         </h1>
 
                         <div className="text-[20px] flex flex-col gap-y-2">
-                            <p><span className="text-[#fece51]">✓</span> 
+                            <p><span className="text-[#fece51]">✓ </span> 
                             Mais de <span className="font-semibold">60.000 </span> 
                             localidades</p>
 
-                            <p><span className="text-[#fece51]">✓</span> 
+                            <p><span className="text-[#fece51]">✓ </span> 
                             Apoio ao cliente em mais de <span className="font-semibold">
                             30</span> idiomas</p>
 
