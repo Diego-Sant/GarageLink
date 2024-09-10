@@ -62,7 +62,17 @@ body {
     animation: l1 1s infinite;
 }
 
+.dark\:loaderDark:is(.dark *) {
+    width: 50px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    border: 8px solid;
+    border-color: #121212 #fff;
+    animation: l2 1s infinite;
+}
+
 @keyframes l1 {to{transform: rotate(.5turn)}}
+@keyframes l2 {to{transform: rotate(.5turn)}}
 
 svg{
     #heart{transform-origin:center; animation:animateHeartOut .3s linear forwards;}

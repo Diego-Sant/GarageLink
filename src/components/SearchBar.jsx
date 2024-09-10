@@ -11,12 +11,29 @@ function SearchBar() {
         precoMax: 1000000,
     });
 
+    const [minPrice, setMinPrice] = useState('');
+    const [maxPrice, setMaxPrice] = useState('');
+
     const switchType = (val) => {
         setQuery(prev => ({...prev, disponibilidade:val}));
     };
 
     const handleChange = (e) => {
         setQuery(prev => ({...prev, [e.target.name]: e.target.value}));
+    }
+
+    const handleChangeMinPrice = (e) => {
+        setQuery(prev => ({...prev, [e.target.name]: e.target.value}));
+        const onlyNumbers = e.target.value.replace(/\D/g, '');
+
+        setMinPrice(onlyNumbers);
+    }
+
+    const handleChangeMaxPrice = (e) => {
+        setQuery(prev => ({...prev, [e.target.name]: e.target.value}));
+        const onlyNumbers = e.target.value.replace(/\D/g, '');
+
+        setMaxPrice(onlyNumbers);
     }
 
     return (
@@ -42,18 +59,18 @@ function SearchBar() {
                     type="text" placeholder="Nome da cidade"
                 />
 
-                <input onChange={handleChange} name="precoMin"
+                <input onChange={handleChangeMinPrice} name="precoMin"
                     className="border md:border-0 p-[20px] md:py-0 md:px-[5px] 
                     w-auto md:w-[215px] lg:w-[258px] xl:w-[185px] 2xl:w-[200px] 
                     xl:px-[10px] dark:bg-[#121212] dark:text-white dark:outline-none" 
-                    type="number" placeholder="Preço mínimo" 
+                    type="text" value={minPrice} placeholder="Preço mínimo" 
                 />
 
-                <input onChange={handleChange} name="precoMax" 
+                <input onChange={handleChangeMaxPrice} name="precoMax" 
                     className="border md:border-0 p-[20px] md:py-0 md:px-[5px] 
                     w-auto md:w-[215px] lg:w-[258px] xl:w-[185px] 2xl:w-[200px] 
                     xl:px-[10px] dark:bg-[#121212] dark:text-white dark:outline-none" 
-                    type="number" placeholder="Preço máximo" 
+                    type="text" value={maxPrice} placeholder="Preço máximo" 
                 />
 
                 <Link className="bg-[#fece51] hover:bg-[#fece51]/90 p-[20px] md:p-0 w-auto md:w-[65px] border-0 cursor-pointer xl:flex-1 flex justify-center items-center" to={`/carros?disponibilidade=${query.disponibilidade}&cidade=${query.cidade}&precoMin=${query.precoMin}&precoMax=${query.precoMax}`}>

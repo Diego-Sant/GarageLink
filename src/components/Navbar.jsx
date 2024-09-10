@@ -78,7 +78,7 @@ function Navbar() {
                                 src={currentUser.avatarURL || "/noavatar.svg"} 
                                 alt="Imagem de perfil"
                             />
-                            <span className="mr-[20px] hidden md:flex capitalize">
+                            <span className="mr-[20px] hidden md:flex">
                                 {currentUser.username}
                             </span>
 

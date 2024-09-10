@@ -55,7 +55,7 @@ function Filter() {
                         <option value="BMW">BMW</option>
                         <option value="BYD">BYD</option>
                         <option value="Chevrolet">Chevrolet</option>
-                        <option value="Citroën">Citroën</option>
+                        <option value="Citroen">Citroën</option>
                         <option value="Ferrari">Ferrari</option>
                         <option value="Fiat">Fiat</option>
                         <option value="Ford">Ford</option>
@@ -65,16 +65,16 @@ function Filter() {
                         <option value="Jeep">Jeep</option>
                         <option value="Kia">Kia</option>
                         <option value="Lamborghini">Lamborghini</option>
-                        <option value="Land Rover">Land Rover</option>
+                        <option value="LandRover">Land Rover</option>
                         <option value="Maserati">Maserati</option>
                         <option value="McLaren">McLaren</option>
-                        <option value="Mercedes-Benz">Mercedes-Benz</option>
+                        <option value="MercedesBenz">Mercedes-Benz</option>
                         <option value="Mitsubishi">Mitsubishi</option>
                         <option value="Nissan">Nissan</option>
                         <option value="Peugeot">Peugeot</option>
                         <option value="Porsche">Porsche</option>
                         <option value="Renault">Renault</option>
-                        <option value="Rolls Royce">Rolls Royce</option>
+                        <option value="RollsRoyce">Rolls Royce</option>
                         <option value="Suzuki">Suzuki</option>
                         <option value="Toyota">Toyota</option>
                         <option value="Volkswagen">Volkswagen</option>
@@ -109,7 +109,7 @@ function Filter() {
                         rounded-[5px] text-[14px] dark:bg-[#121212]" name="transmissao" id="transmissao">
                         <option value="">Todas</option>
                         <option value="Manual">Manual</option>
-                        <option value="Automático">Automático</option>
+                        <option value="Automatico">Automático</option>
                     </select>
                 </div>
                 <div className="flex flex-col gap-[2px]">
@@ -129,7 +129,7 @@ function Filter() {
                         <option value="Marrom">Marrom</option>
                         <option value="Prata">Prata</option>
                         <option value="Preto">Preto</option>
-                        <option value="Púrpura">Púrpura</option>
+                        <option value="Purpura">Púrpura</option>
                         <option value="Rosa">Rosa</option>
                         <option value="Roxo">Roxo</option>
                         <option value="Turquesa">Turquesa</option>

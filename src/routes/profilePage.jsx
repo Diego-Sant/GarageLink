@@ -68,7 +68,7 @@ function ProfilePage() {
 
                         <span className="flex flex-wrap break-words items-center 
                             gap-[10px] bg-[#fcf5f3] dark:bg-[#1a1a1a] 
-                            max-w-max p-[10px] dark:text-white rounded-[10px] capitalize">
+                            max-w-max p-[10px] dark:text-white rounded-[10px]">
                             Nome: <b>{currentUser.username}</b>
                         </span>
                         
@@ -127,7 +127,14 @@ function ProfilePage() {
             <div id="chat-section" className="flex-[2] bg-[#fcf5f3] dark:bg-[#2e2e2e] h-[200%] 
                 lg:h-[105%] mt-[80px] lg:mt-0 rounded-[10px]">
                 <div className="px-[20px] h-[100%] mb-4">
-                    <Chat />
+                    <Suspense fallback={
+                        <div className="flex justify-center items-center min-h-[200px]">
+                            <div className="loader"></div>
+                        </div>}>
+                        <Await resolve={data.chatResponse} errorElement={<p>Erro ao carregar mensagens!</p>}>
+                            {(chatResponse) => <Chat chats={chatResponse.data} />}
+                        </Await>
+                    </Suspense>
 
                     <button onClick={scrollToProfile}
                         className="lg:hidden mt-[30px] py-[15px] px-[24px] 

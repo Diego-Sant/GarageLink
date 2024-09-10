@@ -14,7 +14,7 @@ function ListPage() {
                     <Filter />
                     <Suspense fallback={
                         <div className="flex justify-center items-center min-h-[200px]">
-                            <div className="loader"></div>
+                            <div className="loader dark:loaderDark"></div>
                         </div>}>
                         <Await resolve={data.postResponse} errorElement={<p>Erro ao carregar carros!</p>}>
                             {(postResponse) => postResponse.data.map(post => (
@@ -27,7 +27,7 @@ function ListPage() {
             <div className="hidden md:block md:flex-[2] h-[800px]">
                 <Suspense fallback={
                     <div className="flex justify-center items-center">
-                        <div className="loader"></div>
+                        <div className="loader dark:loaderDark"></div>
                     </div>}>
                     <Await resolve={data.postResponse} errorElement={<p>Erro ao carregar mapa!</p>}>
                         {(postResponse) => <Map items={postResponse.data} />}

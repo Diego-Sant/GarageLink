@@ -55,13 +55,11 @@ function Slider({ images }) {
                 <div className="absolute z-[9999] w-[100vw] h-[100vh] top-0 left-0 
                     bg-black flex justify-between items-center overflow-hidden"
                 >
-                
                     {/* Seta para a esquerda */}
                     <div onClick={() => changeSlide("esquerda")}
                         className="flex-[1] flex items-center justify-center 
                         cursor-pointer transition-all duration-[0.4s] ease-in-out 
                         hover:scale-[1.1]">
-
                         <img className="w-[20px] h-[20px] md:w-[30px] md:h-[30px] 
                             lg:w-[50px] lg:h-[50px]" src="/arrow.svg" 
                             alt="Seta para a esquerda" 
@@ -69,9 +67,9 @@ function Slider({ images }) {
                     </div>
 
                     {/* Imagem central */}
-                    <div className="flex-[10]">
+                    <div className="flex-[10] flex justify-center items-center">
                         <img src={images[imageIndex]} alt="Imagem do carro selecionada"
-                            className="flex w-[100%] h-[100%] object-cover rounded-md"
+                            className="max-w-[90vw] max-h-[90vh] object-contain rounded-md"
                         />
                     </div>
 
@@ -79,21 +77,17 @@ function Slider({ images }) {
                     <div onClick={() => changeSlide("direita")}
                         className="flex-[1] flex items-center justify-center cursor-pointer 
                         transition-all duration-[0.4s] ease-in-out hover:scale-[1.1]">
-
                         <img className="transform rotate-180 w-[20px] h-[20px] 
                             md:w-[30px] md:h-[30px] lg:w-[50px] lg:h-[50px]" 
                             src="/arrow.svg" alt="Seta para a direita" 
                         />
-
                     </div>
 
                     {/* Fechar a imagem */}
                     <div onClick={() => setImageIndex(null)}
                         className="absolute top-0 right-0 text-[#fff] font-bold p-[50px] 
                         cursor-pointer transition-all duration-[0.4s] ease-in-out hover:scale-[1.1]">
-
                         <img width={36} height={36} src="/close.svg" alt="Fechar a imagem" />
-
                     </div>
 
                 </div>
