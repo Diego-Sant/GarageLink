@@ -1,5 +1,5 @@
 import { useContext, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import apiRequest from "../lib/apiRequest";
 import { useFavorites } from "../context/FavoritesContext";
 import { AuthContext } from "../context/AuthContext";
@@ -8,8 +8,12 @@ function Card({ item }) {
     const { favorites, toggleFavorite } = useFavorites();
     const isFavorited = favorites.includes(item.id);
     const [loading, setLoading] = useState(false);
-    const [showModal, setShowModal] = useState(false);
 
+    const [showModal, setShowModal] = useState(false);
+    const [showModalMessage, setShowModalMessage] = useState(false);
+    const [message, setMessage] = useState("");
+
+    const navigate = useNavigate();
     const {currentUser} = useContext(AuthContext);
 
     const formatPriceToRent = (price) => price.toFixed(2).replace('.', ',');
@@ -52,6 +56,41 @@ function Card({ item }) {
             console.log("Erro ao deletar o post:", error);
         } finally {
             setLoading(false);
+        }
+    };
+
+    const handleChat = async () => {
+        if (loading) return;
+        setShowModalMessage(true);
+    };
+
+    const handleSendMessage = async () => {
+        if (loading || !message.trim()) return;
+        setLoading(true);
+
+        try {
+            const response = await apiRequest.get(`/chats?userId=${item.userId}`);
+            const existingChat = response.data.find(chat =>
+                chat.userIDs.includes(currentUser.id) && chat.userIDs.includes(item.userId)
+            );
+
+            if (existingChat) {
+                await apiRequest.post(`/mensagens/${existingChat.id}`, { text: message });
+                navigate(`/perfil?id=${existingChat.id}`);
+            } else {
+                const newChatResponse = await apiRequest.post("/chats", {
+                    receiverId: item.userId
+                });
+                const newChat = newChatResponse.data;
+                await apiRequest.post(`/mensagens/${newChat.id}`, { text: message });
+                navigate(`/perfil?id=${newChat.id}`);
+            }
+        } catch (error) {
+            console.log(error);
+        } finally {
+            setLoading(false);
+            setShowModalMessage(false);
+            setMessage("");
         }
     };
 
@@ -165,7 +204,7 @@ function Card({ item }) {
                             <div className="flex justify-center border 
                             border-[#999] py-[5px] xl:py-[2px] px-[5px] 
                             rounded-[5px] cursor-pointer hover:bg-[#D3D3D3]
-                            dark:bg-white">
+                            dark:bg-white" onClick={handleChat}>
                                 <img width={16} height={16} src="/chat.svg" 
                                 alt="Conversar" />
                             </div>
@@ -190,6 +229,36 @@ function Card({ item }) {
                             </button>
                             <button 
                                 onClick={handleModalCancel} 
+                                className="bg-gray-300 text-black px-4 py-2 rounded-lg hover:bg-gray-400"
+                            >
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {showModalMessage && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[999]">
+                    <div className="bg-white dark:bg-[#121212] dark:text-white p-6 rounded-lg 
+                        shadow-lg w-1/3">
+                        <h3 className="text-xl font-semibold mb-4">Enviar Mensagem ao vendedor</h3>
+                        <textarea value={message}
+                            onChange={(e) => setMessage(e.target.value)}
+                            rows="4"
+                            className="w-full p-2 border border-gray-300 rounded-lg 
+                            dark:bg-[#1a1a1a] resize-none"
+                            placeholder="Digite sua mensagem..."
+                        />
+                        <div className="flex justify-end gap-4 mt-4">
+                            <button
+                                onClick={handleSendMessage}
+                                className="bg-[#fece51] text-black px-4 py-2 rounded-lg hover:bg-blue-600"
+                            >
+                                Enviar
+                            </button>
+                            <button
+                                onClick={() => setShowModalMessage(false)}
                                 className="bg-gray-300 text-black px-4 py-2 rounded-lg hover:bg-gray-400"
                             >
                                 Cancelar

@@ -267,7 +267,6 @@ function EditPostPage() {
                 setPost(res.data);
                 setImages(res.data.images);
     
-                // Definir valores do formulário
                 setFormValues({
                     title: res.data.title,
                     city: res.data.city,

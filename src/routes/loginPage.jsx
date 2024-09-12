@@ -49,11 +49,11 @@ function LoginPage() {
 
                     <h1 className="text-[32px] font-bold">Bem vindo de volta!</h1>
                     <input required name="username" type="text" placeholder="Nome do usuário"
-                        className="p-[20px] border border-[#e0e0e0] rounded-[5px]
-                        bg-[#1a1a1a]" />
+                        className="p-[20px] border border-[#e0e0e0] rounded-[5px] 
+                        dark:bg-[#1a1a1a]" />
                     <input required name="password" type="password" placeholder="Senha"
                         className="p-[20px] border border-[#e0e0e0] rounded-[5px]
-                        bg-[#1a1a1a]" />
+                        dark:bg-[#1a1a1a]" />
                     <button disabled={isLoading} className="p-[20px] rounded-[5px] border-0 bg-[#fece51] text-white font-bold 
                             text-[20px] cursor-pointer hover:bg-[#fece51]/80 dark:text-black
                             disabled:cursor-not-allowed disabled:bg-[#fece51]/20">
