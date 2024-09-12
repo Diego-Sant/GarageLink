@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 import apiRequest from "../lib/apiRequest";
 import UploadCarWidget from "../components/uploadCarWidget";
@@ -57,13 +57,30 @@ const colors = [
     { name: 'Verde', value: 'Verde', hex1: '#90EE90', hex2: '#006400', hex3: '#50C878' },
 ];
 
-function NewPostPage() {
-    const [buyOrRent, setBuyOrRent] = useState('buy');
+function EditPostPage() {
+    const [buyOrRent, setBuyOrRent] = useState('Comprar');
+    const { id } = useParams();
     const [error, setError] = useState('');
+    // eslint-disable-next-line no-unused-vars
     const [price, setPrice] = useState('');
     const [images, setImages] = useState([]);
+    const [post, setPost] = useState(null);
 
     const navigate = useNavigate();
+
+    const [formValues, setFormValues] = useState({
+        title: '', city: '', address: '', description: '',
+        buyOrRent: '', priceToBuy: '', priceToRent: '',
+        condition: '', brand: '', transmission: '', color: '',
+        fuel: '', latitude: '', longitude: '',
+        general1Title: '', general1Desc: '', general2Title: '', 
+        general2Desc: '', general3Title: '', general3Desc: ''
+    });
+
+    const [charCounts, setCharCounts] = useState({
+        title: 0, address: 0, description: 0, general1Title: 0, general2Title: 0, 
+        general3Title: 0, general1Desc: 0, general2Desc: 0, general3Desc: 0
+    });
 
     const removeImage = (index) => {
         setImages((prev) => prev.filter((_, i) => i !== index));
@@ -73,13 +90,233 @@ function NewPostPage() {
     const [isTooltipVisibleLongitude, setIsTooltipVisibleLongitude] = useState(false);
 
     const handlePriceChange = (e) => {
-        const onlyNumbers = e.target.value.replace(/\D/g, '');
+        const { name, value } = e.target;
+        const onlyNumbers = value.replace(/\D/g, '');
+    
+        setFormValues(prev => ({
+            ...prev,
+            [name]: onlyNumbers
+        }));
+    
         setPrice(onlyNumbers);
     };
 
-    const handleTypeChange = (e) => {
-        setBuyOrRent(e.target.value);
+    //------------------------------------------------------------------------------------------------//
+
+    const [selectedBrand, setSelectedBrand] = useState('');
+    const [selectedColor, setSelectedColor] = useState('');
+    const [isBrandOpen, setIsBrandOpen] = useState(false);
+    const [isColorOpen, setIsColorOpen] = useState(false);
+
+    const brandDropdownRef = useRef(null);
+    const colorDropdownRef = useRef(null);
+
+    const handleColorSelect = (color) => {
+        setSelectedColor(color.value);
+        setFormValues(prevValues => ({ ...prevValues, color: color.value }));
+        setIsColorOpen(false);
+        setError('');
     };
+
+    const handleBrandSelect = (brand) => {
+        setSelectedBrand(brand.value);
+        setFormValues(prevValues => ({ ...prevValues, brand: brand.value }));
+        setIsBrandOpen(false);
+        setError('');
+    };
+
+    const toggleBrandDropdown = () => {
+        setIsBrandOpen(!isBrandOpen);
+        setIsColorOpen(false);
+    };
+
+    const toggleColorDropdown = () => {
+        setIsColorOpen(!isColorOpen);
+        setIsBrandOpen(false);
+    };
+
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (brandDropdownRef.current && !brandDropdownRef.current.contains(event.target)) {
+                setIsBrandOpen(false);
+            }
+            if (colorDropdownRef.current && !colorDropdownRef.current.contains(event.target)) {
+                setIsColorOpen(false);
+            }
+        };
+        const handleKeyDown = (event) => {
+            if (event.key === 'Escape') {
+                setIsBrandOpen(false);
+                setIsColorOpen(false);
+            }
+        };
+
+        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("keydown", handleKeyDown);
+
+        return () => {
+            document.addEventListener("mousedown", handleClickOutside);
+            document.addEventListener("keydown", handleKeyDown);
+        };
+    }, []);
+
+    //------------------------------------------------------------------------------------------------//
+
+    const [general1Title, setGeneral1Title] = useState('');
+    // eslint-disable-next-line no-unused-vars
+    const [desc1, setDesc1] = useState('');
+    const [general1DescDisabled, setGeneral2Desc1Disabled] = useState(true);
+    const [general2Title, setGeneral2Title] = useState('');
+    // eslint-disable-next-line no-unused-vars
+    const [descr2, setGeneral2Desc] = useState('');
+    const [general2DescDisabled, setGeneral2DescDisabled] = useState(true);
+    const [general3Title, setGeneral3Title] = useState('');
+    // eslint-disable-next-line no-unused-vars
+    const [descr3, setGeneral3Desc] = useState('');
+    const [general3DescDisabled, setGeneral3DescDisabled] = useState(true);
+    
+    useEffect(() => {
+        if (post) {
+            setGeneral1Title(post.general1Title || '');
+            setDesc1(post.general1Desc || '');
+            setGeneral2Title(post.general2Title || '');
+            setGeneral2Desc(post.general2Desc || '');
+            setGeneral3Title(post.general3Title || '');
+            setGeneral3Desc(post.general3Desc || '');
+    
+            setGeneral2Desc1Disabled(post.general1Title?.trim() === '');
+            setGeneral2DescDisabled(post.general2Title?.trim() === '');
+            setGeneral3DescDisabled(post.general3Title?.trim() === '');
+        }
+    }, [post]);
+    
+    useEffect(() => {
+        setGeneral2Desc1Disabled(general1Title.trim() === '');
+        setGeneral2DescDisabled(general2Title.trim() === '');
+        setGeneral3DescDisabled(general3Title.trim() === '');
+        
+        if (general1Title.trim() === '') {
+            setDesc1('');
+            setCharCounts(prev => ({
+                ...prev,
+                general1Desc: 0,
+            }));
+        }
+        if (general2Title.trim() === '') {
+            setGeneral2Desc('');
+            setCharCounts(prev => ({
+                ...prev,
+                general2Desc: 0,
+            }));
+        }
+        if (general3Title.trim() === '') {
+            setGeneral3Desc('');
+            setCharCounts(prev => ({
+                ...prev,
+                general3Desc: 0,
+            }));
+        }
+    }, [general1Title, general2Title, general3Title]);
+    
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+
+        setFormValues(prev => ({
+            ...prev,
+            [name]: value
+        }));
+    
+        if (name === 'buyOrRent') {
+            setBuyOrRent(value);
+            setPrice(value === 'Alugar' ? formValues.priceToRent : formValues.priceToBuy);
+        }
+
+        setCharCounts(prev => ({
+            ...prev,
+            [name]: value.length
+        }));
+    
+        switch (name) {
+            case 'general1Title':
+                setGeneral1Title(value);
+                break;
+            case 'general1Desc':
+                setDesc1(value);
+                break;
+            case 'general2Title':
+                setGeneral2Title(value);
+                break;
+            case 'general2Desc':
+                setGeneral2Desc(value);
+                break;
+            case 'general3Title':
+                setGeneral3Title(value);
+                break;
+            case 'general3Desc':
+                setGeneral3Desc(value);
+                break;
+            default:
+                break;
+        }
+    };  
+
+    useEffect(() => {
+        const fetchPost = async () => {
+            try {
+                const res = await apiRequest.get(`/publicacoes/${id}`);
+                setPost(res.data);
+                setImages(res.data.images);
+    
+                // Definir valores do formulário
+                setFormValues({
+                    title: res.data.title,
+                    city: res.data.city,
+                    address: res.data.address,
+                    buyOrRent: res.data.buyOrRent,
+                    priceToRent: res.data.priceToRent || '',
+                    priceToBuy: res.data.priceToBuy || '',
+                    condition: res.data.condition,
+                    brand: res.data.brand,
+                    transmission: res.data.transmission,
+                    color: res.data.color,
+                    fuel: res.data.fuel,
+                    latitude: res.data.latitude,
+                    longitude: res.data.longitude,
+                    description: res.data.postDetail.description,
+                    general1Title: res.data.postDetail.general1Title,
+                    general1Desc: res.data.postDetail.general1Desc,
+                    general2Title: res.data.postDetail.general2Title,
+                    general2Desc: res.data.postDetail.general2Desc,
+                    general3Title: res.data.postDetail.general3Title,
+                    general3Desc: res.data.postDetail.general3Desc,
+                });
+    
+                setBuyOrRent(res.data.buyOrRent);
+                setPrice(res.data.buyOrRent === 'Alugar' ? res.data.priceToRent : res.data.priceToBuy);
+
+                setSelectedBrand(res.data.brand);
+                setSelectedColor(res.data.color);
+    
+                setCharCounts({
+                    title: res.data.title.length,
+                    city: res.data.city.length,
+                    address: res.data.address.length,
+                    description: res.data.postDetail.description.length,
+                    general1Title: res.data.postDetail.general1Title.length,
+                    general1Desc: res.data.postDetail.general1Desc.length,
+                    general2Title: res.data.postDetail.general2Title.length,
+                    general2Desc: res.data.postDetail.general2Desc.length,
+                    general3Title: res.data.postDetail.general3Title.length,
+                    general3Desc: res.data.postDetail.general3Desc.length,
+                });
+            } catch (err) {
+                console.error(err);
+                setError('Erro ao carregar post.');
+            }
+        };
+    
+        fetchPost();
+    }, [id]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -144,203 +381,43 @@ function NewPostPage() {
         setError('');
 
         const noAccentCity = inputs.city.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
-
+        const priceToBuy = inputs.priceToBuy ? parseInt(inputs.priceToBuy, 10) : null;
+        const priceToRent = inputs.priceToRent ? parseInt(inputs.priceToRent, 10) : null;
+        
         try {
-            const res = await apiRequest.post("/publicacoes", {
-                postData: {
-                    title: inputs.title,
-                    city: inputs.city,
-                    noAccentCity: noAccentCity,
-                    address: inputs.address,
-                    condition: inputs.condition,
-                    brand: inputs.brand,
-                    transmission: inputs.transmission,
-                    buyOrRent: inputs.buyOrRent,
-                    fuel: inputs.fuel,
-                    color: inputs.color,
-                    priceToBuy: parseInt(inputs.priceToBuy),
-                    priceToRent: parseInt(inputs.priceToRent),
-                    latitude: inputs.latitude,
-                    longitude: inputs.longitude,
-                    images: images,
-                },
-                postDetail: {
-                    description: inputs.description,
-                    general1Title: inputs.general1Title,
-                    general1Desc: inputs.general1Desc,
-                    general2Title: inputs.general2Title,
-                    general2Desc: inputs.general2Desc,
-                    general3Title: inputs.general3Title,
-                    general3Desc: inputs.general3Desc,
-                }
-            });
+          await apiRequest.put(`/publicacoes/${id}`, {
+            title: inputs.title,
+            city: inputs.city,
+            noAccentCity: noAccentCity,
+            address: inputs.address,
+            condition: inputs.condition,
+            brand: inputs.brand,
+            transmission: inputs.transmission,
+            buyOrRent: inputs.buyOrRent,
+            fuel: inputs.fuel,
+            color: inputs.color,
+            priceToBuy,
+            priceToRent,
+            latitude: inputs.latitude,
+            longitude: inputs.longitude,
+            images: images,
+            postDetail: {
+                description: inputs.description,
+                general1Title: inputs.general1Title,
+                general1Desc: inputs.general1Desc,
+                general2Title: inputs.general2Title,
+                general2Desc: inputs.general2Desc,
+                general3Title: inputs.general3Title,
+                general3Desc: inputs.general3Desc,
+            }
+          });
 
-            navigate("/carros/"+res.data.id)
+            navigate(`/carros/${id}`);
           } catch (err) {
-            console.log(err);
-            setError(error);
+            console.log(err.response ? err.response.data : err.message);
+            setError(err.response ? err.response.data.message : "Erro desconhecido");
           }
     };
-
-    //------------------------------------------------------------------------------------------------//
-
-    const [selectedBrand, setSelectedBrand] = useState('');
-    const [selectedColor, setSelectedColor] = useState('');
-    const [isBrandOpen, setIsBrandOpen] = useState(false);
-    const [isColorOpen, setIsColorOpen] = useState(false);
-
-    const brandDropdownRef = useRef(null);
-    const colorDropdownRef = useRef(null);
-
-    const handleColorSelect = (color) => {
-        setSelectedColor(color.value);
-        setIsColorOpen(false);
-        setError('');
-    };
-
-    const handleBrandSelect = (brand) => {
-        setSelectedBrand(brand.value);
-        setIsBrandOpen(false);
-        setError('');
-    };
-
-    const toggleBrandDropdown = () => {
-        setIsBrandOpen(!isBrandOpen);
-        setIsColorOpen(false);
-    };
-
-    const toggleColorDropdown = () => {
-        setIsColorOpen(!isColorOpen);
-        setIsBrandOpen(false);
-    };
-
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (brandDropdownRef.current && !brandDropdownRef.current.contains(event.target)) {
-                setIsBrandOpen(false);
-            }
-            if (colorDropdownRef.current && !colorDropdownRef.current.contains(event.target)) {
-                setIsColorOpen(false);
-            }
-        };
-        const handleKeyDown = (event) => {
-            if (event.key === 'Escape') {
-                setIsBrandOpen(false);
-                setIsColorOpen(false);
-            }
-        };
-
-        document.addEventListener("mousedown", handleClickOutside);
-        document.addEventListener("keydown", handleKeyDown);
-
-        return () => {
-            document.addEventListener("mousedown", handleClickOutside);
-            document.addEventListener("keydown", handleKeyDown);
-        };
-    }, []);
-
-    //------------------------------------------------------------------------------------------------//
-
-    const [formValues, setFormValues] = useState({
-        title: '', address: '', description: '', general1Title: '', general1Desc: '',
-        general2Title: '', general2Desc: '', general3Title: '', general3Desc: ''
-    });
-
-    const [charCounts, setCharCounts] = useState({
-        title: 0, address: 0, description: 0, general1Title: 0, general2Title: 0, 
-        general3Title: 0, general1Desc: 0, general2Desc: 0, general3Desc: 0
-    });
-
-    const [general1Title, setGeneral1Title] = useState('');
-    const [desc1, setDesc1] = useState(formValues.general1Desc);
-    const [general1DescDisabled, setGeneral2Desc1Disabled] = useState(true);
-    const [general2Title, setGeneral2Title] = useState('');
-    const [descr2, setGeneral2Desc] = useState(formValues.general2Desc);
-    const [general2DescDisabled, setGeneral2DescDisabled] = useState(true);
-    const [general3Title, setGeneral3Title] = useState('');
-    const [descr3, setGeneral3Desc] = useState(formValues.general3Desc);
-    const [general3DescDisabled, setGeneral3DescDisabled] = useState(true);
-    
-    const handleInputChange = (e) => {
-        const { name, value } = e.target;
-        setFormValues(prev => ({
-            ...prev,
-            [name]: value
-        }));
-
-        if (name === 'description' || name === 'title' || name === 'address' || name === 'general1Title' || name === 'general1Desc' || name === 'general2Title' || name === 'general2Desc' || name === 'general3Title' || name === 'general3Desc') {
-            setCharCounts(prev => ({
-                ...prev,
-                [name]: value.length
-            }));
-        }
-
-        switch (name) {
-            case 'general1Title':
-                setGeneral1Title(value);
-                break;
-            case 'general1Desc':
-                setDesc1(value);
-                break;
-            case 'general2Title':
-                setGeneral2Title(value);
-                break;
-            case 'general2Desc':
-                setGeneral2Desc(value);
-                break;
-            case 'general3Title':
-                setGeneral3Title(value);
-                break;
-            case 'general3Desc':
-                setGeneral3Desc(value);
-                break;
-            default:
-                break;
-        }
-    };
-
-    useEffect(() => {
-        setGeneral2Desc1Disabled(general1Title.trim() === '');
-        setGeneral2DescDisabled(general2Title.trim() === '');
-        setGeneral3DescDisabled(general3Title.trim() === '');
-
-        if (general1Title.trim() === '') {
-            setDesc1('');
-            setCharCounts(prev => ({
-                ...prev,
-                general1Desc: 0,
-            }));
-        }
-        if (general2Title.trim() === '') {
-            setGeneral2Desc('');
-            setCharCounts(prev => ({
-                ...prev,
-                general2Desc: 0,
-            }));
-        }
-        if (general3Title.trim() === '') {
-            setGeneral3Desc('');
-            setCharCounts(prev => ({
-                ...prev,
-                general3Desc: 0,
-            }));
-        }
-    }, [general1Title, general2Title, general3Title]);
-
-    useEffect(() => {
-        setFormValues(prev => ({
-            ...prev,
-            general1Desc: desc1
-        }));
-        setFormValues(prev => ({
-            ...prev,
-            general2Desc: descr2
-        }));
-        setFormValues(prev => ({
-            ...prev,
-            general3Desc: descr3
-        }));
-    }, [desc1, descr2, descr3]);
   
     return (
         <div className="min-h-screen flex flex-col dark:text-white">
@@ -399,9 +476,9 @@ function NewPostPage() {
                                 <label className="text-[14px] sm:text-[16px]" htmlFor="buyOrRent">Comprar ou alugar</label>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
-                            <select name="buyOrRent" onChange={handleTypeChange}
+                            <select name="buyOrRent" onChange={handleInputChange}
                                 className="p-[21px] rounded-[5px] border border-gray-400
-                                dark:dark:bg-[#1a1a1a]">
+                                dark:dark:bg-[#1a1a1a]" value={formValues.buyOrRent}>
                                 
                                 <option value="Comprar" defaultChecked>
                                     Comprar
@@ -416,15 +493,20 @@ function NewPostPage() {
                         <div className="w-[45%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
                                 <label className="text-[14px] sm:text-[16px]" htmlFor="price">
-                                    {buyOrRent === 'Alugar' ? 'Valor do aluguel por hora' : 'Valor da compra'}
+                                    {formValues.buyOrRent === 'Alugar' ? 'Valor do aluguel por hora' : 'Valor da compra'}
                                 </label>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
                             
-                            <input onInput={() => setError('')} className="p-[20px] rounded-[5px] 
-                                dark:dark:bg-[#1a1a1a] border border-gray-400" 
-                                id={buyOrRent === 'Alugar' ? 'priceToRent' : 'priceToBuy'} name={buyOrRent === 'Alugar' ? 'priceToRent' : 'priceToBuy'} type="text" value={price} onChange={handlePriceChange}
-                                placeholder={buyOrRent === 'Alugar' ? 'Ex: 120' : 'Ex: 120000'} 
+                            <input
+                                onInput={() => setError('')}
+                                className="p-[20px] rounded-[5px] dark:bg-[#1a1a1a] border border-gray-400"
+                                id={buyOrRent === 'Alugar' ? 'priceToRent' : 'priceToBuy'}
+                                name={buyOrRent === 'Alugar' ? 'priceToRent' : 'priceToBuy'}
+                                type="text"
+                                onChange={handlePriceChange}
+                                value={formValues[buyOrRent === 'Alugar' ? 'priceToRent' : 'priceToBuy']}
+                                placeholder={buyOrRent === 'Alugar' ? 'Ex: 120' : 'Ex: 120000'}
                             />
                         </div>
 
@@ -435,7 +517,8 @@ function NewPostPage() {
                             </div>
                             <input onInput={() => setError('')} className="p-[20px] rounded-[5px] 
                                 dark:dark:bg-[#1a1a1a] border border-gray-400" 
-                                id="city" name="city" type="text" placeholder="Ex: São Paulo" 
+                                id="city" name="city" type="text" placeholder="Ex: São Paulo"
+                                value={formValues.city} onChange={handleInputChange}
                             />
                         </div>
 
@@ -465,7 +548,8 @@ function NewPostPage() {
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
                             <select name="condition" className="p-[21px] rounded-[5px] 
-                                border border-gray-400 dark:dark:bg-[#1a1a1a]">
+                                border border-gray-400 dark:dark:bg-[#1a1a1a]"
+                                value={formValues.condition} onChange={handleInputChange}>
                                     
                                     <option value="Novo" defaultChecked>
                                         Novo
@@ -532,7 +616,8 @@ function NewPostPage() {
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
                             <select name="transmission" className="p-[21px] rounded-[5px] 
-                                dark:dark:bg-[#1a1a1a] border border-gray-400">
+                                dark:dark:bg-[#1a1a1a] border border-gray-400"
+                                value={formValues.transmission} onChange={handleInputChange}>
                                     
                                 <option value="Manual" defaultChecked>
                                     Manual
@@ -610,7 +695,8 @@ function NewPostPage() {
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>
                             <select name="fuel" className="p-[21px] rounded-[5px] 
-                                border border-gray-400 dark:dark:bg-[#1a1a1a]">
+                                border border-gray-400 dark:dark:bg-[#1a1a1a]"
+                                value={formValues.fuel} onChange={handleInputChange}>
                                     
                                 <option value="Diesel" defaultChecked>
                                     Diesel
@@ -660,7 +746,9 @@ function NewPostPage() {
                             </div>
                             <input onInput={() => setError('')} className="p-[20px] rounded-[5px] 
                                 dark:dark:bg-[#1a1a1a] border border-gray-400" 
-                                id="latitude" name="latitude" type="number" step="any" placeholder="Ex: -23.59105941675351"
+                                id="latitude" name="latitude" type="text" step="any" 
+                                placeholder="Ex: -23.59105941675351" value={formValues.latitude}
+                                onChange={handleInputChange}
                             />
                         </div>
 
@@ -690,7 +778,9 @@ function NewPostPage() {
                             </div>
                             <input onInput={() => setError('')} className="p-[20px] border
                                 dark:dark:bg-[#1a1a1a] rounded-[5px] border-gray-400" 
-                                id="longitude" name="longitude" type="number" step="any" placeholder="Ex: -46.69087039560111"
+                                id="longitude" name="longitude" type="text" step="any" 
+                                placeholder="Ex: -46.69087039560111" value={formValues.longitude}
+                                onChange={handleInputChange}
                             />
                         </div>
 
@@ -810,4 +900,4 @@ function NewPostPage() {
   );
 }
 
-export default NewPostPage;
+export default EditPostPage;

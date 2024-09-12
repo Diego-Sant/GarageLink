@@ -6,31 +6,28 @@ import Map from "../components/Map";
 import Slider from "../components/Slider";
 import apiRequest from "../lib/apiRequest";
 import FavoriteButton from "../components/FavoriteButton";
-import { useFavorites } from "../context/FavoritesContext";
 
 function SinglePage() {
     const posts = useLoaderData();
     const { currentUser } = useContext(AuthContext);
     const navigate = useNavigate();
 
-    const { toggleFavorite } = useFavorites();
     const [favorited, setFavorited] = useState(posts.isSaved);
     const [loading, setLoading] = useState(false);
 
     const handleFavorite = async () => {
         if (loading) return;
-
+    
         setLoading(true);
         setFavorited((prev) => !prev);
-
+    
         if (!currentUser) {
             navigate("/entrar");
         }
-
+    
         try {
-            await apiRequest.post("/usuarios/favoritos",{postId: posts.id});
-            toggleFavorite(posts.id);
-            
+            await apiRequest.post("/usuarios/favoritos", { postId: posts.id });
+
         } catch (error) {
             console.log(error);
             setFavorited((prev) => !prev);
@@ -39,10 +36,12 @@ function SinglePage() {
                 setLoading(false);
             }, 900);
         }
-    }
+    };
 
     const formatPriceToRent = (price) => price.toFixed(2).replace('.', ',');
-    const formatPriceToBuy = (price) => price.toFixed(3);
+    const formatPriceToBuy = (price) => {
+        return price.toLocaleString('pt-BR', { minimumFractionDigits: 0 });
+    };
 
     function capitalizeFirstLetter(string) {
         return string.charAt(0).toUpperCase() + string.slice(1);

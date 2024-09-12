@@ -49,7 +49,7 @@ export default function Map({ items }) {
                     <img class="rounded-[5px]" src="${item.images[0]}" alt="${item.title}" />
                     <p class="text-[14px] font-semibold">${item.buyOrRent === "Alugar" ? 
                         `R$ ${item.priceToRent.toFixed(2).replace('.', ',')} p/ dia` : 
-                        `R$ ${item.priceToBuy.toFixed(3)}`}</p>
+                        `R$ ${item.priceToBuy.toLocaleString('pt-BR', { minimumFractionDigits: 0 })}`}</p>
                 </div>
             `;
 

@@ -1,15 +1,21 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import apiRequest from "../lib/apiRequest";
 import { useFavorites } from "../context/FavoritesContext";
+import { AuthContext } from "../context/AuthContext";
 
 function Card({ item }) {
     const { favorites, toggleFavorite } = useFavorites();
     const isFavorited = favorites.includes(item.id);
     const [loading, setLoading] = useState(false);
+    const [showModal, setShowModal] = useState(false);
+
+    const {currentUser} = useContext(AuthContext);
 
     const formatPriceToRent = (price) => price.toFixed(2).replace('.', ',');
-    const formatPriceToBuy = (price) => price.toFixed(3);
+    const formatPriceToBuy = (price) => {
+        return price.toLocaleString('pt-BR', { minimumFractionDigits: 0 });
+    };
 
     let priceDisplay = "";
     if (item.buyOrRent === "Alugar") {
@@ -35,6 +41,33 @@ function Card({ item }) {
         }
     };
 
+    const handleDelete = async () => {
+        if (loading) return;
+        setLoading(true);
+
+        try {
+            await apiRequest.delete(`/publicacoes/${item.id}`);
+            window.location.reload();
+        } catch (error) {
+            console.log("Erro ao deletar o post:", error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const confirmDelete = () => {
+        setShowModal(true);
+    };
+
+    const handleModalConfirm = () => {
+        setShowModal(false);
+        handleDelete();
+    };
+
+    const handleModalCancel = () => {
+        setShowModal(false);
+    };
+
     return (
         <div className="flex flex-col lg:flex-row gap-[20px]">
             <Link to={`/carros/${item.id}`} className="flex-[2] h-[200px]">
@@ -48,12 +81,31 @@ function Card({ item }) {
 
             <div className="flex-[3] flex flex-col justify-between gap-[10px]">
 
-                <h2 className="-mt-[0.30rem] truncate max-w-[200px] md:max-w-max 
-                    text-[20px] font-[600] text-[#444] transition-all duration-[0.4s] 
-                    ease-in-out hover:text-black hover:scale-[1.01]
-                    dark:text-white">
-                    <Link to={`/carros/${item.id}`}>{item.title}</Link>
-                </h2>
+                <div className="flex items-center justify-between">
+                    <h2 className="-mt-[0.30rem] truncate max-w-[200px] md:max-w-max 
+                        text-[20px] font-[600] text-[#444] transition-all duration-[0.4s] 
+                        ease-in-out hover:text-black hover:scale-[1.01]
+                        dark:text-white">
+                        <Link to={`/carros/${item.id}`}>{item.title}</Link>
+                    </h2>
+                    {currentUser.id === item.userId && (
+                        <div className="flex gap-2">
+                            <Link to={`/atualizar/${item.id}`} className="cursor-pointer 
+                                hover:bg-blue-400 p-1 rounded-full">
+                                <img src="/pencil.svg" alt="Editar" 
+                                    width={17} height={17}
+                                    className="dark:filter dark:invert dark:brightness-[75%]
+                                    dark:sepia-[98%] dark:saturate-[8%] dark:hue-rotate-[115deg]
+                                    dark:contrast-[102%]"
+                                />
+                            </Link>
+                            <div onClick={confirmDelete} className="cursor-pointer
+                                hover:bg-red-400 p-1 rounded-full">
+                                <img src="/trash.svg" alt="Deletar" width={17} height={17} />
+                            </div>
+                        </div>
+                    )}
+                </div>
                 <p className="flex gap-[5px] xl:-mt-[2.1rem] text-[14px] 
                     text-[#888]">
                     <img className="svgcolor" width={16} height={16} src="/pin.svg" alt="Ícone de localização" />
@@ -109,17 +161,43 @@ function Card({ item }) {
                             <img width={16} height={16} src="/save.svg" alt="Salvar" />
                         </div>
 
-                        <div className="flex justify-center border 
-                        border-[#999] py-[5px] xl:py-[2px] px-[5px] 
-                        rounded-[5px] cursor-pointer hover:bg-[#D3D3D3]
-                        dark:bg-white">
-                            <img width={16} height={16} src="/chat.svg" 
-                            alt="Conversar" />
-                        </div>
+                        {currentUser.id !== item.userId && (
+                            <div className="flex justify-center border 
+                            border-[#999] py-[5px] xl:py-[2px] px-[5px] 
+                            rounded-[5px] cursor-pointer hover:bg-[#D3D3D3]
+                            dark:bg-white">
+                                <img width={16} height={16} src="/chat.svg" 
+                                alt="Conversar" />
+                            </div>
+                        )}
 
                     </div>
                 </div>
             </div>
+
+            {showModal && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-[999]">
+                    <div className="bg-white dark:bg-[#121212] dark:text-white p-6 rounded-lg 
+                        shadow-lg w-1/3">
+                        <h3 className="text-xl font-semibold mb-4">Excluir publicação</h3>
+                        <p className="mb-4">Você tem certeza que deseja excluir este post?</p>
+                        <div className="flex justify-end gap-4">
+                            <button 
+                                onClick={handleModalConfirm} 
+                                className="bg-red-500 text-white px-4 py-2 rounded-lg hover:bg-red-600"
+                            >
+                                Confirmar
+                            </button>
+                            <button 
+                                onClick={handleModalCancel} 
+                                className="bg-gray-300 text-black px-4 py-2 rounded-lg hover:bg-gray-400"
+                            >
+                                Cancelar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     )
 }

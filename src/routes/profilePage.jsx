@@ -103,7 +103,10 @@ function ProfilePage() {
                             <div className="loader"></div>
                         </div>}>
                         <Await resolve={data.postResponse} errorElement={<p>Erro ao carregar carros!</p>}>
-                            {(postResponse) => <List posts={postResponse.data.userPosts} />}
+                            {(postResponse) => {
+                                const userPosts = postResponse.data.userPosts.filter(post => post.userId === currentUser.id);
+                                return <List posts={userPosts} />;
+                            }}
                         </Await>
                     </Suspense>
                     
