@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useRef, useState } from "react";
 
 import * as timeago from 'timeago.js'
 import TimeAgo from "timeago-react";
@@ -29,7 +29,13 @@ function Chat({ chats }) {
     const [chat, setChat] = useState(null);
     const {currentUser} = useContext(AuthContext);
 
-    timeago.register('pt_BR', customPtBR)
+    timeago.register('pt_BR', customPtBR);
+
+    const messageEndRef = useRef()
+
+    useEffect(() => {
+        messageEndRef.current?.scrollIntoView({ behavior: "smooth" })
+    }, [chat])
 
     const handleOpenChat = async (id, receiver) => {
         try {
@@ -125,6 +131,7 @@ function Chat({ chats }) {
                                     </span>
                                 </div>
                             ))}
+                            <div ref={messageEndRef}></div>
                         </div>
 
                     </div>

@@ -1,6 +1,8 @@
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import L from 'leaflet';
+
 import apiRequest from "../lib/apiRequest";
 import UploadCarWidget from "../components/uploadCarWidget";
 
@@ -81,6 +83,12 @@ function NewPostPage() {
         setBuyOrRent(e.target.value);
     };
 
+    const verifyCoordinatesWithLeaflet = (latitude, longitude) => {
+        const latLng = L.latLng(latitude, longitude);
+    
+        return latLng && latLng.lat >= -90 && latLng.lat <= 90 && latLng.lng >= -180 && latLng.lng <= 180;
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
         const formData = new FormData(e.target);
@@ -138,6 +146,13 @@ function NewPostPage() {
 
         if (!inputs.longitude) {
             setError('A longitude é obrigatória! Use o Google Maps para ter a precisão exata.');
+            return;
+        }
+
+        const isCoordinatesValid = verifyCoordinatesWithLeaflet(inputs.latitude, inputs.longitude);
+
+        if (!isCoordinatesValid) {
+            setError('As coordenadas fornecidas não são válidas.');
             return;
         }
 

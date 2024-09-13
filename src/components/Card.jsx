@@ -1,12 +1,9 @@
 import { useContext, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import apiRequest from "../lib/apiRequest";
-import { useFavorites } from "../context/FavoritesContext";
 import { AuthContext } from "../context/AuthContext";
 
 function Card({ item }) {
-    const { favorites, toggleFavorite } = useFavorites();
-    const isFavorited = favorites.includes(item.id);
     const [loading, setLoading] = useState(false);
 
     const [showModal, setShowModal] = useState(false);
@@ -27,23 +24,6 @@ function Card({ item }) {
     } else if (item.buyOrRent === "Comprar") {
         priceDisplay = `R$ ${formatPriceToBuy(item.priceToBuy)}`;
     }
-
-    const handleFavorite = async () => {
-        if (loading) return;
-        setLoading(true);
-
-        try {
-            await apiRequest.post("/usuarios/favoritos", { postId: item.id });
-            toggleFavorite(item.id);
-        } catch (error) {
-            console.log(error);
-        } finally {
-            setTimeout(() => {
-                setLoading(false);
-            }, 900);
-            window.location.reload();
-        }
-    };
 
     const handleDelete = async () => {
         if (loading) return;
@@ -189,16 +169,6 @@ function Card({ item }) {
 
                     <div className="flex flex-col sm:flex-row lg:flex-col 
                         xl:flex-row mt-[30px] xl:mt-0  gap-[20px]">
-
-                        <div disabled={loading} onClick={handleFavorite} className={`flex justify-center border 
-                            py-[5px] xl:py-[2px] px-[5px] rounded-[5px]
-                            ${isFavorited  ? 'bg-[#fece51] hover:bg-[#fece51]/70 border-[#2f2f2f] disabled:bg-[#f0b500]' 
-                            : 'bg-white dark:bg-white border-[#999] hover:bg-white/20 disabled:bg-gray-600/20'}
-                            cursor-pointer disabled:cursor-not-allowed
-                            disabled:border-0
-                        `}>
-                            <img width={16} height={16} src="/save.svg" alt="Salvar" />
-                        </div>
 
                         {currentUser.id !== item.userId && (
                             <div className="flex justify-center border 

@@ -110,20 +110,6 @@ function ProfilePage() {
                         </Await>
                     </Suspense>
                     
-                    <div>
-                        <h1 className="font-[500] text-[26px] dark:text-white">
-                            Meus favoritos
-                        </h1>
-                    </div>
-
-                    <Suspense fallback={
-                        <div className="flex justify-center items-center min-h-[200px]">
-                            <div className="loader"></div>
-                        </div>}>
-                        <Await resolve={data.postResponse} errorElement={<p>Erro ao carregar carros!</p>}>
-                            {(postResponse) => <List posts={postResponse.data.savedPosts} />}
-                        </Await>
-                    </Suspense>
                 </div>
             </div>
 

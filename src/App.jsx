@@ -10,13 +10,9 @@ import RegisterPage from "./routes/registerPage";
 import ProfileUpdatePage from "./routes/profileUpdatePage";
 import NewPostPage from "./routes/newPostPage";
 import { listPageLoader, profilePageLoader, singlePageLoader } from "./lib/loaders";
-import { FavoritesProvider } from "./context/FavoritesContext";
-import { useContext } from "react";
-import { AuthContext } from "./context/AuthContext";
 import EditPostPage from "./routes/editPostPage";
 
 function App() {
-  const { currentUser } = useContext(AuthContext);
 
   const router = createBrowserRouter([
     {
@@ -74,9 +70,7 @@ function App() {
   ]);
   
   return (
-    <FavoritesProvider userId={currentUser?.id}>
-      <RouterProvider router={router}/>
-    </FavoritesProvider>
+    <RouterProvider router={router}/>
   )
 }
 
