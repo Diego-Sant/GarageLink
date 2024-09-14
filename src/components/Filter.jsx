@@ -59,8 +59,10 @@ function Filter() {
                         <option value="Bentley">Bentley</option>
                         <option value="BMW">BMW</option>
                         <option value="BYD">BYD</option>
+                        <option value="Cadillac">Cadillac</option>
                         <option value="Chevrolet">Chevrolet</option>
                         <option value="Citroen">Citroën</option>
+                        <option value="Dodge">Dodge</option>
                         <option value="Ferrari">Ferrari</option>
                         <option value="Fiat">Fiat</option>
                         <option value="Ford">Ford</option>

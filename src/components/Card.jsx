@@ -15,7 +15,9 @@ function Card({ item }) {
 
     const formatPriceToRent = (price) => price.toFixed(2).replace('.', ',');
     const formatPriceToBuy = (price) => {
-        return price.toLocaleString('pt-BR', { minimumFractionDigits: 0 });
+        const formattedPrice = price.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+        return `${formattedPrice},00`;
     };
 
     let priceDisplay = "";

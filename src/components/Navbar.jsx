@@ -2,12 +2,14 @@ import { useContext, useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
 import { AuthContext } from "../context/AuthContext";
-import apiRequest from "../lib/apiRequest";
 import { useTheme } from "../context/ThemeContext";
+import apiRequest from "../lib/apiRequest";
 import DarkLightButton from "./DarkLightButton";
 
 function Navbar() {
     const [open, setOpen] = useState(false);
+    const [unreadMessagesCount, setUnreadMessagesCount] = useState(0);
+
     const location = useLocation();
     const navigate = useNavigate();
 
@@ -45,6 +47,31 @@ function Navbar() {
             document.removeEventListener("mousedown", handleClickOutside);
         };
     }, []);
+
+    useEffect(() => {
+        const fetchUnreadMessagesCount = async () => {
+            try {
+                const res = await apiRequest.get("/chats");
+                const chats = res.data;
+
+                const unreadCount = chats.reduce((count, chat) => {
+                    if (!chat.seenBy.includes(currentUser.id)) {
+                        count += 1;
+                    }
+                    return count;
+                }, 0);
+
+                setUnreadMessagesCount(unreadCount);
+
+            } catch (error) {
+                console.log(error);
+            }
+        };
+
+        if (currentUser) {
+            fetchUnreadMessagesCount();
+        }
+    }, [currentUser]);
 
     const linkClasses = "transition duration-[0.4s] ease-in-out hover:scale-[1.1] z-50";
 
@@ -90,7 +117,7 @@ function Navbar() {
 
                             <div className="absolute -top-[8px] -right-2 bg-red-600 
                             hover:bg-red-600/90 text-white rounded-[50%] w-[26px] 
-                            h-[26px] flex items-center justify-center">3</div>
+                            h-[26px] flex items-center justify-center">{unreadMessagesCount}</div>
                             <span className="dark:text-black">Perfil</span>
 
                         </Link>

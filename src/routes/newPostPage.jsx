@@ -11,8 +11,10 @@ const brands = [
     { name: 'Bentley', value: 'Bentley', logo: 'https://diego-sant.github.io/QuizApp/img/bentley.svg' },
     { name: 'BMW', value: 'BMW', logo: 'https://diego-sant.github.io/QuizApp/img/bmw.svg' },
     { name: 'BYD', value: 'BYD', logo: 'https://diego-sant.github.io/QuizApp/img/byd.svg' },
+    { name: 'Cadillac', value: 'Cadillac', logo: 'https://diego-sant.github.io/QuizApp/img/cadillac.svg' },
     { name: 'Chevrolet', value: 'Chevrolet', logo: 'https://diego-sant.github.io/QuizApp/img/chevrolet.svg' },
     { name: 'Citroën', value: 'Citroen', logo: 'https://diego-sant.github.io/QuizApp/img/citroen.svg' },
+    { name: 'Dodge', value: 'Dodge', logo: 'https://diego-sant.github.io/QuizApp/img/dodge.svg' },
     { name: 'Ferrari', value: 'Ferrari', logo: 'https://diego-sant.github.io/QuizApp/img/ferrari.svg' },
     { name: 'Fiat', value: 'Fiat', logo: 'https://diego-sant.github.io/QuizApp/img/fiat.svg' },
     { name: 'Ford', value: 'Ford', logo: 'https://diego-sant.github.io/QuizApp/img/ford.svg' },
@@ -360,7 +362,7 @@ function NewPostPage() {
     return (
         <div className="min-h-screen flex flex-col dark:text-white">
             <div className="w-full">
-                <h1 className="font-[500] text-[22px] md:text-[26px] mt-[30px]">Adicionar carro</h1>
+                <h1 className="font-[500] text-[22px] md:text-[26px] mt-[30px] mb-2">Adicionar carro</h1>
                 <UploadCarWidget uwConfig={{
                     cloudName: "dpwr6ol0l",
                     uploadPreset: "garagelink",
@@ -431,7 +433,7 @@ function NewPostPage() {
                         <div className="w-[45%] md:w-[30%] flex flex-col gap-[5]">
                             <div className="flex justify-between items-center">
                                 <label className="text-[14px] sm:text-[16px]" htmlFor="price">
-                                    {buyOrRent === 'Alugar' ? 'Valor do aluguel por hora' : 'Valor da compra'}
+                                    {buyOrRent === 'Alugar' ? 'Valor do aluguel por dia' : 'Valor da compra'}
                                 </label>
                                 <span className="text-red-600 mr-1 font-bold">*</span>
                             </div>

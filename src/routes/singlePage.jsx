@@ -53,7 +53,9 @@ function SinglePage() {
 
     const formatPriceToRent = (price) => price.toFixed(2).replace('.', ',');
     const formatPriceToBuy = (price) => {
-        return price.toLocaleString('pt-BR', { minimumFractionDigits: 0 });
+        const formattedPrice = price.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+
+        return `${formattedPrice},00`;
     };
 
     function capitalizeFirstLetter(string) {
@@ -102,14 +104,14 @@ function SinglePage() {
         categoryText = "Luxo";
     } 
     
-    else if (posts.buyOrRent === "Comprar" && posts.priceToBuy <= 120.000) {
+    else if (posts.buyOrRent === "Comprar" && posts.priceToBuy <= 120000) {
         categoryIcon = "/popular.svg";
         categoryText = "Popular";
     }
-    else if (posts.buyOrRent === "Comprar" && posts.priceToBuy > 120.000 && posts.priceToBuy <= 200.000) {
+    else if (posts.buyOrRent === "Comprar" && posts.priceToBuy > 120000 && posts.priceToBuy <= 200000) {
         categoryIcon = "/luxury.svg";
         categoryText = "Premium";
-    } else if (posts.buyOrRent === "Comprar" && posts.priceToBuy > 200.000) {
+    } else if (posts.buyOrRent === "Comprar" && posts.priceToBuy > 200000) {
         categoryIcon = "/luxury.svg";
         categoryText = "Luxo";
     } 
@@ -164,7 +166,7 @@ function SinglePage() {
                             {capitalizeFirstLetter(posts.postDetail.description)}
                         </div>
 
-                        {currentUser?.id !== posts.user.id && (
+                        {currentUser?.id !== posts.userId && (
                                     <div onClick={handleChat} className="flex flex-col xl:flex-row gap-y-4 
                                         xl:gap-y-0 justify-center xl:justify-start items-center mt-2 lg:mb-10 xl:mb-0">
                                         
@@ -190,33 +192,39 @@ function SinglePage() {
             <div className="lg:flex-[2] mt-[40px] lg:mt-0 pr-[15px] lg:pr-0">
                 <div className="px-[20px] py-[20px] flex flex-col gap-[20px] bg-[#fcf5f3] dark:bg-[#2e2e2e] rounded-[10px]">
 
-                    {posts.postDetail.general1Title && posts.postDetail.general2Title && posts.postDetail.general3Title ? (
-                        <>
-                            <p className="font-bold text-[18px] dark:text-white">Características</p>
-                            <div className="flex flex-col gap-[20px] py-[10px]">
+                        {posts.postDetail.general1Title || posts.postDetail.general2Title || posts.postDetail.general2Title ? (
+                            <>
+                                <p className="font-bold text-[18px] dark:text-white">Características</p>
+                                <div className="flex flex-col gap-[20px] py-[10px]">
 
-                                <div className="bg-white dark:bg-[#1a1a1a] 
-                                    dark:text-white p-[10px] rounded-[5px]">
-                                    <span className="font-semibold capitalize">{capitalizeWithExceptions(posts.postDetail.general1Title)}</span>
-                                    <p className="text-[14px] flex flex-wrap">{capitalizeFirstLetter(posts.postDetail.general1Desc)}</p>
-                                </div>
+                                    {posts.postDetail.general1Title && posts.postDetail.general1Desc && (
+                                        <div className="bg-white dark:bg-[#1a1a1a] dark:text-white p-[10px] rounded-[5px]">
+                                            <span className="font-semibold">{capitalizeWithExceptions(posts.postDetail.general1Title)}</span>
+                                            <p className="text-[14px] flex flex-wrap">{capitalizeFirstLetter(posts.postDetail.general1Desc || '')}</p>
+                                        </div>
+                                    )}
 
-                                <div className="bg-white dark:bg-[#1a1a1a] 
-                                    dark:text-white p-[10px] rounded-[5px]">
-                                    <span className="font-semibold capitalize">{capitalizeWithExceptions(posts.postDetail.general2Title)}</span>
-                                    <p className="text-[14px] lex flex-wrap">{capitalizeFirstLetter(posts.postDetail.general2Desc)}</p>
-                                </div>
+                                    {posts.postDetail.general2Title && posts.postDetail.general2Desc && (
+                                        <div className="bg-white dark:bg-[#1a1a1a] dark:text-white p-[10px] rounded-[5px]">
+                                            <span className="font-semibold">{capitalizeWithExceptions(posts.postDetail.general2Title)}</span>
+                                            <p className="text-[14px] flex flex-wrap">{capitalizeFirstLetter(posts.postDetail.general2Desc || '')}</p>
+                                        </div>
+                                    )}
 
-                                <div className="bg-white dark:bg-[#1a1a1a] 
-                                    dark:text-white p-[10px] rounded-[5px]">
-                                    <span className="font-semibold capitalize">{capitalizeWithExceptions(posts.postDetail.general3Title)}</span>
-                                    <p className="text-[14px] lex flex-wrap">{capitalizeFirstLetter(posts.postDetail.general3Desc)}</p>
+                                    {posts.postDetail.general3Title && posts.postDetail.general3Desc && (
+                                        <div className="bg-white dark:bg-[#1a1a1a] dark:text-white p-[10px] rounded-[5px]">
+                                            <span className="font-semibold">{capitalizeWithExceptions(posts.postDetail.general3Title)}</span>
+                                            <p className="text-[14px] flex flex-wrap">{capitalizeFirstLetter(posts.postDetail.general3Desc || '')}</p>
+                                        </div>
+                                    )}
+                                    
                                 </div>
-                            </div>
-                        </>
-                    ) : (
-                        ""
-                    )}
+                            </>
+                        ) : (
+                            ""
+                        )}
+                        
+                        
 
                     <p className="font-bold text-[18px] mb-[5px] dark:text-white">Informações gerais</p>
                     
