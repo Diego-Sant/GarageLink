@@ -22,8 +22,13 @@ function Filter() {
     };
 
     const handleFilter = () => {
-        setSearchParams(query);
-    }
+        const parsedQuery = {
+            ...query,
+            precoMin: Number(query.precoMin),
+            precoMax: Number(query.precoMax),
+        };
+        setSearchParams(parsedQuery);
+    };
 
     const handleKeyDown = (e) => {
         if (e.key === "Enter") {
@@ -138,18 +143,18 @@ function Filter() {
                     </select>
                 </div>
                 <div className="flex flex-col gap-[2px]">
-                    <label className="text-[14px]" htmlFor="precomin">Preço mínimo</label>
+                    <label className="text-[14px]" htmlFor="precoMin">Preço mínimo</label>
                     <input onChange={handleChange} defaultValue={query.precoMin}
                         className="w-[100%] p-[10px] border border-[#e0e0e0] 
-                        rounded-[5px] text-[14px] dark:bg-[#121212]" type="number" id="precomin" 
-                        name="precomin" placeholder="Qualquer" onKeyDown={handleKeyDown} />
+                        rounded-[5px] text-[14px] dark:bg-[#121212]" type="number" id="precoMin" 
+                        name="precoMin" placeholder="Qualquer" onKeyDown={handleKeyDown} />
                 </div>
                 <div className="flex flex-col gap-[2px]">
-                    <label className="text-[14px]" htmlFor="precomax">Preço máximo</label>
+                    <label className="text-[14px]" htmlFor="precoMax">Preço máximo</label>
                     <input onChange={handleChange} defaultValue={query.precoMax}
                         className="w-[100%] p-[10px] border border-[#e0e0e0] 
-                        rounded-[5px] text-[14px] dark:bg-[#121212]" type="number" id="precomax" 
-                        name="precomax" placeholder="Qualquer" onKeyDown={handleKeyDown} />
+                        rounded-[5px] text-[14px] dark:bg-[#121212]" type="number" id="precoMax" 
+                        name="precoMax" placeholder="Qualquer" onKeyDown={handleKeyDown} />
                 </div>
                 <button onClick={handleFilter} className="flex justify-center items-center w-[100%] h-[45px] mt-[1.11rem] border-0 cursor-pointer bg-[#fece51] hover:bg-[#fece51]/90 rounded-[5px]">
                     <img width={24} height={24} src="/search.svg" alt="Pesquisar" />

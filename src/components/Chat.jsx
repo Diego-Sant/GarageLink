@@ -31,11 +31,11 @@ function Chat({ chats }) {
 
     timeago.register('pt_BR', customPtBR);
 
-    const messageEndRef = useRef()
+    const messageEndRef = useRef();
 
     useEffect(() => {
         messageEndRef.current?.scrollIntoView({ behavior: "smooth" })
-    }, [chat])
+    }, [chat]);
 
     const handleOpenChat = async (id, receiver) => {
         try {
@@ -45,7 +45,14 @@ function Chat({ chats }) {
         } catch (error) {
             console.log(error)
         }
-    }
+    };
+
+    const handleKeyPress = (e) => {
+        if (e.key === "Enter" && !e.shiftKey) {
+            e.preventDefault();
+            e.target.form.requestSubmit();
+        }
+    };
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -62,7 +69,7 @@ function Chat({ chats }) {
         } catch (error) {
             console.log(error);
         }
-    }
+    };
 
     return (
         <div className="h-[800px] flex flex-col">
@@ -143,8 +150,7 @@ function Chat({ chats }) {
                         <textarea className="flex-[3] min-h-[30px] border-0 p-[5px] 
                             resize-none dark:bg-[#1a1a1a] dark:outline-none
                             dark:text-white overflow-y-auto"
-                            name="text" 
-                            id=""
+                            name="text" onKeyDown={handleKeyPress}
                         ></textarea>
 
                         <button className="flex-[1] bg-[#fece51]/70 hover:bg-[#fece51]/90 
