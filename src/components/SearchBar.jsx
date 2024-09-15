@@ -8,7 +8,7 @@ function SearchBar() {
         disponibilidade: "Comprar",
         cidade: "",
         precoMin: 0,
-        precoMax: 1000000,
+        precoMax: 10000000,
     });
 
     const [minPrice, setMinPrice] = useState('');

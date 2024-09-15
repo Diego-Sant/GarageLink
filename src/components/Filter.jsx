@@ -11,7 +11,7 @@ function Filter() {
         transmissao: searchParams.get("transmissao") || "",
         cor: searchParams.get("cor") || "",
         precoMin: searchParams.get("precoMin") || 0,
-        precoMax: searchParams.get("precoMax") || 100000000,
+        precoMax: searchParams.get("precoMax") || 1000000000,
     });
 
     const handleChange = (e) => {
