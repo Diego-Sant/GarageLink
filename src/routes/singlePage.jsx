@@ -242,7 +242,7 @@ function SinglePage() {
 
                         <div className="flex gap-x-[5px] items-center bg-white 
                             dark:bg-[#1a1a1a] dark:text-white rounded-[5px] 
-                            justify-center w-[calc(33.333%-20px)] p-1">
+                            justify-center w-[calc(38.333%-20px)] md:w-[calc(33.333%-20px)] lg:w-[calc(38.333%-20px)] p-1">
                             <img width={24} height={24} className="svgcolorlistpage" src="/brand.svg" alt="Ícone de estrela" />
                             <span className="mt-1">{brandMappings[posts.brand] || posts.brand}</span>
                         </div>
@@ -256,14 +256,14 @@ function SinglePage() {
 
                         <div className="flex gap-x-[5px] items-center bg-white 
                             dark:bg-[#1a1a1a] dark:text-white rounded-[5px] 
-                            justify-center w-[calc(33.333%-20px)] p-1">
+                            justify-center w-[calc(38.333%-20px)] md:w-[calc(33.333%-20px)] lg:w-[calc(38.333%-20px)] p-1">
                             <img width={24} height={24} className="svgcolorlistpage" src="/transmission.svg" alt="Ícone de transmissão de marcha" />
                             <span>{posts.transmission}</span>
                         </div>
                         
                         <div className="flex gap-x-[5px] items-center bg-white 
                             dark:bg-[#1a1a1a] dark:text-white rounded-[5px] 
-                            justify-center w-[calc(33.333%-20px)] p-1">
+                            justify-center w-[calc(38.333%-20px)] md:w-[calc(33.333%-20px)] lg:w-[calc(38.333%-20px)] p-1">
                             <img width={24} height={24} className="svgcolorlistpage" src="/fuel.svg" alt="Ícone de combustível" />
                             <span>{posts.fuel}</span>
                         </div>
@@ -277,7 +277,7 @@ function SinglePage() {
 
                         <div className="flex gap-x-[5px] items-center bg-white 
                             dark:bg-[#1a1a1a] dark:text-white rounded-[5px] 
-                            justify-center w-[calc(33.333%-20px)] p-1">
+                            justify-center w-[calc(38.333%-20px)] md:w-[calc(33.333%-20px)] lg:w-[calc(38.333%-20px)] p-1">
                             <img width={24} height={24} className="svgcolorlistpage" src={categoryIcon} alt="Ícone de estrela" />
                             <span>{categoryText}</span>
                         </div>
