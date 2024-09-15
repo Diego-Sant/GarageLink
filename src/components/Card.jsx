@@ -13,6 +13,13 @@ function Card({ item }) {
     const navigate = useNavigate();
     const {currentUser} = useContext(AuthContext);
 
+    const brandMappings = {
+        LandRover: "Land Rover",
+        MercedesBenz: "Mercedes-Benz",
+        Citroen: "Citroën",
+        RollsRoyce: "Rolls Royce"
+    };
+
     const formatPriceToRent = (price) => price.toFixed(2).replace('.', ',');
     const formatPriceToBuy = (price) => {
         const formattedPrice = price.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
@@ -147,7 +154,7 @@ function Card({ item }) {
                         <div className="flex justify-center items-center gap-[5px] 
                             bg-[#f5f5f5] dark:bg-[#1a1a1a] dark:text-white
                             p-[5px] rounded-[5px]">
-                            <span className="truncate max-w-[80px]">{item.brand}</span>
+                            <span className="truncate max-w-[80px]">{brandMappings[item.brand] || item.brand}</span>
                         </div>
 
                         <div className="flex justify-center items-center gap-[5px] 

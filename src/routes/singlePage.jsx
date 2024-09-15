@@ -16,6 +16,13 @@ function SinglePage() {
 
     const navigate = useNavigate();
 
+    const brandMappings = {
+        LandRover: "Land Rover",
+        MercedesBenz: "Mercedes-Benz",
+        Citroen: "Citroën",
+        RollsRoyce: "Rolls Royce"
+    };
+
     const handleChat = async () => {
         if (loading) return;
         setShowModalMessage(true);
@@ -111,9 +118,12 @@ function SinglePage() {
     else if (posts.buyOrRent === "Comprar" && posts.priceToBuy > 120000 && posts.priceToBuy <= 200000) {
         categoryIcon = "/luxury.svg";
         categoryText = "Premium";
-    } else if (posts.buyOrRent === "Comprar" && posts.priceToBuy > 200000) {
+    } else if (posts.buyOrRent === "Comprar" && posts.priceToBuy > 200000 && posts.priceToBuy <= 1000000) {
         categoryIcon = "/luxury.svg";
         categoryText = "Luxo";
+    } else if (posts.buyOrRent === "Comprar" && posts.priceToBuy > 1000000) {
+        categoryIcon = "/supercar.svg";
+        categoryText = "Supercarro";
     } 
 
     return (
@@ -154,7 +164,7 @@ function SinglePage() {
                                 object-cover" src={posts.user.avatarURL} 
                                 alt="Imagem de perfil" />
 
-                                <span className="truncate max-w-[100px]">
+                                <span className="truncate max-w-[120px]">
                                     {capitalizeWithExceptions(posts.user.username)}
                                 </span>
                             </div>
@@ -234,7 +244,7 @@ function SinglePage() {
                             dark:bg-[#1a1a1a] dark:text-white rounded-[5px] 
                             justify-center w-[calc(33.333%-20px)] p-1">
                             <img width={24} height={24} className="svgcolorlistpage" src="/brand.svg" alt="Ícone de estrela" />
-                            <span className="mt-1">{posts.brand}</span>
+                            <span className="mt-1">{brandMappings[posts.brand] || posts.brand}</span>
                         </div>
 
                         <div className="flex gap-x-[5px] items-center bg-white 
