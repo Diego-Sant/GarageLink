@@ -128,6 +128,7 @@ function Filter() {
                         <option value="Amarelo">Amarelo</option>
                         <option value="Azul">Azul</option>
                         <option value="Bege">Bege</option>
+                        <option value="Branco">Branco</option>
                         <option value="Bronze">Bronze</option>
                         <option value="Ciano">Ciano</option>
                         <option value="Cinza">Cinza</option>

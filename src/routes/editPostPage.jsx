@@ -43,6 +43,7 @@ const colors = [
     { name: 'Amarelo', value: 'Amarelo', hex1: '#FFFF00', hex2: '#FFEA00', hex3: '#FFF700'},
     { name: 'Azul', value: 'Azul', hex1: '#0000FF', hex2: '#0096FF', hex3: '#00008B' },
     { name: 'Bege', value: 'Bege', hex1: '#F5F5DC', hex2: '#EED9C4', hex3: '#EDC9AF' },
+    { name: 'Branco', value: 'Branco', hex1: '#FFFFFF', hex2: '#FAF9F6', hex3: '#F9F6EE' },
     { name: 'Bronze', value: 'Bronze', hex1: '#CD7F32', hex2: '#B1560F', hex3: '#E4953C' },
     { name: 'Ciano', value: 'Ciano', hex1: '#00FFFF', hex2: '#008B8B', hex3: '#7DF9FF' },
     { name: 'Cinza', value: 'Cinza', hex1: '#808080', hex2: '#D3D3D3', hex3: '#A9A9A9' },
