@@ -12,6 +12,7 @@ function Filter() {
         cor: searchParams.get("cor") || "",
         precoMin: searchParams.get("precoMin") || 0,
         precoMax: searchParams.get("precoMax") || 1000000000,
+        ordem: searchParams.get("ordem") || ""
     });
 
     const handleChange = (e) => {
@@ -39,8 +40,21 @@ function Filter() {
     return (
         <div className="flex flex-col gap-[10px] dark:text-white">
             <h1 className="font-[300] text-[24px]">Resultado da pesquisa: <b className="font-bold capitalize">{searchParams.get("cidade")}</b></h1>
-            <div className="">
-                <div className="flex flex-col gap-4">
+            
+            <div className="flex flex-col gap-3 mb-2">
+                <label className="text-[14px]" htmlFor="ordem">Ordenar por</label>
+                <select onChange={handleChange} value={query.ordem}
+                    className="w-[100%] p-[10px] border border-[#e0e0e0] 
+                    rounded-[5px] text-[14px] dark:bg-[#121212]" name="ordem" id="ordem">
+                    <option value="">Mais antigos</option>
+                    <option value="mais-recentes">Mais recentes</option>
+                    <option value="preco-asc">Menores preços</option>
+                    <option value="preco-desc">Maiores preços</option>
+                    <option value="marca-asc">Alfabética</option>
+                </select>
+            </div>
+            <div className="mb-2">
+                <div className="flex flex-col gap-3">
                     <label className="text-[14px]" htmlFor="cidade">Cidade</label>
                     <input onChange={handleChange} defaultValue={query.cidade}
                     className="w-[100%] p-[10px] border border-[#e0e0e0] dark:bg-[#121212]" 

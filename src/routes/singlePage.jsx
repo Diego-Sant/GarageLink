@@ -58,7 +58,11 @@ function SinglePage() {
         }
     };
 
-    const formatPriceToRent = (price) => price.toFixed(2).replace('.', ',');
+    const formatPriceToRent = (price) => {
+        const formattedPrice = price.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        
+        return `${formattedPrice},00`;
+    }
     const formatPriceToBuy = (price) => {
         const formattedPrice = price.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
@@ -103,12 +107,15 @@ function SinglePage() {
     if (posts.buyOrRent === "Alugar" && posts.priceToRent <= 250) {
         categoryIcon = "/popular.svg";
         categoryText = "Popular";
-    } else if (posts.buyOrRent === "Alugar" && posts.priceToRent > 250 && posts.priceToRent <= 400) {
+    } else if (posts.buyOrRent === "Alugar" && posts.priceToRent > 250 && posts.priceToRent <= 500) {
         categoryIcon = "/luxury.svg";
         categoryText = "Premium";
-    } else if (posts.buyOrRent === "Alugar" && posts.priceToRent > 400) {
+    } else if (posts.buyOrRent === "Alugar" && posts.priceToRent > 500 && posts.priceToRent <= 1500) {
         categoryIcon = "/luxury.svg";
         categoryText = "Luxo";
+    } else if (posts.buyOrRent === "Alugar" && posts.priceToRent > 1500) {
+        categoryIcon = "/supercar.svg";
+        categoryText = "Supercarro";
     } 
     
     else if (posts.buyOrRent === "Comprar" && posts.priceToBuy <= 120000) {
@@ -165,7 +172,7 @@ function SinglePage() {
                                 alt="Imagem de perfil" />
 
                                 <span className="truncate max-w-[120px]">
-                                    {capitalizeWithExceptions(posts.user.username)}
+                                    {posts.user.username}
                                 </span>
                             </div>
 

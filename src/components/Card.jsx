@@ -20,7 +20,11 @@ function Card({ item }) {
         RollsRoyce: "Rolls Royce"
     };
 
-    const formatPriceToRent = (price) => price.toFixed(2).replace('.', ',');
+    const formatPriceToRent = (price) => {
+        const formattedPrice = price.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+        
+        return `${formattedPrice},00`;
+    }
     const formatPriceToBuy = (price) => {
         const formattedPrice = price.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
 
