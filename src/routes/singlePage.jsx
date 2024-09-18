@@ -183,7 +183,7 @@ function SinglePage() {
                             {capitalizeFirstLetter(posts.postDetail.description)}
                         </div>
 
-                        {currentUser?.id !== posts.userId && (
+                        {currentUser && currentUser?.id !== posts.userId && (
                                     <div onClick={handleChat} className="flex flex-col xl:flex-row gap-y-4 
                                         xl:gap-y-0 justify-center xl:justify-start items-center mt-2 lg:mb-10 xl:mb-0">
                                         

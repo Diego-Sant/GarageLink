@@ -120,7 +120,7 @@ function Card({ item }) {
                         dark:text-white">
                         <Link to={`/carros/${item.id}`}>{item.title}</Link>
                     </h2>
-                    {currentUser.id === item.userId && (
+                    {currentUser && currentUser.id === item.userId && (
                         <div className="flex gap-2">
                             <Link to={`/atualizar/${item.id}`} className="cursor-pointer 
                                 hover:bg-blue-400 p-1 rounded-full">
@@ -183,7 +183,7 @@ function Card({ item }) {
                     <div className="flex flex-col sm:flex-row lg:flex-col 
                         xl:flex-row mt-[30px] xl:mt-0  gap-[20px]">
 
-                        {currentUser.id !== item.userId && (
+                        {currentUser && currentUser.id !== item.userId && (
                             <div className="flex justify-center border 
                             border-[#999] py-[5px] xl:py-[2px] px-[5px] 
                             rounded-[5px] cursor-pointer hover:bg-[#D3D3D3]
